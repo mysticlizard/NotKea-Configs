@@ -87,21 +87,21 @@ int vlan 15
 !
 interface Port-channel1
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport trunk allowed vlan 10,11,12,13,14,15
  switchport mode trunk
  switchport nonegotiate
  no shutdown
 !
 interface Port-channel2
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport trunk allowed vlan 10,11,12,13,14,15
  switchport mode trunk
  switchport nonegotiate
  no shutdown
 !
 interface FastEthernet0/1
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport trunk allowed vlan 10,11,12,13,14,15
  switchport mode trunk
  switchport nonegotiate
  dot1q encapsulation
@@ -110,7 +110,7 @@ interface FastEthernet0/1
 !
 interface FastEthernet0/2
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport trunk allowed vlan 10,11,12,13,14,15
  switchport mode trunk
  switchport nonegotiate
  dot1q encapsulation

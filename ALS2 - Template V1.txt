@@ -1,6 +1,8 @@
-en
-config t
-hostname ALS_2
-username cisco secret cisco
-username cisco privilege 15
-end
+Enable
+Config T
+Hostname ASL_2
+No ip domain-lookup
+Line con 0
+Password cisco
+Login
+Logging sync

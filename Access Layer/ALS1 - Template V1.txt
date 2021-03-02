@@ -2,7 +2,7 @@
 	# Basics
 en
 config t
-hostname ALS1
+hostname ALS_1
 cdp run
 lldp run
 logging sync
@@ -44,6 +44,45 @@ name MANAGEMENT
 vlan 666
 name BLACKHOLE
 !
+!Vlan Addresses
+!
+int vlan 10
+ ip address 10.0.8.1 255.255.255.224
+ exit
+ vlan 11
+ name Marketing
+ exit
+int vlan 11
+ ip address 10.0.28.1 255.255.255.240
+ exit
+vlan 12
+ name Tech
+ exit
+int vlan 12
+ ip address 10.0.24.1 255.255.255.240
+ exit
+vlan 13
+ name Manufacturing
+ exit
+int vlan 13
+ ip address 10.0.0.1 255.255.255.224
+ exit
+ exit
+vlan 14
+ name Executive
+ exit
+int vlan 14
+ ip address 10.0.32.1 255.255.255.248
+ exit
+vlan 15
+ name Voice
+ exit
+int vlan 15
+ ip address 10.0.16.1 255.255.255.224
+ exit
+ int vlan 999
+ ip address 10.0.255.1 255.255.255.255
+ exit
 !
 !
 interface Port-channel1
@@ -75,5 +114,5 @@ interface FastEthernet0/2
  switchport mode trunk
  switchport nonegotiate
  dot1q encapsulation
- channel-group 1 mode active
+ channel-group 2 mode active
  no shutdown

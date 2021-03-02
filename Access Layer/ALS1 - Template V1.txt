@@ -2,7 +2,7 @@
 	# Basics
 en
 config t
-hostname ALS1
+hostname ALS_1
 cdp run
 lldp run
 logging sync

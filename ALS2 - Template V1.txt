@@ -6,3 +6,19 @@ Line con 0
 Password cisco
 Login
 Logging sync
+vlan 20
+name SALES
+vlan 21
+name MARKETING
+vlan 22
+name TECH
+vlan 23
+name MANUFACTURING
+vlan 24
+name EXECUTIVE
+vlan 25
+name VOICE
+vlan 999
+name MANAGEMENT
+vlan 666
+name BLACKHOLE

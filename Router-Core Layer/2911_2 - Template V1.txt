@@ -1,6 +1,6 @@
 enable
 conf t
-hostname NotKea_Mad_R1
+hostname NotKea_Mad_R2
 no ip domain-lookup
 line con 0
 password cisco

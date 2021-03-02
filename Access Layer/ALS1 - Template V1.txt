@@ -1,0 +1,33 @@
+en
+config t
+hostname ALS1
+
+interface Port-channel1
+ switchport trunk native vlan XX
+ switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport mode trunk
+ switchport nonegotiate
+ no shutdown
+!
+interface Port-channel2
+ switchport trunk native vlan XX
+ switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport mode trunk
+ switchport nonegotiate
+ no shutdown
+!
+interface FastEthernet0/1
+ switchport trunk native vlan XX
+ switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+ no shutdown
+!
+interface FastEthernet0/2
+ switchport trunk native vlan XX
+ switchport trunk allowed vlan 10,11,12,13,14,15,999
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+ no shutdown

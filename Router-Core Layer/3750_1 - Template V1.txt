@@ -1,1 +1,23 @@
-
+  
+enable
+conf t
+hostname NotKea_Mad_Core1
+no ip domain-lookup
+line con 0
+password cisco
+login
+logging sync
+ip domain notkea.local
+crypto key generate rsa
+1024
+ip ssh ver 2
+username admin secret democracy
+enable secret democracy
+service password-enc
+line vty 0 15
+login local 
+transport input ssh
+banner motd !Master Skywalker, there are too many of them! What are we going to do?'@!
+line aux 0
+password cisco
+login

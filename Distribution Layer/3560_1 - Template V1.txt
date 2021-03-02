@@ -1,1 +1,11 @@
+en
+config T
+hostname DLS_1
+no ip domain-lookup
+line con 0
+password cisco
+login
+
+enable secret cisco
+username cisco secret cisco
 

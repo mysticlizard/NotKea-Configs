@@ -1,1 +1,23 @@
-
+  
+enable
+conf t
+hostname NotKea_Mad_R4
+no ip domain-lookup
+line con 0
+password cisco
+login
+logging sync
+ip domain notkea.local
+crypto key generate rsa
+1024
+ip ssh ver 2
+username admin secret democracy
+enable secret democracy
+service password-enc
+line vty 0 15
+login local 
+transport input ssh
+banner motd ! It's over Anakin! I have the high ground.You underestimate my power. Don't try it. Insert lightsaber sounds.'@!
+line aux 0
+password cisco
+login

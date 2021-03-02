@@ -1,6 +1,73 @@
+# 2960-1
+	# Basics
 en
 config t
-hostname ALS1
+hostname ALS_1
+cdp run
+lldp run
+logging sync
+	# Security
+en
+config t
+banner motd #
+
+                            __...------------._
+                         ,-'                   `-.
+                      ,-'                         `.
+                    ,'                            ,-`.
+                   ;                              `-' `.
+                  ;                                 .-. \
+                 ;                           .-.    `-'  \
+                ;                            `-'          \
+               ;                                          `.
+               ;                                           :
+              ;                                            |
+             ;                                             ;
+            ;                            ___              ;
+           ;                        ,-;-','.`.__          |
+       _..;                      ,-' ;`,'.`,'.--`.        |
+      ///;           ,-'   `. ,-'   ;` ;`,','_.--=:      /
+     |'':          ,'        :     ;` ;,;,,-'_.-._`.   ,'
+     '  :         ;_.-.      `.    :' ;;;'.ee.    \|  /
+      \.'    _..-'/8o. `.     :    :! ' ':8888)   || /
+       ||`-''    \\88o\ :     :    :! :  :`""'    ;;/
+       ||         \"88o\;     `.    \ `. `.      ;,'
+       /)   ___    `."'/(--.._ `.    `.`.  `-..-' ;--.
+       \(.="""""==.. `'-'     `.|      `-`-..__.-' `. `.
+        |          `"==.__      )                    )  ;
+        |   ||           `"=== '                   .'  .'
+        /\,,||||  | |           \                .'   .'
+        | |||'|' |'|'           \|             .'   _.' \
+        | |\' |  |           || ||           .'    .'    \
+        ' | \ ' |'  .   ``-- `| ||         .'    .'       \
+          '  |  ' |  .    ``-.._ |  ;    .'    .'          `.
+       _.--,;`.       .  --  ...._,'   .'    .'              `.__
+     ,'  ,';   `.     .   --..__..--'.'    .'                __/_\
+   ,'   ; ;     |    .   --..__.._.'     .'                ,'     `.
+  /    ; :     ;     .    -.. _.'     _.'                 /         `
+ /     :  `-._ |    .    _.--'     _.'                   |
+/       `.    `--....--''       _.'                      |
+          `._              _..-'                         |
+             `-..____...-''                              |
+                                                         |
+                               mGk                       |
+			       
+#
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
 !
 !Vlans
 vlan 10
@@ -20,34 +87,64 @@ name MANAGEMENT
 vlan 666
 name BLACKHOLE
 !
+!Vlan Addresses
+!
+int vlan 10
+ ip address 10.0.8.1 255.255.255.224
+ exit
+ vlan 11
+ name Marketing
+ exit
+int vlan 11
+ ip address 10.0.28.1 255.255.255.240
+ exit
+vlan 12
+ name Tech
+ exit
+int vlan 12
+ ip address 10.0.24.1 255.255.255.240
+ exit
+vlan 13
+ name Manufacturing
+ exit
+int vlan 13
+ ip address 10.0.0.1 255.255.255.224
+ exit
+ exit
+vlan 14
+ name Executive
+ exit
+int vlan 14
+ ip address 10.0.32.1 255.255.255.248
+ exit
+vlan 15
+ name Voice
+ exit
+int vlan 15
+ ip address 10.0.16.1 255.255.255.224
+ exit
+ int vlan 999
+ ip address 10.0.255.1 255.255.255.255
+ exit
 !
 !
-interface Port-channel1
- switchport trunk native vlan XX
- switchport trunk allowed vlan 10,11,12,13,14,15,999
- switchport mode trunk
- switchport nonegotiate
- no shutdown
-!
-interface Port-channel2
- switchport trunk native vlan XX
- switchport trunk allowed vlan 10,11,12,13,14,15,999
- switchport mode trunk
- switchport nonegotiate
- no shutdown
-!
-interface FastEthernet0/1
- switchport trunk native vlan XX
- switchport trunk allowed vlan 10,11,12,13,14,15,999
- switchport mode trunk
- switchport nonegotiate
+en
+config t
+int range fa0/1-2
  channel-group 1 mode active
- no shutdown
-!
-interface FastEthernet0/2
- switchport trunk native vlan XX
- switchport trunk allowed vlan 10,11,12,13,14,15,999
+int port-chan 1
+ dot1q encapsulation
  switchport mode trunk
- switchport nonegotiate
- channel-group 1 mode active
- no shutdown
+ switchport allowed vlans 10,11,12,13,14,15
+ switchport native vlan 999
+int range fa0/3-4
+ channel-group 2 mode active
+int port-chan 2
+ dot1q encapsulation
+ switchport mode trunk
+ switchport allowed vlans 10,11,12,13,14,15
+ switchport native vlan 999
+ 	# Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default

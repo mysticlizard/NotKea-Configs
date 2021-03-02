@@ -1,1 +1,22 @@
-
+enable
+conf t
+hostname NotKea_Mad_Core2
+no ip domain-lookup
+line con 0
+password cisco
+login
+logging sync
+ip domain notkea.local
+crypto key generate rsa
+1024
+ip ssh ver 2
+username admin secret democracy
+enable secret democracy
+service password-enc
+line vty 0 15
+login local 
+transport input ssh
+banner motd !I was so worried about you. Obi-Wan told me terrible things. What things? He said you turned to the dark side. That you... killed younglings.'@!
+line aux 0
+password cisco
+login

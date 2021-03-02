@@ -1,3 +1,0 @@
-en
-config t
-hostname ALS_4

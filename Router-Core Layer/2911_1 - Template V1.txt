@@ -16,7 +16,7 @@ service password-enc
 line vty 0 15
 login local 
 transport input ssh
-banner motd !Authorized Access Only, Unauthorized users will do with Nick and Jeff@!
+banner motd !Authorized Access Only, Unauthorized users will deal with Nick and Jeff@!
 line aux 0
 password cisco
 login

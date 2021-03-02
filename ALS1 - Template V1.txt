@@ -1,7 +1,24 @@
 en
 config t
 hostname ALS1
-
+!Vlans
+vlan 10
+name SALES
+vlan 11
+name MARKETING
+vlan 12
+name TECH
+vlan 13
+name MANUFACTURING
+vlan 14
+name EXECUTIVE
+vlan 15
+name VOICE
+vlan 999
+name MANAGEMENT
+vlan 666
+name BLACKHOLE
+!
 interface Port-channel1
  switchport trunk native vlan XX
  switchport trunk allowed vlan 10,11,12,13,14,15,999

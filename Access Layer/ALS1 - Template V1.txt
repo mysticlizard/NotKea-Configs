@@ -89,14 +89,14 @@ en
 config t
 int range fa0/1-2
  channel-group 1 mode active
- int port-chan 1
+int port-chan 1
  dot1q encapsulation
  switchport mode trunk
  switchport allowed vlans 10,11,12,13,14,15
  switchport native vlan 999
 int range fa0/3-4
  channel-group 2 mode active
- int port-chan 2
+int port-chan 2
  dot1q encapsulation
  switchport mode trunk
  switchport allowed vlans 10,11,12,13,14,15

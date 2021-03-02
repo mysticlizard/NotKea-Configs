@@ -1,3 +1,6 @@
 en
 config t
 hostname ALS_2
+username cisco secret cisco
+username cisco privilege 15
+end

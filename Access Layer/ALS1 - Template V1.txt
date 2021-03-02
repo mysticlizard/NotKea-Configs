@@ -114,5 +114,5 @@ interface FastEthernet0/2
  switchport mode trunk
  switchport nonegotiate
  dot1q encapsulation
- channel-group 1 mode active
+ channel-group 2 mode active
  no shutdown

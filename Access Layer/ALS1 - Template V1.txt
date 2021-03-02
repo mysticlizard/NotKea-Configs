@@ -114,5 +114,23 @@ interface FastEthernet0/2
  switchport mode trunk
  switchport nonegotiate
  dot1q encapsulation
+ channel-group 1 mode active
+ no shutdown
+!
+interface FastEthernet0/3
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,11,12,13,14,15
+ switchport mode trunk
+ switchport nonegotiate
+ dot1q encapsulation
+ channel-group 2 mode active
+ no shutdown
+!
+interface FastEthernet0/4
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,11,12,13,14,15
+ switchport mode trunk
+ switchport nonegotiate
+ dot1q encapsulation
  channel-group 2 mode active
  no shutdown

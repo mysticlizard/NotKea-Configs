@@ -1,0 +1,123 @@
+ROUTER AND SWITCH CONFIG---------------------------------
+Enable
+Config T
+Hostname ASL1
+No ip domain-lookup
+Line con 0
+Password cisco
+Login
+Logging sync
+
+Ip domain name jnbest.com
+Crypto key generate rsa
+1024
+Ip ssh ver 2
+Username student secret class
+Enable secret class
+Service password-enc
+Line vty 0 15
+Login local
+Transport input ssh
+Banner motd !Authorized Access Only@!
+Interface G0/0
+Ip add 10.0.0.0
+No shut
+Line aux 0
+Password cisco
+Login
+Ipv6 unicast-routing
+
+SWITCH STUFF-----------------------
+interface vlan1 
+ip add 10.0.0.0 255.255.255.0
+Ip default 
+Interface range FA0/1 - 0/24
+Spanning-tree portfast default
+
+
+SHOW COMMANDS----------------------
+Show run
+Service pass
+Show ip route
+Show ip interface brief
+
+OSPF STUFF--------------------------
+router ospf 10
+network x.x.x.x 0.0.0.255 area 0 (Inside Network Address)
+network x.x.x.x 0.0.0.3 area 0 (Next Hop Address)
+clear ip ospf process
+
+ACL STUFF----------------------------
+In config to write ACL for SSH
+ip access-list standard SSH
+permit Source wildcard subnet
+access-list (name) extended or standard
+access-list (name) permit or deny rule
+on interface-ip access-group (name) in or out
+dynamic acl- ip nat inside source list (num) pool (name) 
+
+DHCP STUFF------------------------------
+ip add dhcp
+
+NAT/PAT STUFF---------------------------
+ip nat pool (name ip-start ip-end netmask) 
+ip nat inside (inside address)
+ip nat outside (outside address)
+static nat mapping- ip nat inside source static inside-address outside-address
+ip nat inside source list 1 (this is the acl list to permit any) int (interface to internet) overload
+
+SPANNING TREE----------------------------
+Root Id is the lowest Id number in the sequence
+Ports coming out of root are designated
+Ports on next hop connected to designated are considered root ports
+Set Layer 3 switches to Primary and Secondary Priority for Root.
+
+VTP STUFF------------------------------------------
+Global Config mode:
+vtp mode server
+vtp mode client
+vtp mode transparent
+vtp domain cisco
+vtp version 2
+vtp password (whatever)
+
+
+EIGRP STUFF------------------------------------------
+Ipv6 commands----------------------------------------
+Global config mode:
+ipv6 router eigrp (group number assigning on devices)
+eigrp router-id (ex: 1.1.1.1)
+no shut
+*NOTE* then go on interfaces and attach eigrp group you just made (ex: ipv6 eigrp 1)
+Show commands:
+show ipv6 eigrp neighbors
+show ipv6 protocols
+show ipv6 route
+Ipv4 commands-----------------------------------------
+Global config mode:
+router eigrp (automous number assigning)
+network (just like rip, put networks)-once this is done on all routers, then will be good. 
+------------How to distribute default static route to network via eigrp--------------------
+-In (ex: router eigrp 1)
+redistribute static metric 100000 1000 255 1 1500
+-This will send your default static route to all your devices via eigrp. 
+-This is how to redistribute static ipv6 route via eigrp
+ipv6 router eigrp 2
+redistribute static 
+
+ncpa.cpl-shortcut to network and sharing
+default interface (interface you wish to set back to default)
+
+-VOIP COMMANDS-----
+In config mode on router
+telephony-service
+no auto-reg-ephone
+max-ephones ? *This is to see max number supported on router*
+max-dn ? *This is to see max number supported on router*
+create cnf-files
+show telephony-service tftp-bindings
+ephone-dn 1 (ex: 2, 3, etc.) dual-line
+number (extension numbers)
+ephone 1
+mac-address (device mac address, check network settings on phone)
+show ephone attempted-registrations (This will bring up any device info

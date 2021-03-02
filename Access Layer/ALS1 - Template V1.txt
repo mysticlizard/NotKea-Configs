@@ -1,6 +1,30 @@
+# 2960-1
+	# Basics
 en
 config t
 hostname ALS1
+cdp run
+lldp run
+logging sync
+	# Security
+en
+config t
+banner motd #Unauthorized Access is Prohibited!#
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name big.branch
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
 !
 !Vlans
 vlan 10

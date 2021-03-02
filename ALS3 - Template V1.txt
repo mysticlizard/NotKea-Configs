@@ -1,1 +1,4 @@
+en
+config t
+hostname ALS_3
 

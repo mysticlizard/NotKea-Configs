@@ -59,7 +59,7 @@ line con 0
  login
 enable secret class
 	# SSH
-ip domain-name big.branch
+ip domain-name notkea.local
 username student secret cisco
 crypto key generate rsa
 1024

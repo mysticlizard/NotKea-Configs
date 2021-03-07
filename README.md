@@ -1,10 +1,4 @@
 # NotKea-Configs
-Configs for Advanced Networking. 
-Enable
-Config T
-Hostname R1
-No ip domain-lookup
-Line con 0
-Password cisco
-Login
-Logging sync
+# Configs for Advanced Networking. 
+
+NotKea is a multinational technology, furniture, design, and retail company. We make disruptive cloud technology enabled domestic lifestyle goods.

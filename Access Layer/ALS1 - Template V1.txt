@@ -144,7 +144,7 @@ int port-chan 2
  switchport mode trunk
  switchport allowed vlans 10,11,12,13,14,15
  switchport native vlan 999
- 	# Spanning Tree
+!Spanning Tree
 spanning-tree mode rapid-pvst 
 spanning-tree portfast default
 spanning-tree portfast bpduguard default

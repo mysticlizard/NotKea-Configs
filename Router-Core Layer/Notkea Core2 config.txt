@@ -1,0 +1,83 @@
+---NOTKEA 3750-2 CONFIG-------------------------------------------
+enable
+conf t
+hostname NOTKEA_MAD_Core2
+no ip domain-lookup
+Line con 0
+Password cisco
+Login
+Logging sync
+
+Ip domain name notkea.local
+Crypto key generate rsa
+1024
+Ip ssh ver 2
+Username admin secret democracy
+Enable secret democracy
+Service password-enc
+Line vty 0 15
+Login local
+Transport input ssh
+Banner motd !Authorized Access Only@!
+Line aux 0
+Password cisco
+Login
+
+--INTERFACES----------------------------------------------------------------
+int fa0/1
+ip add 10.7.240.13 255.255.255.240
+description 2911_1 Connection
+no shut
+end
+
+int fa0/2
+ip add 10.7.240.17 255.255.255.240
+description 2911_4 Connection
+no shut
+end
+
+int fa0/3
+description ASA_1 Connection
+no shut 
+end
+
+int fa0/4
+description ASA_2 Connection
+noshut
+end
+
+int fa0/5
+description Meraki Day Class
+no shut 
+end
+
+----Etherchannels------------------------------------------------
+int range fa0/17-18
+channel-group 1
+mode active
+switchport mode trunk
+switchport trunk allowed native 999
+switchport trunk allowed vlan 10-64
+description 3750_1 Etherchannel
+no shut
+end
+
+int range fa0/19-20
+channel-group 2
+mode active
+switchport trunk allowed native 999
+switchport trunk allowed vlan 10-64
+description 3560_1 Etherchannel
+no shut
+end
+
+
+int range fa0/21-22
+channel-group 3
+mode active
+switchport trunk allowed native 999
+switchport trunk allowed vlan 10-64
+description 3560_2 Etherchannel
+no shut
+end
+--------------------------------------------------------------------------------

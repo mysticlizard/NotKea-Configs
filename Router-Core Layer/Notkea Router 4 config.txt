@@ -1,0 +1,43 @@
+---NOTKEA ROUTER 4 CONFIG-------------------------------------------
+enable
+conf t
+hostname NOTKEA_MAD_R4
+no ip domain-lookup
+Line con 0
+Password cisco
+Login
+Logging sync
+
+Ip domain name notkea.local
+Crypto key generate rsa
+1024
+Ip ssh ver 2
+Username admin secret democracy
+Enable secret democracy
+Service password-enc
+Line vty 0 15
+Login local
+Transport input ssh
+Banner motd !Authorized Access Only@!
+Line aux 0
+Password cisco
+Login
+
+--INTERFACES----------------------------------------------------------------
+int g0/0
+ip add 10.7.240.18 255.255.255.240
+description 3750_2 Connection
+no shut
+end
+
+int g0/1
+ip add 10.7.240.10 255.255.255.240
+description 3750_1 Connection
+no shut
+end
+
+int g0/2
+ip add 10.7.240.22 255.255.255.240
+description 2911_1 Connection
+no shut 
+end

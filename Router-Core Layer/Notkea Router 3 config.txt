@@ -1,0 +1,38 @@
+---NOTKEA ROUTER 3 CONFIG-------------------------------------------
+enable
+conf t
+hostname NOTKEA_MAD_R3
+no ip domain-lookup
+Line con 0
+Password cisco
+Login
+Logging sync
+
+Ip domain name notkea.local
+Crypto key generate rsa
+1024
+Ip ssh ver 2
+Username admin secret democracy
+Enable secret democracy
+Service password-enc
+Line vty 0 15
+Login local
+Transport input ssh
+Banner motd !Authorized Access Only@!
+Line aux 0
+Password cisco
+Login
+
+--INTERFACES----------------------------------------------------------------
+int g0/0
+ip add 10.7.240.41 255.255.255.240
+description PodNet Connection
+no shut
+end
+
+int g0/1
+ip add 10.7.240.34 255.255.255.240
+description 2911_2 Connection
+no shut
+end
+

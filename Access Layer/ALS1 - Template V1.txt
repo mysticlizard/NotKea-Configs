@@ -148,3 +148,8 @@ int port-chan 2
 spanning-tree mode rapid-pvst 
 spanning-tree portfast default
 spanning-tree portfast bpduguard default
+!
+!
+int fa0/6-23
+switchport mode access
+switchport access vlan 666

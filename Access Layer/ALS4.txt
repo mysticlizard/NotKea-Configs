@@ -50,25 +50,25 @@ exit
 ! MAKE SURE IP'S ARE CORRECT
 !
 int vlan 40
- ip address 10.0.9.4 255.255.255.224
+ ip address 10.0.11.4 255.255.255.224
  exit
 int vlan 41
- ip address 10.0.29.4 255.255.255.240
+ ip address 10.0.31.4 255.255.255.240
  exit
 int vlan 42
- ip address 10.0.25.4 255.255.255.240
+ ip address 10.0.27.4 255.255.255.240
  exit
 int vlan 43
- ip address 10.0.1.4 255.255.255.224
+ ip address 10.0.3.4 255.255.255.224
  exit
 int vlan 44
- ip address 10.0.33.4 255.255.255.248
+ ip address 10.0.35.4 255.255.255.248
  exit
 int vlan 45
- ip address 10.0.17.1 255.255.255.224
+ ip address 10.0.19.1 255.255.255.224
  exit
  int vlan 999
- ip address 10.0.255.2 255.255.255.255
+ ip address 10.0.255.4 255.255.255.255
  exit
 !
 !

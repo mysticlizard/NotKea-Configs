@@ -141,6 +141,10 @@ switchport access vlan 10
 int range fa0/6-23
 switchport mode access
 switchport access vlan 666
+exit
+!
+!
+!
 # NTP
 ntp server ?.?.?.?
 	# DHCP Snooping

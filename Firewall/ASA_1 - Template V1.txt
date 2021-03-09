@@ -26,9 +26,9 @@ no shut
 security-level 100
 
 
-# Route pointing to Madison College Router - figure out the madison college gateway ip
+# Route pointing to Madison College Router - just guessing that college router ip is .254
 
-route outside 0.0.0.0 0.0.0.0 172.whatever.wat.wat
+route outside 0.0.0.0 0.0.0.0 172.19.16.254
 
 # Configure NAT (PAT, technically) from inside to outside
 # inside/outside are user defined names for interfaces, this may need to be a zone based firewall that incorporates both core switch connections

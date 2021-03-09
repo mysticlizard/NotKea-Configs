@@ -1,6 +1,6 @@
 en
 config t
-hostname ALS2
+hostname ALS_2
 !
 !Banner
 banner motd #
@@ -63,20 +63,117 @@ https://asciiart.website/index.php?art=movies/star%20wars
 !
 !
 !
+#
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
+!
 !Vlans
-vlan 10
+vlan 20
 name SALES
-vlan 11
+vlan 21
 name MARKETING
-vlan 12
+vlan 22
 name TECH
-vlan 13
+vlan 23
 name MANUFACTURING
-vlan 14
+vlan 24
 name EXECUTIVE
-vlan 15
+vlan 25
 name VOICE
 vlan 999
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
+!
+!Vlan Addresses
+! MAKE SURE IP'S ARE CORRECT
+!
+int vlan 20
+ ip address 10.0.8.1 255.255.255.224
+ exit
+int vlan 21
+ ip address 10.0.28.1 255.255.255.240
+ exit
+int vlan 22
+ ip address 10.0.24.1 255.255.255.240
+ exit
+int vlan 23
+ ip address 10.0.0.1 255.255.255.224
+ exit
+int vlan 24
+ ip address 10.0.32.1 255.255.255.248
+ exit
+int vlan 25
+ ip address 10.0.16.1 255.255.255.224
+ exit
+ int vlan 999
+ ip address 10.0.255.1 255.255.255.255
+ exit
+!
+!
+en
+config t
+!
+! CHECK INTERFACES!!!
+!
+int range fa0/1-2
+ channel-group 1 mode active
+int port-chan 1
+ dot1q encapsulation
+ switchport mode trunk
+ switchport allowed vlans 10-15
+ switchport native vlan 999
+int range fa0/3-4
+ channel-group 2 mode active
+int port-chan 2
+ dot1q encapsulation
+ switchport mode trunk
+ switchport allowed vlans 10-15
+ switchport native vlan 999
+!Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/5
+switchport mode access
+switchport access vlan 10
+int range fa0/6-23
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!
+!
+!
+# NTP
+ntp server ?.?.?.?
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan ? # For Client VLANS
+	# IP Source Guard
+int fa0/? # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan ? # For Client VLANS
+int port-chan ?
+ ip arp inspection trust
+ 	# Logging sync
+logging sync

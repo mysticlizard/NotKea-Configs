@@ -64,11 +64,7 @@ banner motd #
             IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
            IIIIIIIIIIIIIII'''``````IIII'````IIIIIIIIIIII
            `IIIIIIII''  ,-',cP",cc III cc    ``IIIIIIII'
-             `''`      zC,P",c??"  III $$        ```'   
-                     ,$P"",'.,ccJh III $F-
-                    c"',',cJ$$P"   III.`cJ,
-                   J$,',JP""',cJ'.IIIII.`.h-
-                  J?$.-",cJ$??? .IIIIIII `$h
+    
                It was at this point I lost interest.
 #
 !

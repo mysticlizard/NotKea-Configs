@@ -98,15 +98,23 @@ spanning-tree portfast bpduguard default
 !
 !
 	# Access Control
-int fa0/9
+int fa0/17
 switchport mode access
-switchport access vlan 10
-int range fa0/6-8
+switchport access vlan 43
+int fa0/21
+switchport mode access
+switchport access vlan 44
+int range fa0/5-16
 switchport mode access
 switchport access vlan 666
 shutdown
 exit
-int range fa0/10-23
+int range fa0/18-20
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/22-24
 switchport mode access
 switchport access vlan 666
 shutdown

@@ -1,63 +1,150 @@
 en
 config t
-banner motd y
-                             .     @$* @$3
-                            '$Nueeed$$ed$$eeec$$
-         ,            4$Lze@*$C2$b* ed(he*rb$CC$*$bc@$r
-   /@ |~~            .e$$"W$$B$B$**  ^$  e""##d?$Bd$$$Nc. ..      @\/~\
-   \==|         4$kd*Cr$6F#"`  **   .*==      # '"**F#$I$b$*       |   I
-      |         d$5N@$$"   ....eu$$$$$$N$*$zbeuu     #$d$$$$b.     / @/
-     @/     . z$Ted*"$P zue$*9d$$$@#       W$e@B$$L.    "#@$E$b@N
-           #d$Id*P#  'Nd$$B$**"       .*,     "#*N$$b$c   $$$*$$c
-          .d#+C6J   @@$B$*"          -***-        "#$$$$c   *$$$#$u
-       ..u$l4@"^"zJ$7W*"              '*`            ^*$@$$$r "$$E$@B>
-       *@$l$P"+Rd$$N#"          *     /|\     *        '"$$$c.. ?E$*b
-       z$ "*.  .Jz$"           ***   / | \   ***         '*@N$b   d**N
-     .z$JBR^bs@$$#          *   *   /  |  \   *  *         "$l*9N "bN$Nee
-    4$$.C*   dB@"          ***    _/  /^\  \_   ***         '$$$z> 3$b$$#
-     $"$e$  @*$"        *   *     \\^|   |^//    *   *        $$$u.^*$N$c
-    JPd$%  @@d"        ***        ***********       ***       '$Ni$  $EP$
-  :e$"*$  :et$          *         ***********        *         ^$$E  4$N$be
-  ')$ud"  @6$                                                   9$$   $*@$"
-   @F*$   *4P                       ./                          '$m#   .$$.
-u*""""""""""""h                     ##=====                    e#""""""""""#
-E +e       ue. N                 ___##_______                 4F e=c     z*c
-#e$@e.. ..z6+6d"                #*************/               ^*cBe$u.  .$$@
-   $ ^"""" 4F"  ze=eu              ********              z***hc ^"$ ""*"" $
-   $       ^F :*    3r                                  @"  e "b  $       $
- .e$        N $  'be$L...                            ...?be@F  $F $       9F
-4" $        $ $.  zm$*****h.                      ue""""*h6   J$" $       4%
-$  $        $ $$u5e" .     "k                    d"       #$bu$F  $       4F
-"N $        $ ^d%P  dF      $  .            .e   $     -c  "N$F  .$       4F
- #$$        $  $4*. "N.    zP  3r ..    ..  $c   *u     $  u$K$  4F       4L
-  ^N$e.     3  F$k*. "*C$$$# .z$" '$    4L  "$c. '#$eeedF  $$$9r JF       J$
-   $'"$$eu. 4  F3"K$ .e=*CB$$$$L .e$    '$bc.u$***hd6C""  4kF$4F $F     u@$F
-   $   '"*$*@u N'L$B*"z*""     "$F" 4k 4c '7$"      "*$eu 4'L$J" $   .e$*"4F
-   $      '"hC*$ "$#.P"          $me$"  #$*$       .  ^*INJL$"$  $e$$*#   4F
-   $         $b"h ".F     $"     ^F        $       9r   #L#$FJEd#C@"      4L
-  .$         $Jb   J"..  4b      uF        *k      J%    #c^ $" d$        4L
- :"$         $k9   $ $%4c $Bme.ze$         '*$+eee@*$"  :r$    @L$        4$
- $ $         $$Jr  $d" '$r "*==*"            "#**"" $r  4$3r  db$F        4F
- $c$         $'*F  $"   '$            /\            $    *(L  $$$F         k
- #i*e.       $ 4>  $  ue $         \`.||.'/         'L c  $$ .L$d         .$
-  "b."*e.    4 4   $  $%db=eL     `.<\||/>.'      e*+$/$r  $ '$"$       .d$$y
-
-hostname ALS3
+hostname ALS_3
 !
+!Banner
+banner motd #
+ ______________     _             _,-----------._        ___
+|              |   (_,.-      _,-'_,-----------._`-._    _)_)
+| THE _  _  _  |      |     ,'_,-'  ___________  `-._`.
+| |  / \|_)| \ |     `'   ,','  _,-'___________`-._  `.`.
+| |__\_/| \|_/ |        ,','  ,'_,-'     .     `-._`.  `.`.
+|              |       /,'  ,','        >|<        `.`.  `.\
+| OF THE  _ _  |      //  ,','      ><  ,^.  ><      `.`.  \\
+| |_)||\|/_(_  |     //  /,'      ><   / | \   ><      `.\  \\
+| | \|| |\_|_) |    //  //      ><    \/\^/\/    ><      \\  \\
+|______________|   ;;  ;;              `---'              ::  ::
+                   ||  ||              (____              ||  ||
+ DOORS OF DURIN   _||__||_            ,'----.            _||__||_
+                 (o.____.o)____        `---'        ____(o.____.o)
+                   |    | /,--.)                   (,--.\ |    |
+                   |    |((  -`___               ___`   ))|    |
+                   |    | \\,'',  `.           .'  .``.// |    |
+                   |    |  // (___,'.         .'.___) \\  |    |
+                  /|    | ;;))  ____) .     . (____  ((\\ |    |\
+                  \|.__ | ||/ .'.--.\/       `/,--.`. \;: | __,|;
+                   |`-,`;.| :/ /,'  `)-'   `-('  `.\ \: |.;',-'|
+                   |   `..  ' / \__.'         `.__/ \ `  ,.'   |
+                   |    |,\  /,                     ,\  /,|    |
+                   |    ||: : )          .          ( : :||    |
+                  /|    |:; |/  .      ./|\,      ,  \| :;|    |\
+                  \|.__ |/  :  ,/-    <--:-->    ,\.  ;  \| __,|;
+                   |`-.``:   `'/-.     '\|/`     ,-\`;   ;'',-'|
+                   |   `..   ,' `'       '       `  `.   ,.'   |
+                   |    ||  :                         :  ||    |
+                   |    ||  |                         |  ||    |
+                   |    ||  |                         |  ||    |
+                   |    |'  |            _            |  `|    |
+                   |    |   |          '|))           |   |    |
+                   ;____:   `._        `'           _,'   ;____:
+                  {______}     \___________________/     {______}
+              SSt |______|_______________________________|______|
+#
+!
+!
+
+
+
 !Vlans
-vlan 10
+vlan 30
 name SALES
-vlan 11
+vlan 31
 name MARKETING
-vlan 12
+vlan 32
 name TECH
-vlan 13
+vlan 33
 name MANUFACTURING
-vlan 14
+vlan 34
 name EXECUTIVE
-vlan 15
+vlan 35
 name VOICE
 vlan 999
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
+!
+!Vlan Addresses
+! MAKE SURE IP'S ARE CORRECT
+!
+int vlan 30
+ ip address 10.0.10.4 255.255.255.224
+ exit
+int vlan 31
+ ip address 10.0.30.4 255.255.255.240
+ exit
+int vlan 32
+ ip address 10.0.26.4 255.255.255.240
+ exit
+int vlan 33
+ ip address 10.0.2.4 255.255.255.224
+ exit
+int vlan 34
+ ip address 10.0.34.4 255.255.255.248
+ exit
+int vlan 35
+ ip address 10.0.18.1 255.255.255.224
+ exit
+ int vlan 999
+ ip address 10.0.255.3 255.255.255.255
+ exit
+!
+!
+en
+config t
+!
+! CHECK INTERFACES!!! and PORT CHANNELS
+!
+int range fa0/1-2
+ channel-group 1 mode active
+int port-chan 1
+ dot1q encapsulation
+ switchport mode trunk
+ switchport allowed vlans 10-15
+ switchport native vlan 999
+int range fa0/3-4
+ channel-group 2 mode active
+int port-chan 2
+ dot1q encapsulation
+ switchport mode trunk
+ switchport allowed vlans 10-15
+ switchport native vlan 999
+!Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/9
+switchport mode access
+switchport access vlan 10
+int range fa0/6-8
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/10-23
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!
+!
+!
+# NTP
+ntp server ?.?.?.?
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan ? # For Client VLANS
+	# IP Source Guard
+int fa0/? # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan ? # For Client VLANS
+int port-chan ?
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+

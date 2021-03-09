@@ -67,4 +67,21 @@ interface Port-channel4
  switchport mode trunk
  switchport nonegotiate
 
+interface Port-channel5
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10-45
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel6
+ no switchport
+ ip address 10.7.240.49 255.255.255.252
+ no shut
+
+interface Port-channel7
+ no switchport
+ ip address 10.7.240.53 255.255.255.252
+ no shut
+
 end

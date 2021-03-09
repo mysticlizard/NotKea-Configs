@@ -1,11 +1,22 @@
-en
+enable
 config T
-hostname DLS_1
+hostname DLS1-3560
 no ip domain-lookup
 line con 0
 password cisco
 login
+logging sync
 
-enable secret cisco
-username cisco secret cisco
+ip domain notkea.local
+crypto key generate rsa
+1024
+ip ssh ver 2
+username admin secret democracy
+enable secret democracy
+service password-enc
+line vty 0 15
+login local
+transport input ssh
+banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
+
 

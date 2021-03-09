@@ -95,18 +95,18 @@ config t
 !
 ! CHECK INTERFACES!!! and PORT CHANNELS
 !
+en
+config t
 int range fa0/1-2
  channel-group 1 mode active
-int port-chan 1
- switchport mode trunk
- switchport allowed vlans 10-15
- switchport native vlan 999
 int range fa0/3-4
  channel-group 2 mode active
-int port-chan 2
+int ra port-ch 1-2
  switchport mode trunk
- switchport allowed vlans 10-15
- switchport native vlan 999
+ switchport trunk allowed vlan 30-35
+ switchport trunk native vlan 999
+
+!
 !Spanning Tree
 spanning-tree mode rapid-pvst 
 spanning-tree portfast default

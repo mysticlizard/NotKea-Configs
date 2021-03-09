@@ -22,6 +22,7 @@ line aux 0
 password cisco
 login
 
+
 int ra f0/1-2
  channel-group 1 mode active
 int ra f0/3-4
@@ -66,5 +67,22 @@ interface Port-channel4
  switchport trunk allowed vlan 40-45
  switchport mode trunk
  switchport nonegotiate
+
+interface Port-channel5
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10-45
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel6
+ no switchport
+ ip address 10.7.240.57 255.255.255.252
+ no shut
+
+interface Port-channel7
+ no switchport
+ ip address 10.7.240.61 255.255.255.252
+ no shut
 
 end

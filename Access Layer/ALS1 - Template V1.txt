@@ -5,7 +5,6 @@ config t
 hostname ALS_1
 cdp run
 lldp run
-logging sync
 	# Security
 en
 config t
@@ -58,19 +57,6 @@ line con 0
  password cisco
  login
 enable secret class
-	# NTP
-ntp server ?.?.?.?
-	# DHCP Snooping
-ip dhcp snooping
-ip dhcp snooping vlan ? # For Client VLANS
-	# IP Source Guard
-int fa0/? # Computer port
- ip verify source
- ip verify source port-security
-	# Dynamic ARP Inspection
-ip arp inspection vlan ? # For Client VLANS
-int port-chan ?
- ip arp inspection trust
 	# SSH
 ip domain-name notkea.local
 username student secret cisco
@@ -170,4 +156,18 @@ switchport access vlan 10
 int range fa0/6-23
 switchport mode access
 switchport access vlan 666
-
+# NTP
+ntp server ?.?.?.?
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan ? # For Client VLANS
+	# IP Source Guard
+int fa0/? # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan ? # For Client VLANS
+int port-chan ?
+ ip arp inspection trust
+ 	# Logging sync
+logging sync

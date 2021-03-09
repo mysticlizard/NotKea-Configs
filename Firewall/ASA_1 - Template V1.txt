@@ -1,1 +1,60 @@
+# Basic ASA settings 
 
+enable password class
+clock set 15:26:00 March 9 2021
+hostname ASA1
+domain-name notkea.class
+
+
+# Interfaces -- ip addresses are placeholders
+
+int g0/0
+nameif outside-to-internet
+ip address dhcp
+no shutdown
+
+int g0/1
+nameif inside-to-core1
+ip address 10.0.0.1 255.255.255.0
+no shut
+security-level 100
+
+int g0/2
+nameif inside-to-core2
+ip add 10.0.1.1 255.255.255.0
+no shut
+security-level 100
+
+
+# Route pointing to Madison College Router - figure out the madison college gateway ip
+
+route outside 0.0.0.0 0.0.0.0 172.whatever.wat.wat
+
+# Configure NAT (PAT, technically) from inside to outside
+
+object network INSIDE-TO-NET
+subnet 10.0.0.0 255.255.255.0
+nat (inside,outside) dynamic interface
+
+
+# create policy map to allow icmp -- check firewall documentation on this, it's finicky
+
+policy-map global-policy
+class inpection-defaul
+inspect icmp
+
+
+# configure ssh access
+
+username student password cisco
+aaa authentication ssh console LOCAL
+crypto key generate rsa modulus 1024
+ssh 10.0.0.1 255.255.255.0 inside-to-core1
+
+
+# Enable ASA http interface -- ip is placeholder
+
+http server enable
+http x.x.x.x y.y.y.y inside-to-core1
+
+# 

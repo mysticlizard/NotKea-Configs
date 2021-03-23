@@ -139,7 +139,7 @@ spanning-tree portfast bpduguard default
 	# Access Control
 int fa0/9
 switchport mode access
-switchport access vlan 10
+switchport access vlan 21
 int range fa0/6-8
 switchport mode access
 switchport access vlan 666

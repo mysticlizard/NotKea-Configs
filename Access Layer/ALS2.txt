@@ -1,6 +1,8 @@
 en
 config t
 hostname ALS_2
+cdp run
+lldp run
 !
 !Banner
 banner motd #
@@ -21,7 +23,7 @@ banner motd #
 |   '|  `~'     ;:::     ||    ``x`. -===-;         ||;;--', /88\ -,- :-~~|  |
 |    :-:==-.   / :'      ||     / `:`.__.;          ||-;~~::'`~^~:`::`/`-=:) |
 |    `. _    .'.d8:      ||  .d8b.  :: ..`.         ||(;':)%%%' `%%%.`:``:)\ |
-| _.  |88bood88888._     || d88888b.  '  /8         ||(\ %%%/dV##Vb`%%%%:`-. |
+| _.  |88bood88888._     || d88888b.  '  /8         ||(\ %%%/dVXXVb`%%%%:`-. |
 |~  `-+8888888888P  `-. _||d888888888b. ( 8b       /|| |);/( ;~~~~ :)\`;;.``\|
 |-'     ~~^^^^~~  `./8 ~ ||~   ~`888888b  `8b     /:|| //\'/,/|;;|:(: |.|\;|\|
 |8b /  /  |   \  \  `8   ||  ' ' `888888   `8. _ /:/||/) |(/ | / \|\\`( )- ` |
@@ -47,18 +49,6 @@ Self-Proclaimed Jedi Knight     Smuggler, Pirate         Smuggler, Pirate
                     - Destruction of Imperial Property -
 
            These individuals are considered extremely dangerous.
-
-       E X P E R I E N C E D   B O U N T Y   H U N T E R S   O N L Y
-
-  The Empire will not  be held  responsible  for any  injuries or property
-  loss arising from the  attempted apprehension of these  notorious crimi-
-  nals. Bounty is for live capture only! For more information contact your
-  local Imperial Intelligence Office.
-
-------------------------------------------------
-Thank you for visiting https://asciiart.website/
-This ASCII pic can be found at
-https://asciiart.website/index.php?art=movies/star%20wars
 #
 !
 !
@@ -118,7 +108,7 @@ int vlan 24
  ip address 10.0.33.4 255.255.255.248
  exit
 int vlan 25
- ip address 10.0.17.1 255.255.255.224
+ ip address 10.0.17.4 255.255.255.224
  exit
  int vlan 999
  ip address 10.0.255.2 255.255.255.255
@@ -151,7 +141,7 @@ spanning-tree portfast bpduguard default
 	# Access Control
 int fa0/9
 switchport mode access
-switchport access vlan 10
+switchport access vlan 21
 int range fa0/6-8
 switchport mode access
 switchport access vlan 666
@@ -169,14 +159,14 @@ exit
 ntp server ?.?.?.?
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan ? # For Client VLANS
+ip dhcp snooping vlan 21 # For Client VLANS
 	# IP Source Guard
-int fa0/? # Computer port
+int fa0/9 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan ? # For Client VLANS
-int port-chan ?
+ip arp inspection vlan 21 # For Client VLANS
+int range port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync

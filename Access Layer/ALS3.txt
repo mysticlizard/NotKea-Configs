@@ -1,6 +1,8 @@
 en
 config t
 hostname ALS_3
+cdp run
+lldp run
 !
 !Banner
 banner motd y
@@ -43,8 +45,27 @@ $  $        $ $$u5e" .     "k                    d"       #$bu$F  $       4F
  :"$         $k9   $ $%4c $Bme.ze$         '*$+eee@*$"  :r$    @L$        4$
  $ $         $$Jr  $d" '$r "*==*"            "#**"" $r  4$3r  db$F        4F
  $c$         $'*F  $"   '$            /\            $    *(L  $$$F         k
- #i*e.       $ 4>  $  ue $         \`.||.'/         'L c  $$ .L$d         .$y
+ #i*e.       $ 4>  $  ue $         \`.||.'/         'L c  $$ .L$d         .$
+ y
 
+!
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
+!
+!
 !Vlans
 vlan 30
 name SALES
@@ -83,7 +104,7 @@ int vlan 34
  ip address 10.0.34.4 255.255.255.248
  exit
 int vlan 35
- ip address 10.0.18.1 255.255.255.224
+ ip address 10.0.18.4 255.255.255.224
  exit
  int vlan 999
  ip address 10.0.255.3 255.255.255.255
@@ -116,7 +137,7 @@ spanning-tree portfast bpduguard default
 	# Access Control
 int fa0/13
 switchport mode access
-switchport access vlan 10
+switchport access vlan 32
 int range fa0/6-8
 switchport mode access
 switchport access vlan 666
@@ -139,14 +160,14 @@ exit
 ntp server ?.?.?.?
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan ? # For Client VLANS
+ip dhcp snooping vlan 32 # For Client VLANS
 	# IP Source Guard
-int fa0/? # Computer port
+int fa0/13 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan ? # For Client VLANS
-int port-chan ?
+ip arp inspection vlan 32 # For Client VLANS
+int range port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync

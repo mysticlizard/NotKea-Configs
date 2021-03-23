@@ -1,7 +1,8 @@
 en
 config t
-
 hostname ALS4
+cdp run
+lldp run
 !
 !Banner
 banner motd #
@@ -125,7 +126,7 @@ int vlan 44
  ip address 10.0.35.4 255.255.255.248
  exit
 int vlan 45
- ip address 10.0.19.1 255.255.255.224
+ ip address 10.0.19.4 255.255.255.224
  exit
  int vlan 999
  ip address 10.0.255.4 255.255.255.255
@@ -184,14 +185,29 @@ exit
 ntp server ?.?.?.?
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan ? # For Client VLANS
+ip dhcp snooping vlan 43 # For Client VLANS
 	# IP Source Guard
-int fa0/? # Computer port
+int fa0/17 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan ? # For Client VLANS
-int port-chan ?
+ip arp inspection vlan 43 # For Client VLANS
+int port-chan 1-2
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+!
+!
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan 44 # For Client VLANS
+	# IP Source Guard
+int fa0/21 # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan 44 # For Client VLANS
+int port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync

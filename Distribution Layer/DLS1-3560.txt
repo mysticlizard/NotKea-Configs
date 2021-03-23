@@ -134,19 +134,6 @@ ip address 10.0.35.2 255.255.255.248
 int vlan 45
 ip address 10.0.19.2 255.255.255.224
 
-int vlan 50
-ip address 10.0.12.2 255.255.255.224
-int vlan 51
-ip address 10.0.32.2 255.255.255.240
-int vlan 52
-ip address 10.0.28.2 255.255.255.240
-int vlan 53
-ip address 10.0.4.2 255.255.255.224
-int vlan 54
-ip address 10.0.36.2 255.255.255.248
-int vlan 55
-ip address 10.0.20.2 255.255.255.224
-
 int vlan 999
 ip address 10.0.255.5 255.255.255.0
 

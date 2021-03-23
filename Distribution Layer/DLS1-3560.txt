@@ -22,6 +22,76 @@ line aux 0
 password cisco
 login
 
+vlan 10
+name sales
+vlan 11
+name marketing
+vlan 12
+name tech
+vlan 13
+name manufacturing
+vlan 14
+name executive
+vlan 15
+name voice
+
+vlan 20
+name sales
+vlan 21
+name marketing
+vlan 22
+name tech
+vlan 23
+name manufacturing
+vlan 24
+name executive
+vlan 25
+name voice
+
+vlan 30
+name sales
+vlan 31
+name marketing
+vlan 32
+name tech
+vlan 33
+name manufacturing
+vlan 34
+name executive
+vlan 35
+name voice
+
+vlan 40
+name sales
+vlan 41
+name marketing
+vlan 42
+name tech
+vlan 43
+name manufacturing
+vlan 44
+name executive
+vlan 45
+name voice
+
+vlan 50
+name sales
+vlan 51
+name marketing
+vlan 52
+name tech
+vlan 53
+name manufacturing
+vlan 54
+name executive
+vlan 55
+name voice
+
+vlan 666
+name blackhole
+vlan 999
+name management
+
 int ra f0/1-2
  channel-group 1 mode active
 int ra f0/3-4

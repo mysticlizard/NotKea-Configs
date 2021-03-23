@@ -81,6 +81,155 @@ vlan 666
 name blackhole
 vlan 999
 name management
+
+int vlan 10
+ip address 10.0.8.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.8.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 11
+ip address 10.0.28.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.28.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 12
+ip address 10.0.24.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.24.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 13
+ip address 10.0.0.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.0.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 14
+ip address 10.0.32.3 255.255.255.248
+standby version 2
+standby 1 ip 10.0.32.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 15
+ip address 10.0.16.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.16.1
+standby 1 priority 110
+standby 1 preempt
+
+int vlan 20
+ip address 10.0.9.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.9.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 21
+ip address 10.0.29.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.29.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 22
+ip address 10.0.25.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.25.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 23
+ip address 10.0.1.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.1.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 24
+ip address 10.0.33.3 255.255.255.248
+standby version 2
+standby 1 ip 10.0.33.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 25
+ip address 10.0.17.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.17.1
+standby 1 priority 100
+standby 1 preempt
+
+int vlan 30
+ip address 10.0.10.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.10.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 31
+ip address 10.0.30.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.30.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 32
+ip address 10.0.26.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.26.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 33
+ip address 10.0.2.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.2.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 34
+ip address 10.0.34.3 255.255.255.248
+standby version 2
+standby 1 ip 10.0.34.1
+standby 1 priority 110
+standby 1 preempt
+int vlan 35
+ip address 10.0.18.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.18.1
+standby 1 priority 110
+standby 1 preempt
+
+int vlan 40
+ip address 10.0.11.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.11.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 41
+ip address 10.0.31.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.31.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 42
+ip address 10.0.27.3 255.255.255.240
+standby version 2
+standby 1 ip 10.0.27.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 43
+ip address 10.0.3.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.3.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 44
+ip address 10.0.35.3 255.255.255.248
+standby version 2
+standby 1 ip 10.0.35.1
+standby 1 priority 100
+standby 1 preempt
+int vlan 45
+ip address 10.0.19.3 255.255.255.224
+standby version 2
+standby 1 ip 10.0.19.1
+standby 1 priority 100
+standby 1 preempt
+
 int vlan 999
 ip address 10.0.255.6 255.255.255.0
 

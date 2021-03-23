@@ -1,6 +1,8 @@
 en
 config t
 hostname ALS_2
+cdp run
+lldp run
 !
 !Banner
 banner motd #

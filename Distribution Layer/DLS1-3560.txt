@@ -1,5 +1,6 @@
 enable
-config T
+config t
+cdp run
 hostname DLS1-3560
 no ip domain-lookup
 line con 0

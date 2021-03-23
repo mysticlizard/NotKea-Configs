@@ -72,6 +72,8 @@ banner motd #
 !
 #
 no ip domain-lookup
+cdp run
+lldp run
 line con 0
  password cisco
  login

@@ -81,6 +81,72 @@ vlan 666
 name blackhole
 vlan 999
 name management
+
+int vlan 10
+ip address 10.0.8.2 255.255.255.224
+int vlan 11
+ip address 10.0.28.2 255.255.255.240
+int vlan 12
+ip address 10.0.24.2 255.255.255.240
+int vlan 13
+ip address 10.0.0.2 255.255.255.224
+int vlan 14
+ip address 10.0.32.2 255.255.255.248
+int vlan 15
+ip address 10.0.16.2 255.255.255.224
+
+int vlan 20
+ip address 10.0.9.2 255.255.255.224
+int vlan 21
+ip address 10.0.29.2 255.255.255.240
+int vlan 22
+ip address 10.0.25.2 255.255.255.240
+int vlan 23
+ip address 10.0.1.2 255.255.255.224
+int vlan 24
+ip address 10.0.33.2 255.255.255.248
+int vlan 25
+ip address 10.0.17.2 255.255.255.224
+
+int vlan 30
+ip address 10.0.10.2 255.255.255.224
+int vlan 31
+ip address 10.0.30.2 255.255.255.240
+int vlan 32
+ip address 10.0.26.2 255.255.255.240
+int vlan 33
+ip address 10.0.2.2 255.255.255.224
+int vlan 34
+ip address 10.0.34.2 255.255.255.248
+int vlan 35
+ip address 10.0.18.2 255.255.255.224
+
+int vlan 40
+ip address 10.0.11.2 255.255.255.224
+int vlan 41
+ip address 10.0.31.2 255.255.255.240
+int vlan 42
+ip address 10.0.27.2 255.255.255.240
+int vlan 43
+ip address 10.0.3.2 255.255.255.224
+int vlan 44
+ip address 10.0.35.2 255.255.255.248
+int vlan 45
+ip address 10.0.19.2 255.255.255.224
+
+int vlan 50
+ip address 10.0.12.2 255.255.255.224
+int vlan 51
+ip address 10.0.32.2 255.255.255.240
+int vlan 52
+ip address 10.0.28.2 255.255.255.240
+int vlan 53
+ip address 10.0.4.2 255.255.255.224
+int vlan 54
+ip address 10.0.36.2 255.255.255.248
+int vlan 55
+ip address 10.0.20.2 255.255.255.224
+
 int vlan 999
 ip address 10.0.255.5 255.255.255.0
 

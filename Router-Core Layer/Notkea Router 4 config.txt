@@ -44,14 +44,12 @@ end
 
 --------------Configuration--------------------------------------------------
 
-NOTKEA_MAD_R4#sh run
-NOTKEA_MAD_R4#sh running-config
 Building configuration...
 
 
-Current configuration : 2747 bytes
+Current configuration : 2773 bytes
 !
-! Last configuration change at 21:32:54 UTC Tue Mar 9 2021
+! Last configuration change at 18:46:54 UTC Tue Mar 23 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -152,14 +150,12 @@ interface Embedded-Service-Engine0/0
  shutdown
 !
 interface GigabitEthernet0/0
- description 3750_2 Connection
- ip address 10.7.240.18 255.255.255.252
+ ip address 10.7.240.10 255.255.255.252
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/1
- description 3750_1 Connection
- ip address 10.7.240.10 255.255.255.252
+ ip address 10.7.240.18 255.255.255.252
  duplex auto
  speed auto
 !
@@ -185,6 +181,9 @@ interface Serial0/0/1
 !
 !
 router eigrp 328
+ network 10.7.240.8 0.0.0.3
+ network 10.7.240.16 0.0.0.3
+ network 10.7.240.20 0.0.0.3
  network 10.7.240.28 0.0.0.3
  eigrp router-id 1.1.1.4
 !
@@ -221,7 +220,7 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CIt's over Anakin, I have the high ground.You underestimate my power. Don't try it. Insert lightsaber sounds.'^C
+banner motd ^CCIt's over Anakin, I have the high ground.You underestimate my power. Don't try it. Insert lightsaber sounds.'^C
 !
 line con 0
  password 7 121A0C041104
@@ -246,4 +245,3 @@ line vty 5 15
 scheduler allocate 20000 1000
 !
 end
-

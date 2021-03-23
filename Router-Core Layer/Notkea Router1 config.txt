@@ -44,14 +44,12 @@ end
 
 --------Configuration-------------------------------------------------------
 
-NOTKEA_MAD_R1#sh run
-NOTKEA_MAD_R1#sh running-config
 Building configuration...
 
 
-Current configuration : 2977 bytes
+Current configuration : 2881 bytes
 !
-! Last configuration change at 22:33:50 UTC Tue Mar 9 2021
+! Last configuration change at 18:17:33 UTC Tue Mar 23 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -152,13 +150,11 @@ interface Embedded-Service-Engine0/0
  shutdown
 !
 interface GigabitEthernet0/0
- description 3750_1 Connection
  ip address 10.7.240.6 255.255.255.252
  duplex auto
  speed auto
 !
 interface GigabitEthernet0/1
- description 3750_2 Connection
  ip address 10.7.240.14 255.255.255.252
  duplex auto
  speed auto
@@ -185,6 +181,8 @@ interface Serial0/0/1
 !
 !
 router eigrp 328
+ network 10.7.240.4 0.0.0.3
+ network 10.7.240.20 0.0.0.3
  network 10.7.240.24 0.0.0.3
  eigrp router-id 1.1.1.1
 !
@@ -193,8 +191,6 @@ ip forward-protocol nd
 no ip http server
 no ip http secure-server
 !
-ip route 10.0.8.0 255.255.255.224 10.7.240.5
-ip route 10.7.240.48 255.255.255.252 10.7.240.5
 !
 !
 !
@@ -223,7 +219,7 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CI AM THE SENATE, UNAUTHORIZED USERS WILL HEAR A STORY, 'Did you ever hear the Tragedy of Darth Plagueis the wise. I thought not. It's not a storythe Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith.
+banner motd ^CCI AM THE SENATE, UNAUTHORIZED USERS WILL HEAR A STORY, 'Did you ever hear the Tragedy of Darth Plagueis the wise. I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord ofthe Sith.
 banner motd ^C
 !
 line con 0

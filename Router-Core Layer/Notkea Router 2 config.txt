@@ -39,14 +39,12 @@ end
 ---------------Configuration-------------------------------------------------
 
 
-NOTKEA_MAD_R2#sh run
-NOTKEA_MAD_R2#sh running-config
 Building configuration...
 
 
-Current configuration : 2508 bytes
+Current configuration : 2603 bytes
 !
-! Last configuration change at 21:18:52 UTC Tue Mar 9 2021
+! Last configuration change at 19:04:03 UTC Tue Mar 23 2021
 !
 version 15.4
 service timestamps debug datetime msec
@@ -140,7 +138,7 @@ interface Embedded-Service-Engine0/0
 !
 interface GigabitEthernet0/0
  description PodNet Connection
- ip address 10.7.240.37 255.255.255.252
+ ip address 10.255.255.1 255.255.255.128
  duplex auto
  speed auto
 !
@@ -169,7 +167,10 @@ interface Serial0/0/1
 !
 !
 router eigrp 328
+ network 10.0.0.0 0.31.255.255
  network 10.7.240.24 0.0.0.3
+ network 10.7.240.32 0.0.0.3
+ network 10.255.255.0 0.0.0.127
  eigrp router-id 1.1.1.2
 !
 ip forward-protocol nd
@@ -205,7 +206,7 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
+banner motd ^CCYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
 !
 line con 0
  password 7 1511021F0725

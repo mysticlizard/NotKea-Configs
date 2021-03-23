@@ -126,7 +126,7 @@ int vlan 44
  ip address 10.0.35.4 255.255.255.248
  exit
 int vlan 45
- ip address 10.0.19.1 255.255.255.224
+ ip address 10.0.19.4 255.255.255.224
  exit
  int vlan 999
  ip address 10.0.255.4 255.255.255.255

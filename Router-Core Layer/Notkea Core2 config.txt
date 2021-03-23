@@ -18,49 +18,47 @@ Service password-enc
 Line vty 0 15
 Login local
 Transport input ssh
-Banner motd !Authorized Access Only@!
+Banner motd !Authorized Access Only. You can't win, Vader. If you strike me down, I shall become more powerful than you can possibly imagine!
 Line aux 0
 Password cisco
 Login
 
 --INTERFACES----------------------------------------------------------------
-int fa0/1
-ip add 10.7.240.13 255.255.255.240
+int fa1/0/1
+ip add 10.7.240.13 255.255.255.252
 description 2911_1 Connection
 no shut
-end
 
-int fa0/2
-ip add 10.7.240.17 255.255.255.240
+
+int fa1/0/2
+ip add 10.7.240.17 255.255.255.252
 description 2911_4 Connection
 no shut
-end
 
-int fa0/3
+
+int fa1/0/3
 description ASA_1 Connection
 no shut 
-end
 
-int fa0/4
+
+int fa1/0/4
 description ASA_2 Connection
 noshut
-end
 
-int fa0/5
+
+int fa1/0/5
 description Meraki Day Class
 no shut 
 end
 
 ----Etherchannels------------------------------------------------
-int range fa0/17-18
-channel-group 1
-mode active
-switchport mode trunk
+int range fa1/0/17-18
+channel-group 1 mode active
 switchport trunk allowed native 999
 switchport trunk allowed vlan 10-64
 description 3750_1 Etherchannel
 no shut
-end
+
 
 int range fa0/19-20
 channel-group 2
@@ -80,4 +78,228 @@ switchport trunk allowed vlan 10-64
 description 3560_2 Etherchannel
 no shut
 end
---------------------------------------------------------------------------------
+---------Configuration-------------------------------------
+
+NOTKEA_MAD_Core2#sh run
+NOTKEA_MAD_Core2#sh running-config
+Building configuration...
+
+Current configuration : 3592 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_Core2
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$4lU9$mUAQULhLhvZFvX39xSurN.
+!
+username admin secret 5 $1$EXFh$Mi88kUni9b.5HQIYLsfgj.
+!
+!
+no aaa new-model
+switch 1 provision ws-c3750-48ts
+system mtu routing 1500
+ip routing
+no ip domain-lookup
+ip domain-name notkea.local
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+interface Port-channel1
+ no switchport
+ ip address 10.7.240.2 255.255.255.252
+!
+interface Port-channel2
+ no switchport
+ no ip address
+!
+interface Port-channel3
+ no switchport
+ ip address 10.7.240.54 255.255.255.252
+!
+interface FastEthernet1/0/1
+ description 2911_1 Connection
+ no switchport
+ ip address 10.7.240.13 255.255.255.252
+!
+interface FastEthernet1/0/2
+ description 2911_4 Connection
+ no switchport
+ ip address 10.7.240.17 255.255.255.252
+!
+interface FastEthernet1/0/3
+ description ASA_1 Connection
+ no switchport
+ ip address 10.0.0.1 255.255.255.0
+!
+interface FastEthernet1/0/4
+ description ASA_2 Connection
+ no switchport
+ no ip address
+!
+interface FastEthernet1/0/5
+ description Meraki Day Class
+ no switchport
+ no ip address
+!
+interface FastEthernet1/0/6
+!
+interface FastEthernet1/0/7
+!
+interface FastEthernet1/0/8
+!
+interface FastEthernet1/0/9
+!
+interface FastEthernet1/0/10
+!
+interface FastEthernet1/0/11
+!
+interface FastEthernet1/0/12
+!
+interface FastEthernet1/0/13
+!
+interface FastEthernet1/0/14
+!
+interface FastEthernet1/0/15
+!
+interface FastEthernet1/0/16
+!
+interface FastEthernet1/0/17
+ no switchport
+ no ip address
+ channel-group 1 mode active
+!
+interface FastEthernet1/0/18
+ no switchport
+ no ip address
+ channel-group 1 mode active
+!
+interface FastEthernet1/0/19
+ no switchport
+ no ip address
+ channel-group 2 mode active
+!
+interface FastEthernet1/0/20
+ no switchport
+ no ip address
+ channel-group 2 mode active
+!
+interface FastEthernet1/0/21
+ no switchport
+ no ip address
+ channel-group 3 mode active
+!
+interface FastEthernet1/0/22
+ no switchport
+ no ip address
+ channel-group 3 mode active
+!
+interface FastEthernet1/0/23
+!
+interface FastEthernet1/0/24
+!
+interface FastEthernet1/0/25
+!
+interface FastEthernet1/0/26
+!
+interface FastEthernet1/0/27
+!
+interface FastEthernet1/0/28
+!
+interface FastEthernet1/0/29
+!
+interface FastEthernet1/0/30
+!
+interface FastEthernet1/0/31
+!
+interface FastEthernet1/0/32
+!
+interface FastEthernet1/0/33
+!
+interface FastEthernet1/0/34
+!
+interface FastEthernet1/0/35
+!
+interface FastEthernet1/0/36
+!
+interface FastEthernet1/0/37
+!
+interface FastEthernet1/0/38
+!
+interface FastEthernet1/0/39
+!
+interface FastEthernet1/0/40
+!
+interface FastEthernet1/0/41
+!
+interface FastEthernet1/0/42
+!
+interface FastEthernet1/0/43
+!
+interface FastEthernet1/0/44
+!
+interface FastEthernet1/0/45
+!
+interface FastEthernet1/0/46
+!
+interface FastEthernet1/0/47
+!
+interface FastEthernet1/0/48
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 10.0.8.0 255.255.255.224 10.7.240.53
+ip http server
+ip http secure-server
+!
+!
+!
+!
+banner motd ^CAuthorized Access Only. You can't win, Vader. If you strike me down, I shall become more powerful than you can possibly imagine^C
+!
+line con 0
+ password 7 094F471A1A0A
+ logging synchronous
+ login
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+end
+
+NOTKEA_MAD_Core2#
+NOTKEA_MAD_Core2#! NETLAB SYNC 1 !

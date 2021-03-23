@@ -18,7 +18,7 @@ Service password-enc
 Line vty 0 15
 Login local
 Transport input ssh
-Banner motd !Authorized Access Only@!
+
 Line aux 0
 Password cisco
 Login
@@ -34,4 +34,199 @@ int g0/1
 ip add 10.7.240.33 255.255.255.240
 description 2911_3 Connection
 no shut
+end
+
+---------------Configuration-------------------------------------------------
+
+
+NOTKEA_MAD_R2#sh run
+NOTKEA_MAD_R2#sh running-config
+Building configuration...
+
+
+Current configuration : 2508 bytes
+!
+! Last configuration change at 21:18:52 UTC Tue Mar 9 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$e5Kv$Yeg2KqpA8cQM9vCLcu78b/
+!
+no aaa new-model
+memory-size iomem 10
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name notkea.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1822AMD9
+license accept end user agreement
+license boot module c2900 technology-package securityk9
+license boot module c2900 technology-package uck9
+!
+!
+username admin secret 5 $1$glQ0$.SOHdvGEyjOsCXbY4aoLz.
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Multilink1
+ ip address 10.7.240.26 255.255.255.252
+ ppp multilink
+ ppp multilink interleave
+ ppp multilink group 1
+ ppp multilink fragment delay 20
+ ppp multilink multiclass
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description PodNet Connection
+ ip address 10.7.240.37 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description 2911_3 Connection
+ ip address 10.7.240.33 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+!
+interface Serial0/0/1
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+!
+!
+router eigrp 328
+ network 10.7.240.24 0.0.0.3
+ eigrp router-id 1.1.1.2
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+banner motd ^CYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
+!
+line con 0
+ password 7 1511021F0725
+ logging synchronous
+ login
+line aux 0
+ password 7 05080F1C2243
+ login
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
 end

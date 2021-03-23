@@ -18,69 +18,293 @@ Service password-enc
 Line vty 0 15
 Login local
 Transport input ssh
-Banner motd !Authorized Access Only@!
+banner motd !"UNLIMITED POWER...Everything That Has Transpired Has Done So According To My Design."!
 Line aux 0
 Password cisco
 Login
 
 --INTERFACES----------------------------------------------------------------
-int fa0/1
-ip add 10.7.240.5 255.255.255.240
+int fa2/0/1
+ip add 10.7.240.5 255.255.255.252
 description 2911_1 Connection
 no shut
-end
 
-int fa0/2
-ip add 10.7.240.9 255.255.255.240
+
+int fa2/0/2
+ip add 10.7.240.9 255.255.255.252
 description 2911_4 Connection
 no shut
-end
 
-int fa0/3
+
+int fa2/0/3
 description ASA_1 Connection
 no shut 
-end
 
-int fa0/4
+
+int fa2/0/4
 description ASA_2 Connection
 noshut
-end
 
-int fa0/5
+
+int fa2/0/5
 description Meraki Day Class
 no shut 
+
+
+int fa2/0/7
+description WLC Connection
 end
 
-int fa0/7
-description WLC Connection
-
 ----Etherchannels------------------------------------------------
-int range fa0/17-18
-channel-group 1
-mode active
-switchport mode trunk
-switchport trunk allowed native 999
+int range fa2/0/17-18
+channel-group 1 mode active
+switchport trunk native vlan 999
 switchport trunk allowed vlan 10-64
 description 3750_2 Etherchannel
 no shut
-end
 
-int range fa0/19-20
-channel-group 2
-mode active
-switchport trunk allowed native 999
+
+int range fa2/0/19-20
+channel-group 2 mode active
+switchport trunk native vlan 999
 switchport trunk allowed vlan 10-64
 description 3560_1 Etherchannel
 no shut
-end
 
 
-int range fa0/21-22
-channel-group 3
-mode active
-switchport trunk allowed native 999
+
+int range fa2/0/21-22
+channel-group 3 mode active
+switchport trunk native vlan 999
 switchport trunk allowed vlan 10-64
 description 3560_2 Etherchannel
 no shut
 end
---------------------------------------------------------------------------------
+----------Configuration---------------------------------------------------
+
+NOTKEA_MAD_Core1#sh run
+NOTKEA_MAD_Core1#sh running-config
+Building configuration...
+
+Current configuration : 3711 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_Core1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$awHK$wxL9v2C2GMRLe2HPdSWsl1
+!
+username admin secret 5 $1$LC.u$v8oszKreb0dLN19mg4nmV/
+!
+!
+no aaa new-model
+switch 2 provision ws-c3750-48ts
+system mtu routing 1500
+ip routing
+no ip domain-lookup
+ip domain-name notkea.local
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+interface Port-channel1
+ no switchport
+ ip address 10.7.240.1 255.255.255.252
+!
+interface Port-channel2
+ no switchport
+ ip address 10.7.240.50 255.255.255.252
+!
+interface Port-channel3
+ no switchport
+ ip address 10.7.240.58 255.255.255.252
+!
+interface FastEthernet2/0/1
+ description 2911_1 Connection
+ no switchport
+ ip address 10.7.240.5 255.255.255.252
+!
+interface FastEthernet2/0/2
+ description 2911_4 Connection
+ no switchport
+ ip address 10.7.240.9 255.255.255.252
+!
+interface FastEthernet2/0/3
+ description ASA_1 Connection
+ no switchport
+ ip address 10.0.1.1 255.255.255.0
+!
+interface FastEthernet2/0/4
+ description ASA_2 Connection
+ no switchport
+ no ip address
+!
+interface FastEthernet2/0/5
+ description Meraki Day Class
+ no switchport
+ no ip address
+!
+interface FastEthernet2/0/6
+ no switchport
+ no ip address
+!
+interface FastEthernet2/0/7
+ description WLC Connection
+ no switchport
+ no ip address
+!
+interface FastEthernet2/0/8
+!
+interface FastEthernet2/0/9
+!
+interface FastEthernet2/0/10
+!
+interface FastEthernet2/0/11
+!
+interface FastEthernet2/0/12
+!
+interface FastEthernet2/0/13
+!
+interface FastEthernet2/0/14
+!
+interface FastEthernet2/0/15
+!
+interface FastEthernet2/0/16
+!
+interface FastEthernet2/0/17
+ no switchport
+ no ip address
+ channel-group 1 mode active
+!
+interface FastEthernet2/0/18
+ no switchport
+ no ip address
+ channel-group 1 mode active
+!
+interface FastEthernet2/0/19
+ no switchport
+ no ip address
+ channel-group 2 mode active
+!
+interface FastEthernet2/0/20
+ no switchport
+ no ip address
+ channel-group 2 mode active
+!
+interface FastEthernet2/0/21
+ no switchport
+ no ip address
+ channel-group 3 mode active
+!
+interface FastEthernet2/0/22
+ no switchport
+ no ip address
+ channel-group 3 mode active
+!
+interface FastEthernet2/0/23
+!
+interface FastEthernet2/0/24
+!
+interface FastEthernet2/0/25
+!
+interface FastEthernet2/0/26
+!
+interface FastEthernet2/0/27
+!
+interface FastEthernet2/0/28
+!
+interface FastEthernet2/0/29
+!
+interface FastEthernet2/0/30
+!
+interface FastEthernet2/0/31
+!
+interface FastEthernet2/0/32
+!
+interface FastEthernet2/0/33
+!
+interface FastEthernet2/0/34
+!
+interface FastEthernet2/0/35
+!
+interface FastEthernet2/0/36
+!
+interface FastEthernet2/0/37
+!
+interface FastEthernet2/0/38
+!
+interface FastEthernet2/0/39
+!
+interface FastEthernet2/0/40
+!
+interface FastEthernet2/0/41
+!
+interface FastEthernet2/0/42
+!
+interface FastEthernet2/0/43
+!
+interface FastEthernet2/0/44
+!
+interface FastEthernet2/0/45
+!
+interface FastEthernet2/0/46
+!
+interface FastEthernet2/0/47
+!
+interface FastEthernet2/0/48
+!
+interface GigabitEthernet2/0/1
+!
+interface GigabitEthernet2/0/2
+!
+interface GigabitEthernet2/0/3
+!
+interface GigabitEthernet2/0/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 10.0.8.0 255.255.255.224 10.7.240.49
+ip route 10.7.240.52 255.255.255.252 10.7.240.49
+ip http server
+ip http secure-server
+!
+!
+!
+!
+banner motd ^C"UNLIMITED POWER...Everything That Has Transpired Has Done So According To My Design."^C
+!
+line con 0
+ password 7 14141B180F0B
+ logging synchronous
+ login
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+end

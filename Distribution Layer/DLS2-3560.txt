@@ -74,19 +74,6 @@ name executive4
 vlan 45
 name voice4
 
-vlan 50
-name sales5
-vlan 51
-name marketing5
-vlan 52
-name tech5
-vlan 53
-name manufacturing5
-vlan 54
-name executive5
-vlan 55
-name voice5
-
 vlan 666
 name blackhole
 vlan 999

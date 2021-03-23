@@ -44,7 +44,25 @@ $  $        $ $$u5e" .     "k                    d"       #$bu$F  $       4F
  $ $         $$Jr  $d" '$r "*==*"            "#**"" $r  4$3r  db$F        4F
  $c$         $'*F  $"   '$            /\            $    *(L  $$$F         k
  #i*e.       $ 4>  $  ue $         \`.||.'/         'L c  $$ .L$d         .$y
-
+#
+!
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
+!
+!
 !Vlans
 vlan 30
 name SALES
@@ -116,7 +134,7 @@ spanning-tree portfast bpduguard default
 	# Access Control
 int fa0/13
 switchport mode access
-switchport access vlan 10
+switchport access vlan 32
 int range fa0/6-8
 switchport mode access
 switchport access vlan 666

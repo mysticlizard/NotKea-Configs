@@ -1,7 +1,8 @@
 en
 config t
-
 hostname ALS4
+cdp run
+lldp run
 !
 !Banner
 banner motd #
@@ -72,8 +73,6 @@ banner motd #
 !
 #
 no ip domain-lookup
-cdp run
-lldp run
 line con 0
  password cisco
  login

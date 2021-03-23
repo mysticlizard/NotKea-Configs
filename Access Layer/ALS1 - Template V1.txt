@@ -5,7 +5,6 @@ config t
 hostname ALS_1
 cdp run
 lldp run
-logging sync
 	# Security
 en
 config t
@@ -86,42 +85,27 @@ vlan 999
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
 !
 !Vlan Addresses
 !
 int vlan 10
- ip address 10.0.8.1 255.255.255.224
- exit
- vlan 11
- name Marketing
+ ip address 10.0.8.4 255.255.255.224
  exit
 int vlan 11
- ip address 10.0.28.1 255.255.255.240
- exit
-vlan 12
- name Tech
+ ip address 10.0.28.4 255.255.255.240
  exit
 int vlan 12
- ip address 10.0.24.1 255.255.255.240
- exit
-vlan 13
- name Manufacturing
+ ip address 10.0.24.4 255.255.255.240
  exit
 int vlan 13
- ip address 10.0.0.1 255.255.255.224
- exit
- exit
-vlan 14
- name Executive
+ ip address 10.0.0.4 255.255.255.224
  exit
 int vlan 14
- ip address 10.0.32.1 255.255.255.248
- exit
-vlan 15
- name Voice
+ ip address 10.0.32.4 255.255.255.248
  exit
 int vlan 15
- ip address 10.0.16.1 255.255.255.224
+ ip address 10.0.16.4 255.255.255.224
  exit
  int vlan 999
  ip address 10.0.255.1 255.255.255.255
@@ -132,19 +116,43 @@ en
 config t
 int range fa0/1-2
  channel-group 1 mode active
-int port-chan 1
- dot1q encapsulation
- switchport mode trunk
- switchport allowed vlans 10,11,12,13,14,15
- switchport native vlan 999
 int range fa0/3-4
  channel-group 2 mode active
-int port-chan 2
- dot1q encapsulation
+int ra port-ch 1-2
  switchport mode trunk
- switchport allowed vlans 10,11,12,13,14,15
- switchport native vlan 999
- 	# Spanning Tree
+ switchport trunk allowed vlan 10-15
+ switchport trunk native vlan 999
+
+!Spanning Tree
 spanning-tree mode rapid-pvst 
 spanning-tree portfast default
 spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/5
+switchport mode access
+switchport access vlan 10
+int range fa0/6-23
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!
+!
+!
+# NTP
+ntp server ?.?.?.?
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan ? # For Client VLANS
+	# IP Source Guard
+int fa0/? # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan ? # For Client VLANS
+int port-chan ?
+ ip arp inspection trust
+ 	# Logging sync
+logging sync

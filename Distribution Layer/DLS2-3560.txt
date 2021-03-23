@@ -1,0 +1,88 @@
+enable
+config T
+hostname DLS2-3560
+no ip domain-lookup
+line con 0
+password cisco
+login
+logging sync
+
+ip domain notkea.local
+crypto key generate rsa
+1024
+ip ssh ver 2
+username admin secret democracy
+enable secret democracy
+service password-enc
+line vty 0 15
+login local
+transport input ssh
+banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
+line aux 0
+password cisco
+login
+
+
+int ra f0/1-2
+ channel-group 1 mode active
+int ra f0/3-4
+ channel-group 2 mode active
+int ra f0/5-6
+ channel-group 3 mode active
+int ra f0/7-8
+ channel-group 4 mode active
+int ra f0/21-24
+ channel-group 5 mode active
+int ra f0/17-18
+ no sw
+ channel-group 6 mode active
+int ra f0/19-20
+ no sw
+ channel-group 7 mode active
+
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10-15
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel2
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 20-25
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel3
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 30-35
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel4
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 40-45
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel5
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10-45
+ switchport mode trunk
+ switchport nonegotiate
+
+interface Port-channel6
+ no switchport
+ ip address 10.7.240.57 255.255.255.252
+ no shut
+
+interface Port-channel7
+ no switchport
+ ip address 10.7.240.61 255.255.255.252
+ no shut
+
+end

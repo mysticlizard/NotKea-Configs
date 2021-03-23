@@ -1,21 +1,202 @@
 en
 config t
+
 hostname ALS4
 !
+!Banner
+banner motd #
+                      .;IIIIIIIIIIIIII;.
+            .,;iIIIIIIIIIIIIIIIIIIIIIIII.
+         ,iIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+       ;IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+      ;IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+     IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+    IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII'
+   ' nPL="-LnMMP" ..IIIIIIIIIIIIII  
+    JhJ  uMMP" .IIIIIIIIIIIIIIIIII   
+    MM,nMMP  .IIIIIIIIIIIIIIIIIIIII   
+    MMMMM .IIIIIIIIIIIIIIIIIIIIIIII.  
+    MMMP ;IIIIIIIIIIIIII??"'``'"?II  
+    MP .IIIIIIIIIIII"'',xmnmnmnmn.' 
+    ' ,IIIIIIIIII"',nMMMMMMMMMMMMP.
+     IIIIIIIIII' xJMMMMMMMMMMMMMMMM
+    `IIIIIIII'.xPP4MMMMMMMMMMMMMMMM
+     `IIIII' =";nmMMMMMMMMPP"" .,,,.
+      IIII' ;nMMMMMMMPP"'.;IIIIIIIIII
+      `III uMMMMMMMP" .IIIIIIIIIIIIII.
+       II JMMPLJP'.;IIIIIIIIIIIIIIIIIII.
+        ' MM JP'.IIIIIIIIIIIIIIIIIII>"'''   .,,..
+         4MMM" .IIIIIIIIIIIIIII>"`_,,nmMMMMMMP4444Mbn.
+          "M' IIIIIIIIIIII>"'',==PPP _.  ==n,,,.. ."
+           ' ;IIIIIIIII>'`.xn",r cc=???$$$P==.'===""
+             IIIIIIII'`,xJP" z$ J" .zc$$$$PPPPF.
+             `IIIII" ,J??" r.$'J" c$$$$$$$$ccc,`$.
+               `' ,nMP    c$$$ J J$$$$$$$$$P'??.$h
+         .,,.,cccc'"  ,=="?$$$c$ $$""_`"?$$ ,cc ?$.
+         "?c,.  "?$.4JF- z$$$$$$cP',$$$r`$$ ??$F<$F
+           $$,-.= ?$P" . -<$$$$$$h ?  ?$ $$   J J$F
+          ,<$$$Lz- "z".=JcJ$$$$$$$L .,JP $$."=".$$"                     _,
+        ,JF "?$$L,JcL-",J$$$$$$$$$$h "" z$===<$$$$C..          _.,,==`""
+       nM".=..`"???$ z$""$$$$$$$$$$F"",$$    .$$$$$$$$$c,. _,="
+      JM x ,=    .$.zF z$$$$$$$$$$$$$$$$$cccc$$$$$$$$$$$".r
+      4M P"     z$$"",J$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+              . "',.,cccJ$$F?$$$$$$$$$$$$$$$$$$$$$$$$$$$$"-======-..._
+         _,-="???$"?P",P"$$F $$$$$$$$$$$$$$$$$$$$$$$$$$$$$'           `"~=
+      ,="       JFJ"-=" J$$F;$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+   ,="          P'.zcJ $$".,,"$$$$$$$$$$$$$$$$$$$$$$$$$P'
+,-"          ,-="PP$F';$$ $$$.`?$$$$$$$$$$$$$$$$$$$$$""
+          ,-"    " $F r;$?$$$$h.`"?$$$$$$$$$$$$PPP""
+        ,='        `$$F;$ $"$$$$$$cc,.,,..,.,,zccF
+      ,="           ` `?F-$ $$$$$$$$$$$$$$$$$$$"
+    ,'                  FcP $P"$$$$$$$$$$$$$$P'
+  ,"                     ".,$ J$$$$$$$$$$$$P"
+                          `?C P.$$$$$$$$P"'
+                            "?F<$$$$$$L.
+                             J`$"$$$$$F
+                             $;? $$$P z
+                             $P-;$?$$$$                 .II. 
+                             <$LJ?;$$$$              .IIIIII>
+         .III;.              <$$'j$$$$?            .IIIIIIII
+         `IIIIIII;.          J"',"J$?$?         .IIIIIIIIII
+          `IIIIIIIIII;.      JF  .II.`'      .IIIIIIIIIII'
+           `IIIIIIIIIIIIII;...;IIIIII;  ;IIIIIIIIIIIIII'
+            IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+            IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+           IIIIIIIIIIIIIII'''``````IIII'````IIIIIIIIIIII
+           `IIIIIIII''  ,-',cP",cc III cc    ``IIIIIIII'
+    
+               It was at this point I lost interest.
+#
+!
+!
+!
+#
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
+!
 !Vlans
-vlan 10
+vlan 40
 name SALES
-vlan 11
+vlan 41
 name MARKETING
-vlan 12
+vlan 42
 name TECH
-vlan 13
+vlan 43
 name MANUFACTURING
-vlan 14
+vlan 44
 name EXECUTIVE
-vlan 15
+vlan 45
 name VOICE
 vlan 999
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
+!
+!Vlan Addresses
+! MAKE SURE IP'S ARE CORRECT
+!
+int vlan 40
+ ip address 10.0.11.4 255.255.255.224
+ exit
+int vlan 41
+ ip address 10.0.31.4 255.255.255.240
+ exit
+int vlan 42
+ ip address 10.0.27.4 255.255.255.240
+ exit
+int vlan 43
+ ip address 10.0.3.4 255.255.255.224
+ exit
+int vlan 44
+ ip address 10.0.35.4 255.255.255.248
+ exit
+int vlan 45
+ ip address 10.0.19.1 255.255.255.224
+ exit
+ int vlan 999
+ ip address 10.0.255.4 255.255.255.255
+ exit
+!
+!
+en
+config t
+!
+! CHECK INTERFACES!!! and PORT CHANNELS
+!
+en
+config t
+int range fa0/1-2
+ channel-group 1 mode active
+int range fa0/3-4
+ channel-group 2 mode active
+int ra port-ch 1-2
+ switchport mode trunk
+ switchport trunk allowed vlan 40-45
+ switchport trunk native vlan 999
+
+!
+!Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/17
+switchport mode access
+switchport access vlan 43
+int fa0/21
+switchport mode access
+switchport access vlan 44
+int range fa0/5-16
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/18-20
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/22-24
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!
+!
+!
+# NTP
+ntp server ?.?.?.?
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan ? # For Client VLANS
+	# IP Source Guard
+int fa0/? # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan ? # For Client VLANS
+int port-chan ?
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+
+
+
+
+!

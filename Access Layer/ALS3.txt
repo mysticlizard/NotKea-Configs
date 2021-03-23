@@ -49,6 +49,8 @@ $  $        $ $$u5e" .     "k                    d"       #$bu$F  $       4F
 !
 no ip domain-lookup
 line con 0
+cdp run
+lldp run
  password cisco
  login
 enable secret class

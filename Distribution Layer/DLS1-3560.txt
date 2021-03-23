@@ -7,7 +7,7 @@ password cisco
 login
 logging sync
 
-ip domain notkea.local
+ip domain-name notkea.local
 crypto key generate rsa
 1024
 ip ssh ver 2

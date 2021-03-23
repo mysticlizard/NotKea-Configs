@@ -78,6 +78,8 @@ vlan 666
 name blackhole
 vlan 999
 name management
+int vlan 999
+ip address 10.0.255.5 255.255.255.0
 
 int ra f0/1-2
  channel-group 1 mode active

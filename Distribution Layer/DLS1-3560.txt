@@ -22,6 +22,8 @@ line aux 0
 password cisco
 login
 
+no vlan 2-1001
+
 vlan 10
 name sales1
 vlan 11

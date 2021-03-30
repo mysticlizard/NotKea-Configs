@@ -12,6 +12,7 @@ ip domain-name notkea.local
 crypto key generate rsa
 1024
 ip ssh ver 2
+ip routing
 username admin secret democracy
 enable secret democracy
 service password-enc

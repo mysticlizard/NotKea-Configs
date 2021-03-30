@@ -79,6 +79,8 @@ vlan 34
 name EXECUTIVE
 vlan 35
 name VOICE
+vlan 999
+name NATIVE
 vlan 1000
 name MANAGEMENT
 vlan 666

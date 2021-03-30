@@ -79,7 +79,7 @@ vlan 34
 name EXECUTIVE
 vlan 35
 name VOICE
-vlan 999
+vlan 1000
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
@@ -106,7 +106,7 @@ int vlan 34
 int vlan 35
  ip address 10.0.18.4 255.255.255.224
  exit
- int vlan 999
+ int vlan 1000
  ip address 10.0.255.3 255.255.255.255
  exit
 !

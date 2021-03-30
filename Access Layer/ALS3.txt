@@ -154,6 +154,10 @@ switchport mode access
 switchport access vlan 666
 shutdown
 exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
 !
 !
 # NTP

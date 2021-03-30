@@ -233,6 +233,11 @@ standby 1 preempt
 int vlan 999
 ip address 10.0.255.6 255.255.255.0
 
+ip dhcp snooping
+ip dhcp snooping vlan 10-45
+ip arp inspection
+ip arp inspection vlan 10-45
+
 int ra f0/1-2
  channel-group 1 mode active
 int ra f0/3-4
@@ -256,6 +261,8 @@ interface Port-channel1
  switchport trunk allowed vlan 10-15
  switchport mode trunk
  switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel2
  switchport trunk encapsulation dot1q
@@ -263,6 +270,8 @@ interface Port-channel2
  switchport trunk allowed vlan 20-25
  switchport mode trunk
  switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel3
  switchport trunk encapsulation dot1q
@@ -270,6 +279,8 @@ interface Port-channel3
  switchport trunk allowed vlan 30-35
  switchport mode trunk
  switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel4
  switchport trunk encapsulation dot1q
@@ -277,6 +288,8 @@ interface Port-channel4
  switchport trunk allowed vlan 40-45
  switchport mode trunk
  switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel5
  switchport trunk encapsulation dot1q
@@ -284,15 +297,21 @@ interface Port-channel5
  switchport trunk allowed vlan 10-45
  switchport mode trunk
  switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel6
  no switchport
  ip address 10.7.240.57 255.255.255.252
+ ip dhcp snooping trust
+ ip arp inspection trust
  no shut
 
 interface Port-channel7
  no switchport
  ip address 10.7.240.61 255.255.255.252
+ ip dhcp snooping trust
+ ip arp inspection trust
  no shut
 
 span vlan 10-15,30-35 root secondary

@@ -81,6 +81,8 @@ name voice4
 vlan 666
 name blackhole
 vlan 999
+name native
+vlan 1000
 name management
 
 int vlan 10
@@ -231,7 +233,7 @@ standby 1 ip 10.0.19.1
 standby 1 priority 100
 standby 1 preempt
 
-int vlan 999
+int vlan 1000
 ip address 10.0.255.5 255.255.255.0
 standby version 2
 standby 1 ip 10.0.255.9
@@ -267,7 +269,7 @@ int ra f0/19-20
 interface Port-channel1
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10-15
+ switchport trunk allowed vlan 10-15,1000
  switchport mode trunk
  switchport nonegotiate
  ip dhcp snooping trust
@@ -276,7 +278,7 @@ interface Port-channel1
 interface Port-channel2
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
- switchport trunk allowed vlan 20-25
+ switchport trunk allowed vlan 20-25,1000
  switchport mode trunk
  switchport nonegotiate
  ip dhcp snooping trust
@@ -285,7 +287,7 @@ interface Port-channel2
 interface Port-channel3
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
- switchport trunk allowed vlan 30-35
+ switchport trunk allowed vlan 30-35,1000
  switchport mode trunk
  switchport nonegotiate
  ip dhcp snooping trust
@@ -294,7 +296,7 @@ interface Port-channel3
 interface Port-channel4
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
- switchport trunk allowed vlan 40-45
+ switchport trunk allowed vlan 40-45,1000
  switchport mode trunk
  switchport nonegotiate
  ip dhcp snooping trust
@@ -303,7 +305,7 @@ interface Port-channel4
 interface Port-channel5
  switchport trunk encapsulation dot1q
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10-45
+ switchport trunk allowed vlan 10-45,1000
  switchport mode trunk
  switchport nonegotiate
  ip dhcp snooping trust

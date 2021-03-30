@@ -15,13 +15,13 @@ no shutdown
 
 int g0/1
 nameif NOTKEA_MAD_CORE1
-ip address 10.7.240.66 255.255.255.252
+ip address 10.7.240.70 255.255.255.252
 no shut
 security-level 100
 
 int g0/2
 nameif NOTKEA_MAD_CORE2
-ip add 10.7.240.70 255.255.255.252
+ip add 10.7.240.78 255.255.255.252
 no shut
 security-level 100
 
@@ -50,12 +50,14 @@ inspect icmp
 username student password cisco
 aaa authentication ssh console LOCAL
 crypto key generate rsa modulus 1024
+
+# ip and subnet of host, name of nearest ASA interface
 ssh 10.0.0.1 255.255.255.0 inside-to-core1
 
 
 # Enable ASA http interface -- x and y are the ip and subnet of the management host machine, followed by the name of the nearest ASA interface
 
 http server enable
-http x.x.x.x y.y.y.y NOTKEA_MAD_CORE1
+http x.x.x.x y.y.y.y NOTKEA_MAD_CORE2
 
 # 

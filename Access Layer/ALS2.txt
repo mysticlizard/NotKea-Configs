@@ -83,10 +83,12 @@ vlan 24
 name EXECUTIVE
 vlan 25
 name VOICE
-vlan 1000
-name MANAGEMENT
 vlan 666
 name BLACKHOLE
+vlan 999
+name NATIVE
+vlan 1000
+name MANAGEMENT
 exit
 !
 !Vlan Addresses

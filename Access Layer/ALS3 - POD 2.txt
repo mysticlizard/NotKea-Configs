@@ -1,21 +1,128 @@
 en
 config t
-hostname ALS3
+hostname ALS_3_POD2
+cdp run
+lldp run
+!
+!Banner
+banner motd y
+!message here! 
+ y
+!
+!
+!
+!
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
+!
 !
 !Vlans
-vlan 10
+vlan 30
 name SALES
-vlan 11
+vlan 31
 name MARKETING
-vlan 12
+vlan 32
 name TECH
-vlan 13
+vlan 33
 name MANUFACTURING
-vlan 14
+vlan 34
 name EXECUTIVE
-vlan 15
+vlan 35
 name VOICE
 vlan 999
+name NATIVE
+vlan 1000
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
+!
+!Vlan Addresses
+! MAKE SURE IP'S ARE CORRECT
+!
+int vlan 30
+ ip address 10.8.10.4 255.255.255.224
+ exit
+int vlan 31
+ ip address 10.8.30.4 255.255.255.240
+ exit
+int vlan 32
+ ip address 10.8.26.4 255.255.255.240
+ exit
+int vlan 33
+ ip address 10.8.2.4 255.255.255.224
+ exit
+int vlan 34
+ ip address 10.8.34.4 255.255.255.248
+ exit
+int vlan 35
+ ip address 10.8.18.4 255.255.255.224
+ exit
+ int vlan 1000
+ ip address 10.8.255.3 255.255.255.255
+ exit
+!
+!
+en
+config t
+!
+! CHECK INTERFACES!!! and PORT CHANNELS
+!
+en
+config t
+int range fa0/1-2
+ channel-group 1 mode active
+int range fa0/3-4
+ channel-group 2 mode active
+int ra port-ch 1-2
+ switchport mode trunk
+ switchport trunk allowed vlan 30-35
+ switchport trunk native vlan 999
+
+!
+!Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/13
+switchport mode access
+switchport access vlan 32
+int range fa0/6-8
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/5-12
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!
+int range fa0/14-24
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
+!
+!
+# NTP

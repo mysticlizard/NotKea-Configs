@@ -20,9 +20,6 @@ line vty 0 15
 login local
 transport input ssh
 banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
-line con 0
-password cisco
-login
 
 no vlan 2-1001
 

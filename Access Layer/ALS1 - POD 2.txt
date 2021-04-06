@@ -8,8 +8,45 @@ lldp run
 	# Security
 en
 config t
-banner motd #
-!Stuff message here!
+banner motd # 
+':c:::;;::;;;,,,,;;;;;;:;;;;;::lodxxxxkxxxxxolc:;;::::ccccccc:,,,;;;;;;:cc:::
+,lolc;;:::;;,''...''''',;;;;;:oxOKXXXXNNXXXK0koc;,,,,;::::::;'...','.'',:c:;;
+;ooddllllccc:;;,...'.'..',;;cx0XXNNNNNNNNNNNNKOdl:'...'''''''....''...',;c:;,
+:ookOkxdooooc:,'.....'...';lOXXXXXNNNNNNNNNNNNXOdoc'.....',;;'....'...',:l:;,
+;ccooolccc:;;,''''....'';:d0XXKKXXNNNNNNNNNNNNNKkdl:,,;::::::'....'..'';loc:,
+,looolccloc:;;;;;;,,;;;coOXXXK0KXNNNNNNNNNNNNNNXOxdc:cooddc:c;....''.'';lollc
+,looolllolclooocccllodxkKXXKKKKKXNXXNNNXXNNNNNNNKOxoccoddoccl;...'''.'',clllc
+;olcdxocc;:looocloodxO0XXXKKKKXXXKKXNXXXXXXNNNNNXK0koc:cclllc,...''...',:ccl:
+:xdoxOd:,,;:;;;;ccok0XXXK00KKKKKKKXXXXXXXKXXXNNNNNX0kdoxxxxxd;...''...';ccll:
+;oolooc::ccc:;,;:cxKXXK0OO00KKKKXXXXXXXXKKKKXNNXXNNXKOxddxxdl,..''''..',;:cc:
+;ooolcccc:c::;:cdOKXKOOOO0000KKXXXXXXXKK00KXXXXXXXXNNX0xoc:::'..',,'..',:;;;,
+,clll::lc:ccccokKXXKOkOOOOO00KKXXXXXXK00KKXXXKKXXXKXNNXKkoclc,..',''.'';cllc:
+;llodddlc:ccccxKNXXK0OOOOO0KKKXXXXXXKKKKXXKKKKKKXKKXNNNXKkdol,...''..'',;;::;
+;lldxxdddolcclOXNNXXK0OOO0KKXXNNNNNNNXXXXXKK0000KKXNNNNXXOdc;....,'...',,,;;;
+,ccllc:cdxolld0XNNNX0OO00KKXNNWWWMMWWWWWNNXKK0OOOO0KXXXXKkoc;...:l;'.''''',;,
+;oddl,';lkkdlokXNNXKOOO00KXXNNWMMMMMMMMWWNXXK0OkxxxkO0OOkdl:;''cxo;'.'','''''
+,clll;',cokkxdkKXX0OkkkxxO0XNWWMMMMMMMWWWNXXK0Okxdooodxdolc:;;oxo:,....''''''
+';,,;,,;;cxOOkk0KKOkxolc:;;:ok0XWWWMMWWWNXKOxoc:::clllolc:::cddoc;,...''''','
+,:,:cc:;,;lkOOk0K0kkxddxxdl;'',cx0NNNXXKkl;'..';cc::cccc:::oxdo:;,'....'''','
+.,,:c::;,,cxOkxO0Okkkkxddddoc:::cdOK0Okdc;;;:loooolccclcc::oxdc,'''..'''''','
+.'',;;;,';cokxxO0OO00Okoclol;:cldxOKKkdolc::::ll:ccloollcc:loo,.''........','
+','',;;,,,;lxkkOOO00000OkkOxoooodk0KKkdolcldooddoddxddollllloc'..'...........
+.,'';:;,',;cdOOkkO00KXXNNNNNXK0kkOO0Oxddodk0KKKK000Oxdolloodd:..''...........
+.,,',,,',,,;cxOkkO00KXNWWMMWWXKOkkOOkddoox0KXXNNXK0Oxdolloxxo;''''''.........
+';;,,,,,,,,,;cdkkkO0KXNWWMMWN0kxxk00OdolloxOKXXXXK0kxolllodo:,'''''''........
+':::;;;;;;,,,;cdxxkOKXXNWWWWXOxdodkkdl::cldOKXXXK0Oxdllloolccccc::;;;;;,,'''.
+';:::::;;;,;;,;:lldO0KXNNXXK0OxdoooolcccloxkO0KKK0kdolcllc::ccllccccccllc:;;,
+':::;;,,;;;;;;;;;:lkO0KKK0OkkkkkkkkkxxddoooooxkOkkxolc:;;,,,,;;;;;::cclllcc:;
+'::::;;;,,,;,,,;;;cdkOO00Okxolllooddolll:::coxxxxdollc;,,;;;;;;:::::coddoocc;
+':cc:::;;,,,,,,,;;;lxxkkOOOOxdooodddoollclloddddoollc:,,,;::::clolcclodooool:
+'::::::::;,,,;;;;;,;odxxkkOOOOkkxxxdddddddddddoollcc:;,,,;;;:ccoolcllloloodo:
+'::::::::::cc:::::,';lodxkkOO000OOkkkkkkkxxddoolcc::,''',,;;;:cloooddddoodxo:
+,ccclllccccccccc::,..;loddxkkO00KKKK00OOkxdoolc:::;'...'',;;;::clooooolc;:c:,
+,lccccccccccc:;,'...'cdoolloddxkOOOOOkxxdolc:::::cl:'....',;;;:clllllc:'''','
+,ccclllc:;,''..  ..'oxxxdoolllllloollccc::::::ccclodc..  ....';:lllll:'....'.
+;loolc;'...  .  ...lOOxxxxxdddoooolllccccccclllllodx:...      ..,:cll;.......
+;l:,...  .........'o0Okxxxxxkkxxxxxxddooooooooolodko'.... ...    ..':;.......
+... ...............ck0OkxkkkkkkOOOOkkxxxddddooodxxl'    
 #
 no ip domain-lookup
 line con 0

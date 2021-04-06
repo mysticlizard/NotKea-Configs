@@ -58,4 +58,14 @@ ssh 10.0.0.1 255.255.255.0 inside-to-core1
 http server enable
 http x.x.x.x y.y.y.y NOTKEA_MAD_CORE1
 
-# 
+#Please check that this works, Im not sure if an ext access list is needed vs a regular ACL#
+# Configure ACL from outside interface to inside network
+ip access-list extended toInternet
+permit udp 10.0.0.0 0.7.255.255 any eq 53
+permit tcp 10.0.0.0 0.7.255.255 any eq 80
+permit icmp any any
+
+int g0/1
+ip access-group toInternet in
+int g0/2
+ip access-group toInternet in

@@ -313,6 +313,7 @@ interface Port-channel6
  ip address 10.7.240.49 255.255.255.252
  ip dhcp snooping trust
  ip arp inspection trust
+ ip summary-address eigrp 328 10.0.0.0 255.255.0.0
  no shut
 
 interface Port-channel7
@@ -320,10 +321,8 @@ interface Port-channel7
  ip address 10.7.240.53 255.255.255.252
  ip dhcp snooping trust
  ip arp inspection trust
- no shut
- 
-interface range port-channel 6-7
  ip summary-address eigrp 328 10.0.0.0 255.255.0.0
+ no shut
 
 span vlan 10-15,30-35 root primary
 span vlan 20-25,40-45 root secondary

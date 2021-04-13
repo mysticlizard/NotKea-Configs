@@ -148,7 +148,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 40-45
+ switchport trunk allowed vlan 40-45,1000
  switchport trunk native vlan 999
 
 !
@@ -187,8 +187,6 @@ switchport access vlan 666
 !
 !
 !
-# NTP
-ntp server ?.?.?.?
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 43 # For Client VLANS
@@ -217,7 +215,9 @@ int port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync
-
+!
+# NTP
+ntp server ?.?.?.?
 
 
 

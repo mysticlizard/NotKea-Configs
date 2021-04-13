@@ -254,6 +254,7 @@ int ra f0/5-6
 int ra f0/7-8
  channel-group 4 mode active
 int ra f0/21-24
+ no sw
  channel-group 5 mode active
 int ra f0/17-18
  no sw
@@ -299,18 +300,15 @@ interface Port-channel4
  ip arp inspection trust
 
 interface Port-channel5
- switchport trunk encapsulation dot1q
- switchport trunk native vlan 999
- switchport trunk allowed vlan 10-45,1000
- switchport mode trunk
- switchport nonegotiate
- ip dhcp snooping trust
+ no switchport
+ ip address 10.7.240.46 255.255.255.252
  ip arp inspection trust
+ ip summary-address eigrp 328 10.0.0.0 255.255.0.0
+ no shut
 
 interface Port-channel6
  no switchport
  ip address 10.7.240.57 255.255.255.252
- ip dhcp snooping trust
  ip arp inspection trust
  ip summary-address eigrp 328 10.0.0.0 255.255.0.0
  no shut
@@ -318,7 +316,6 @@ interface Port-channel6
 interface Port-channel7
  no switchport
  ip address 10.7.240.61 255.255.255.252
- ip dhcp snooping trust
  ip arp inspection trust
  ip summary-address eigrp 328 10.0.0.0 255.255.0.0
  no shut
@@ -328,6 +325,7 @@ span vlan 20-25,40-45 root primary
 
 router eigrp 328
  network 10.0.0.0 0.0.255.255
+ network 10.7.240.44 0.0.0.3
  network 10.7.240.56 0.0.0.3
  network 10.7.240.60 0.0.0.3
  
@@ -358,6 +356,8 @@ router eigrp 328
  passive-interface vlan 43
  passive-interface vlan 44
  passive-interface vlan 45
+ 
+ passive-interface vlan 1000
  
  eigrp router-id 1.1.3.2
 

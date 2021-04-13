@@ -156,3 +156,22 @@ switchport access vlan 666
 !
 !
 !
+!
+!
+!
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan 21 # For Client VLANS
+	# IP Source Guard
+int fa0/9 # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan 21 # For Client VLANS
+int range port-chan 1-2
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+!
+# NTP
+ntp server ?.?.?.?

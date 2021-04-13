@@ -161,8 +161,7 @@ switchport access vlan 666
 !
 !
 !
-# NTP
-ntp server ?.?.?.?
+!
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 21 # For Client VLANS
@@ -176,3 +175,6 @@ int range port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync
+!
+# NTP
+ntp server ?.?.?.?

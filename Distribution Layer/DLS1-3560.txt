@@ -326,6 +326,7 @@ span vlan 20-25,40-45 root secondary
 
 router eigrp 328
  network 10.0.0.0 0.0.255.255
+ network 10.7.240.44 0.0.0.3
  network 10.7.240.48 0.0.0.3
  network 10.7.240.52 0.0.0.3
  
@@ -356,6 +357,8 @@ router eigrp 328
  passive-interface vlan 43
  passive-interface vlan 44
  passive-interface vlan 45
+ 
+ passive-interface vlan 1000
  
  eigrp router-id 1.1.3.1
 

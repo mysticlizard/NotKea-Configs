@@ -2,16 +2,18 @@
 
 enable password democracy
 clock set 15:26:00 March 9 2021
-hostname ASA1
+hostname NOTKEA-MAD-ASA2
 domain-name notkea.local
+username student password cisco
 
 
 # Interfaces -- naming the interface sets security-level to 0!! Make sure to nameif BEFORE security-level
 
 int g0/0
-nameif outside-to-internet
+nameif outside-internet
 ip address dhcp
 no shutdown
+security-level 0
 
 int g0/1
 nameif NOTKEA_MAD_CORE1
@@ -25,39 +27,60 @@ ip add 10.7.240.78 255.255.255.252
 no shut
 security-level 100
 
+exit
+
 
 # Route pointing to Madison College Router - just guessing that college router ip is .254
 
-route outside 0.0.0.0 0.0.0.0 172.19.16.254
+route outside-internet 0.0.0.0 0.0.0.0 172.19.16.254
+
+
+# Route pointing to our Pod network
+
+route NOTKEA_MAD_CORE2 10.0.0.0 255.248.0.0 10.7.240.77
+
 
 # Configure NAT (PAT, technically) from inside to outside
 # inside/outside are user defined names for interfaces, this may need to be a zone based firewall that incorporates both core switch connections
 
 object network INSIDE-TO-NET
 subnet 10.0.0.0 255.255.255.0
-nat (inside,outside) dynamic interface
+nat (NOTKEA_MAD_CORE2,outside-internet) dynamic interface
 
 
 # create policy map to allow icmp -- check firewall documentation on this, it's finicky
 
-policy-map global-policy
-class inpection-default
+policy-map global_policy
+class inpection_default
 inspect icmp
+exit
+exit
 
 
-# configure ssh access
+# Optional -- Allow your ASA to appear as the first hop for inside hosts going out
+class class_default
+set connection decrement-ttl
 
-username student password cisco
+
+# configure ssh access and http access
+
+aaa authentication http console LOCAL
 aaa authentication ssh console LOCAL
 crypto key generate rsa modulus 1024
 
+
 # ip and subnet of host, name of nearest ASA interface
-ssh 10.0.0.1 255.255.255.0 inside-to-core1
+
+ssh 10.0.0.0 255.255.255.0 NOTKEA_MAD_CORE2
 
 
 # Enable ASA http interface -- x and y are the ip and subnet of the management host machine, followed by the name of the nearest ASA interface
 
 http server enable
-http x.x.x.x y.y.y.y NOTKEA_MAD_CORE2
+http 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE2
 
-# 
+
+# ACL allowing certain traffic types in -- don't paste these in!! this section is WIP, never done ACLs on ASA CLI before.Your mileage may vary.
+#access-list outside-in extended permit icmp any any time-exceeded
+#access-list outside-in extended permit icmp any any unreachable
+#access-list outside-in extended permit icmp any any traceroute

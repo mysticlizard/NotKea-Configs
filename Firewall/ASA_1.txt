@@ -4,7 +4,7 @@ enable password democracy
 clock set 15:26:00 March 9 2021
 hostname NOTKEA-MAD-ASA1
 domain-name notkea.local
-username student password cisco
+username student password cisco priv 15
 
 
 # Interfaces -- naming the interface sets security-level to 0!! Make sure to nameif BEFORE security-level
@@ -30,11 +30,11 @@ security-level 100
 
 # Route pointing to Madison College Router - just guessing that college router ip is .254
 
-route outside 0.0.0.0 0.0.0.0 172.19.16.254
+route outside-internet 0.0.0.0 0.0.0.0 172.19.16.254
 
 # Route pointing to our Pod network
 
-route NOTKEA_MAD_CORE1 10.0.0.0 255.224.0.0 10.7.240.65
+route NOTKEA_MAD_CORE1 10.0.0.0 255.248.0.0 10.7.240.65
 
 # Configure NAT (PAT, technically) from inside to outside
 # inside/outside are user defined names for interfaces,  
@@ -50,9 +50,10 @@ policy-map global_policy
 class inpection_default
 inspect icmp
 exit
+exit
 
 # Optional -- Allow your ASA to appear as the first hop for inside hosts going out
-class class-default
+class class_default
 set connection decrement-ttl
 
 
@@ -67,12 +68,12 @@ ssh 10.0.0.0 255.255.255.0 NOTKEA_MAD_CORE1
 # Enable ASA http interface -- x and y are the ip and subnet of the management network or host machine, followed by the name of the nearest ASA interface
 
 http server enable
-http 10.0.35.5 255.255.255.0 NOTKEA_MAD_CORE1
+http 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE1
 
 
-# ACL allowing traffic in -- this section is WIP, never done ACLs on ASA CLI before.
-access-list outside-in extended permit icmp any any time-exceeded
-access-list outside-in extended permit icmp any any unreachable
-access-list outside-in extended permit icmp any any traceroute
+# ACL allowing certain traffic types in -- don't paste these in!! this section is WIP, never done ACLs on ASA CLI before.Your mileage may vary.
+#access-list outside-in extended permit icmp any any time-exceeded
+#access-list outside-in extended permit icmp any any unreachable
+#access-list outside-in extended permit icmp any any traceroute
 
 

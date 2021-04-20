@@ -338,6 +338,7 @@ router eigrp 328
  network 10.7.240.44 0.0.0.3
  network 10.7.240.48 0.0.0.3
  network 10.7.240.52 0.0.0.3
+ network 107.7.250.0 0.0.0.7
  
  passive-interface vlan 10
  passive-interface vlan 11

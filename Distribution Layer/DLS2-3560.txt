@@ -12,6 +12,7 @@ ip domain-name notkea.local
 crypto key generate rsa
 1024
 ip ssh ver 2
+vtp mode transparent
 ip routing
 username admin secret democracy
 enable secret democracy
@@ -24,9 +25,6 @@ line aux 0
 password cisco
 login
 exit
-
-ntp server 10.7.250.17
-ntp server 10.7.250.25
 
 int Loopback0
  ip address 10.7.250.9 255.255.255.248
@@ -369,5 +367,7 @@ router eigrp 328
  
  eigrp router-id 1.1.3.2
 
+ntp server 10.7.250.17
+ntp server 10.7.250.25
 
 end

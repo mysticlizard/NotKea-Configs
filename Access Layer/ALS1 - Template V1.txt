@@ -145,7 +145,13 @@ int range G0/1-2
 switchport mode access
 switchport access vlan 666
 !
-!
+!Defence
+int range f0/5,f0/24
+spanning-tree portfast
+spanning-tree bpduguard en
+switchport mode access
+switchport port-security maximum 2
+switchport port-security
 !
 !
 	# DHCP Snooping

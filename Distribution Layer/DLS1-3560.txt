@@ -12,6 +12,7 @@ ip domain-name notkea.local
 crypto key generate rsa
 1024
 ip ssh ver 2
+vtp mode transparent
 ip routing
 username admin secret democracy
 enable secret democracy
@@ -20,6 +21,13 @@ line vty 0 15
 login local
 transport input ssh
 banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
+line aux 0
+password cisco
+login
+exit
+
+int Loopback0
+ ip address 10.7.250.1 255.255.255.248
 
 no vlan 2-1001
 
@@ -329,6 +337,7 @@ router eigrp 328
  network 10.7.240.44 0.0.0.3
  network 10.7.240.48 0.0.0.3
  network 10.7.240.52 0.0.0.3
+ network 107.7.250.0 0.0.0.7
  
  passive-interface vlan 10
  passive-interface vlan 11
@@ -362,5 +371,7 @@ router eigrp 328
  
  eigrp router-id 1.1.3.1
 
+ntp server 10.7.250.17
+ntp server 10.7.250.25
 
 end

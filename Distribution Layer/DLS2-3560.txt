@@ -26,8 +26,9 @@ login
 exit
 
 ntp server 10.7.250.17
+ntp server 10.7.250.25
 
-int Loopback1
+int Loopback0
  ip address 10.7.250.9 255.255.255.248
 
 no vlan 2-1001

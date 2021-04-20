@@ -43,7 +43,6 @@ object network INSIDE-TO-NET
 subnet 10.0.0.0 255.248.0.0
 nat (NOTKEA_MAD_CORE1,outside-internet) dynamic interface
 
-
 # create policy map to allow icmp -- pings to the outside will work, but traceroute will not, you need an ACL in allowing traceroute and other icmp options.
 
 policy-map global_policy
@@ -52,17 +51,13 @@ inspect icmp
 exit
 exit
 
-# Optional -- Allow your ASA to appear as the first hop for inside hosts going out
-class class_default
-set connection decrement-ttl
-
-
-# configure ssh access
+# configure authentication, generate keys, and ssh access
 
 aaa authentication ssh console LOCAL
 aaa authentication http console LOCAL
+
 crypto key generate rsa modulus 1024
-ssh 10.0.0.0 255.255.255.0 NOTKEA_MAD_CORE1
+ssh 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE1
 
 
 # Enable ASA http interface -- x and y are the ip and subnet of the management network or host machine, followed by the name of the nearest ASA interface
@@ -71,19 +66,23 @@ http server enable
 http 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE1
 
 
+# Optional -- Allow your ASA to appear as the first hop for inside hosts going out
+class class_default
+set connection decrement-ttl
+
 # ACL allowing certain traffic types in -- don't paste these in!! this section is WIP, never done ACLs on ASA CLI before.Your mileage may vary.
 #access-list outside-in extended permit icmp any any time-exceeded
 #access-list outside-in extended permit icmp any any unreachable
 #access-list outside-in extended permit icmp any any traceroute
 
 
-show running-config -------------------------------------------------
-NOTKEA-MAD-ASA1# show running
+#4/20/2021-------------------------------------------------
+NOTKEA-MAD-ASA1# sh run
 : Saved
 
 :
 : Serial Number: FCH18197UZ9
-: Hardware:   ASA5512, 4096 MB RAM, CPU Clarkdale 2792 MHz, 1 CPU (2 cores)
+: Hardware:   ASA5512, 4096 MB RAM, CPU Clarkdale 2793 MHz, 1 CPU (2 cores)
 :
 ASA Version 9.9(1)
 !
@@ -159,13 +158,14 @@ object-group protocol DM_INLINE_PROTOCOL_3
 access-list outside-internet_access_in_1 extended permit object-group DM_INLINE_PROTOCOL_3 any any
 access-list NOTKEA_MAD_CORE2_access_in extended permit object-group DM_INLINE_PROTOCOL_2 any any
 access-list NOTKEA_MAD_CORE1_access_in extended permit object-group DM_INLINE_PROTOCOL_1 any any
-no pager
+pager lines 24
 logging enable
 logging asdm informational
 mtu outside-internet 1500
 mtu NOTKEA_MAD_CORE1 1500
 mtu NOTKEA_MAD_CORE2 1500
 no failover
+no monitor-interface service-module
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -177,6 +177,7 @@ object network INSIDE-TO-NET
 access-group outside-internet_access_in_1 in interface outside-internet
 access-group NOTKEA_MAD_CORE1_access_in in interface NOTKEA_MAD_CORE1
 access-group NOTKEA_MAD_CORE2_access_in in interface NOTKEA_MAD_CORE2
+route outside-internet 0.0.0.0 0.0.0.0 172.19.16.254 1
 route NOTKEA_MAD_CORE1 10.0.0.0 255.224.0.0 10.7.240.65 1
 timeout xlate 3:00:00
 timeout pat-xlate 0:00:30
@@ -255,8 +256,6 @@ call-home
   subscribe-to-alert-group inventory periodic monthly
   subscribe-to-alert-group configuration periodic monthly
   subscribe-to-alert-group telemetry periodic daily
-Cryptochecksum:7e1a8b88f1069814d82e34ca687a8d3d
+Cryptochecksum:ba9c1881243381ad9aeb52aa5912d0b1
 : end
-NOTKEA-MAD-ASA1# configure terminal
-NOTKEA-MAD-ASA1(config)# pager lines 24
-NOTKEA-MAD-ASA1(config)# exit
+NOTKEA-MAD-ASA1#

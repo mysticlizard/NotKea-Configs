@@ -23,6 +23,12 @@ banner motd !Hey man, just make sure you're allowed to use this or bad stuff wil
 line aux 0
 password cisco
 login
+exit
+
+ntp server 10.7.250.17
+
+int Loopback1
+ ip address 10.7.250.9 255.255.255.248
 
 no vlan 2-1001
 

@@ -200,12 +200,15 @@ switchport port-security mac-address sticky
 ip dhcp snooping
 ip dhcp snooping vlan 43
 int fa0/17
+# SRC GUARD
 ip verify source
 ip verify source port-security
+# IP ARP INS
 int port-chan 1-2
 ip arp inspection trust
 exit
 ip arp inspection vlan 43
+line vty 0 15
 logging sync
 !
 !
@@ -213,14 +216,14 @@ logging sync
 ip dhcp snooping
 ip dhcp snooping vlan 44
 # IP Source Guard
-int fa0/21 # Computer port
+int fa0/21 
 ip verify source
 ip verify source port-security
 # Dynamic ARP Inspection
-ip arp inspection vlan 44
 int port-chan 1-2
 ip arp inspection trust
 exit
+ip arp inspection vlan 44
 line vty 0 15
 logging sync
 !

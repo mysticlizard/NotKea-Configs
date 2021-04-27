@@ -179,10 +179,10 @@ ip dhcp snooping vlan 32
 int fa0/13
 ip verify source
 ip verify source port-security
-ip arp inspection vlan 32
 int range port-chan 1-2
 ip arp inspection trust
 exit
+ip arp inspection vlan 32
 line vty 0 15
 logging sync
 !

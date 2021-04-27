@@ -199,12 +199,13 @@ switchport port-security mac-address sticky
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 43
-int fa0/17 # Computer port
- ip verify source
- ip verify source port-security
-ip arp inspection vlan 43
+int fa0/17
+ip verify source
+ip verify source port-security
 int port-chan 1-2
- ip arp inspection trust
+ip arp inspection trust
+exit
+ip arp inspection vlan 43
 logging sync
 !
 !

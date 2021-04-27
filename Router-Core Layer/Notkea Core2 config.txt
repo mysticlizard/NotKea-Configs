@@ -315,6 +315,9 @@ ip classless
 ip http server
 ip http secure-server
 !
+ip access-list extended management
+ permit tcp 10.0.255.0 0.0.0.15 any eq 22
+ permit tcp 10.7.240.0 0.0.0.255 any eq 22
 !
 !
 !
@@ -325,9 +328,11 @@ line con 0
  logging synchronous
  login
 line vty 0 4
+ access-class management in
  login local
  transport input ssh
 line vty 5 15
+ access-class management in
  login local
  transport input ssh
 !

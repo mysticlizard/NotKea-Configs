@@ -170,6 +170,7 @@ switchport mode access
 switchport port-security maximum 3
 switchport port-security
 switchport port-security mac-address sticky
+exit
 !
 !
 !

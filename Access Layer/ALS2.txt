@@ -177,13 +177,13 @@ exit
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 21 
-ip arp inspection vlan 21
 int fa0/9
 ip verify source
 ip verify source port-security
 int range port-chan 1-2
 ip arp inspection trust
 exit
+ip arp inspection vlan 21
 line vty 0 15
 logging sync
 !

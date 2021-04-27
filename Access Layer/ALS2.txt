@@ -173,14 +173,15 @@ switchport port-security mac-address sticky
 exit
 !
 !
-!
-	# DHCP Snooping
+# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 20-25
-int fa0/9
+int rang fa0/9
 storm-control broadcast level 66
+# SRC GUARD
 ip verify source
 ip verify source port-security
+# IP ARP INS
 int range port-chan 1-2
 ip arp inspection trust
 exit

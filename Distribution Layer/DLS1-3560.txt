@@ -22,6 +22,15 @@ login local
 transport input ssh
 banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
 
+errdisable recovery cause bpduguard
+errdisable recovery cause port-mode-failure
+
+spanning-tree mode pvst
+spanning-tree loopguard default
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+
+
 int Loopback0
  ip address 10.7.250.1 255.255.255.248
 

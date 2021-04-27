@@ -157,24 +157,20 @@ switchport port-security
 switchport port-security mac-address sticky
 
 !Kill loopguard
-no spanning-tree guard loop
-no spanning-tree loopguard default
-
-
+!no spanning-tree guard loop
+!no spanning-tree loopguard default
 !
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 10 
-# For Client VLANS
-# IP Source Guard
-int fa0/5 # Computer port
+int fa0/5
 ip verify source
 ip verify source port-security
-# Dynamic ARP Inspection
-ip arp inspection vlan 10 # For Client VLANS
 int range port-chan 1-2
 ip arp inspection trust
-# Logging sync
+exit
+ip arp inspection vlan 10
+line vty 0 15
 logging sync
 !
 !maybe?

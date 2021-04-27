@@ -410,6 +410,8 @@ ip access-list extended management
  permit tcp 10.0.255.0 0.0.0.15 any eq 22
  permit tcp 10.7.240.0 0.0.0.255 any eq 22
 
+snmp-server community NOTKEA RO
+
 ntp server 10.7.250.17
 ntp server 10.7.250.25
 

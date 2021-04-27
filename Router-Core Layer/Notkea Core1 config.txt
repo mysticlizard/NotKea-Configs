@@ -327,6 +327,9 @@ ip route 10.7.240.52 255.255.255.252 10.7.240.49
 ip http server
 ip http secure-server
 !
+ip access-list extended management
+ permit tcp 10.0.255.0 0.0.0.15 any eq 22
+ permit tcp 10.7.240.0 0.0.0.255 any eq 22
 !
 !
 !

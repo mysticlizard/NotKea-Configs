@@ -165,13 +165,13 @@ switchport access vlan 666
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 32 # For Client VLANS
+ip dhcp snooping vlan 32
 	# IP Source Guard
 int fa0/13 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan 32 # For Client VLANS
+ip arp inspection vlan 32
 int range port-chan 1-2
  ip arp inspection trust
  	# Logging sync

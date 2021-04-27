@@ -157,8 +157,8 @@ switchport port-security
 switchport port-security mac-address sticky
 !
 !Kill loopguard
-no spanning-tree guard loop
-no spanning-tree loopguard default
+!no spanning-tree guard loop
+!no spanning-tree loopguard default
 !
 !
 	# DHCP Snooping

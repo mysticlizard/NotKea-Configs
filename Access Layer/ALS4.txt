@@ -205,7 +205,7 @@ storm-control broadcast level 66
 ip verify source
 ip verify source port-security
 # IP ARP INS
-int port-chan 1-2
+int range port-chan 1-2
 ip arp inspection trust
 exit
 ip arp inspection vlan 40-45
@@ -221,8 +221,7 @@ int fa0/21
 storm-control broadcast level 66
 ip verify source
 ip verify source port-security
-# Dynamic ARP Inspection
-int port-chan 1-2
+int range port-chan 1-2
 ip arp inspection trust
 exit
 ip arp inspection vlan 40-45

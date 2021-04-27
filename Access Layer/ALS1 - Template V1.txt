@@ -164,13 +164,13 @@ switchport port-security mac-address sticky
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 10 
-ip arp inspection vlan 10
 int fa0/5
 ip verify source
 ip verify source port-security
 int range port-chan 1-2
 ip arp inspection trust
 exit
+ip arp inspection vlan 10
 line vty 0 15
 logging sync
 !

@@ -178,7 +178,8 @@ ip dhcp snooping
 ip dhcp snooping vlan 32 
 # For Client VLANS
 # IP Source Guard
-int fa0/13 # Computer port
+int fa0/13 
+# Computer port
 ip verify source
 ip verify source port-security
 # Dynamic ARP Inspection

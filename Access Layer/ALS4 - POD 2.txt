@@ -146,34 +146,32 @@ switchport access vlan 666
 !
 !!
 !
-	# DHCP Snooping
-ip dhcp snooping
-ip dhcp snooping vlan 43 # For Client VLANS
-	# IP Source Guard
-int fa0/17 # Computer port
- ip verify source
- ip verify source port-security
-	# Dynamic ARP Inspection
-ip arp inspection vlan 43 # For Client VLANS
-int port-chan 1-2
- ip arp inspection trust
- 	# Logging sync
-logging sync
+!
+!Mk2 defence test
+!Defence agaisnt the dark arts
+int range f0/17,f0/21
+spanning-tree portfast
+spanning-tree bpduguard en
+spanning-tree guard loop
+switchport mode access
+switchport port-security maximum 3
+switchport port-security
+switchport port-security mac-address sticky
 !
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 44 # For Client VLANS
-	# IP Source Guard
-int fa0/21 # Computer port
- ip verify source
- ip verify source port-security
-	# Dynamic ARP Inspection
-ip arp inspection vlan 44 # For Client VLANS
-int port-chan 1-2
- ip arp inspection trust
- 	# Logging sync
+ip dhcp snooping vlan 32 
+int fa0/13 
+ip verify source
+ip verify source port-security
+ip arp inspection vlan 32 
+int range port-chan 1-2
+ip arp inspection trust
+exit
+line vty 0 15
 logging sync
+!
 !
 # NTP
 ntp server ?.?.?.?

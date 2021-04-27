@@ -175,7 +175,7 @@ switchport port-security mac-address sticky
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 32
+ip dhcp snooping vlan 30-35
 int fa0/13
 storm-control broadcast level 66
 ip verify source
@@ -183,7 +183,7 @@ ip verify source port-security
 int range port-chan 1-2
 ip arp inspection trust
 exit
-ip arp inspection vlan 32
+ip arp inspection vlan 30-35
 line vty 0 15
 logging sync
 !

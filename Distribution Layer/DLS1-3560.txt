@@ -22,6 +22,9 @@ login local
 transport input ssh
 banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
 
+logging trap errors
+logging 10.255.255.131
+
 errdisable recovery cause bpduguard
 errdisable recovery cause port-mode-failure
 

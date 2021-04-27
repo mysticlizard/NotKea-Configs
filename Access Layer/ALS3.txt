@@ -182,6 +182,7 @@ ip verify source
 ip verify source port-security
 int range port-chan 1-2
 ip arp inspection trust
+ip dhcp snooping trust
 exit
 ip arp inspection vlan 30-35
 snmp-server community NOTKEA ro

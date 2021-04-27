@@ -163,7 +163,7 @@ switchport port-security mac-address sticky
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 10 
+ip dhcp snooping vlan 10-15
 int fa0/5
 storm-control broadcast level 66
 ip verify source

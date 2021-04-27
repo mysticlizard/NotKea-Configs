@@ -177,6 +177,7 @@ switchport port-security mac-address sticky
 ip dhcp snooping
 ip dhcp snooping vlan 32
 int fa0/13
+storm-control broadcast level 66
 ip verify source
 ip verify source port-security
 int range port-chan 1-2

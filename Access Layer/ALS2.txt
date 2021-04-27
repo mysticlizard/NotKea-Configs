@@ -176,10 +176,10 @@ switchport port-security mac-address sticky
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 21 
-int fa0/9 # Computer port
+ip arp inspection vlan 21
+int fa0/9
 ip verify source
 ip verify source port-security
-ip arp inspection vlan 21
 int range port-chan 1-2
 ip arp inspection trust
 exit

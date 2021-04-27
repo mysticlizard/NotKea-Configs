@@ -176,7 +176,7 @@ exit
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 21 
+ip dhcp snooping vlan 20-25
 int fa0/9
 storm-control broadcast level 66
 ip verify source

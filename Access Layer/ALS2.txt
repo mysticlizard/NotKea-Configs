@@ -178,6 +178,7 @@ exit
 ip dhcp snooping
 ip dhcp snooping vlan 21 
 int fa0/9
+storm-control broadcast level 66
 ip verify source
 ip verify source port-security
 int range port-chan 1-2

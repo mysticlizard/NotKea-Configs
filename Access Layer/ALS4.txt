@@ -189,13 +189,13 @@ switchport access vlan 666
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 43 # For Client VLANS
+ip dhcp snooping vlan 43
 	# IP Source Guard
 int fa0/17 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan 43 # For Client VLANS
+ip arp inspection vlan 43
 int port-chan 1-2
  ip arp inspection trust
  	# Logging sync
@@ -204,16 +204,16 @@ logging sync
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 44 # For Client VLANS
-	# IP Source Guard
+ip dhcp snooping vlan 44
+# IP Source Guard
 int fa0/21 # Computer port
- ip verify source
- ip verify source port-security
-	# Dynamic ARP Inspection
-ip arp inspection vlan 44 # For Client VLANS
+ip verify source
+ip verify source port-security
+# Dynamic ARP Inspection
+ip arp inspection vlan 44
 int port-chan 1-2
- ip arp inspection trust
- 	# Logging sync
+ip arp inspection trust
+# Logging sync
 logging sync
 !
 # NTP

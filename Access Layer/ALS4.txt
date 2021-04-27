@@ -200,6 +200,7 @@ switchport port-security mac-address sticky
 ip dhcp snooping
 ip dhcp snooping vlan 43
 int fa0/17
+storm-control broadcast level 66
 # SRC GUARD
 ip verify source
 ip verify source port-security
@@ -217,6 +218,7 @@ ip dhcp snooping
 ip dhcp snooping vlan 44
 # IP Source Guard
 int fa0/21 
+storm-control broadcast level 66
 ip verify source
 ip verify source port-security
 # Dynamic ARP Inspection

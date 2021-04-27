@@ -171,9 +171,6 @@ ip verify source port-security
 int range port-chan 1-2
 ip arp inspection trust
 exit
-int range vlan 10-15
-ip arp inspection trust
-exit
 ip arp inspection vlan 10-15
 line vty 0 15
 logging sync

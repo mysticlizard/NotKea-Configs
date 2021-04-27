@@ -340,9 +340,11 @@ line con 0
  logging synchronous
  login
 line vty 0 4
+ access-class management in
  login local
  transport input ssh
 line vty 5 15
+ access-class management in
  login local
  transport input ssh
 !

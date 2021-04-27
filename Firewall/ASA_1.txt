@@ -6,6 +6,11 @@ hostname NOTKEA-MAD-ASA1
 domain-name notkea.local
 username student password cisco priv 15
 
+# points to core1 for ntp
+ntp server 10.7.250.17
+
+# points to core2 for ntp
+ntp server 10.7.250.25
 
 # Interfaces -- naming the interface sets security-level to 0!! Make sure to nameif BEFORE security-level
 

@@ -208,7 +208,7 @@ ip verify source port-security
 int port-chan 1-2
 ip arp inspection trust
 exit
-ip arp inspection vlan 43
+ip arp inspection vlan 40-45
 line vty 0 15
 logging sync
 !
@@ -225,7 +225,7 @@ ip verify source port-security
 int port-chan 1-2
 ip arp inspection trust
 exit
-ip arp inspection vlan 44
+ip arp inspection vlan 40-45
 line vty 0 15
 logging sync
 !

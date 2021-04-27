@@ -172,6 +172,7 @@ int range port-chan 1-2
 ip arp inspection trust
 exit
 ip arp inspection vlan 10-15
+snmp-server community NOTKEA ro
 line vty 0 15
 logging sync
 !

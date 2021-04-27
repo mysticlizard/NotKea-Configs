@@ -170,7 +170,7 @@ int fa0/5 # Computer port
 ip verify source
 ip verify source port-security
 # Dynamic ARP Inspection
-ip arp inspection vlan 10 # For Client VLANS
+ip arp inspection vlan 10
 int range port-chan 1-2
 ip arp inspection trust
 exit

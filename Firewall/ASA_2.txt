@@ -102,6 +102,13 @@ access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any time-exceede
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any traceroute
 access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq http
 access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq https
+
+#Apply extended ACL's
+#Interface g0/1 to CORE 1
+access-group in-to-out in int NOTKEA_MAD_CORE1
+#Interface g0/2 to CORE 2
+access-group in-to-out in int NOTKEA_MAD_CORE2
+
 #4/2/2021--------------------------------
 NOTKEA-MAD-ASA2# sh run
 : Saved

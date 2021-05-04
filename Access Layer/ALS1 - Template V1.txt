@@ -179,4 +179,5 @@ logging sync
 !
 !maybe?
 # NTP
-ntp server ?.?.?.?
+ntp server 10.7.250.17
+

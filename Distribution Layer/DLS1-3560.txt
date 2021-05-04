@@ -19,7 +19,6 @@ username admin secret democracy
 enable secret democracy
 service password-enc
 line vty 0 15
-access-class management in
 login local
 transport input ssh
 

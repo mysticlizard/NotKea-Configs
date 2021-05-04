@@ -282,6 +282,7 @@ standby 1 preempt
 
 ip dhcp snooping
 ip dhcp snooping vlan 10-45
+no ip dhcp snooping information option
 ip arp inspection
 ip arp inspection vlan 10-45
 

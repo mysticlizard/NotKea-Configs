@@ -58,7 +58,7 @@ nat (NOTKEA_MAD_CORE2,outside-internet) dynamic interface
 # create policy map to allow icmp -- check firewall documentation on this, it's finicky
 
 policy-map global_policy
-class inpection_default
+class inspection_default
 inspect icmp
 exit
 exit

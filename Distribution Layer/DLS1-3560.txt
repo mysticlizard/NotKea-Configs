@@ -29,7 +29,7 @@ logging trap notifications
 logging 10.0.255.14
 
 snmp-server trap-source lo0
-snmp-server host 10.0.255.14 traps vsrsion 2c NOTKEA
+snmp-server host 10.0.255.14 traps version 2c NOTKEA
 
 errdisable recovery cause bpduguard
 errdisable recovery cause port-mode-failure

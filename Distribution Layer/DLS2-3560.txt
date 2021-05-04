@@ -28,6 +28,7 @@ banner motd !Hey man, just make sure you're allowed to use this or bad stuff wil
 logging trap notifications
 logging 10.0.255.14
 
+snmp-server trap-source lo0
 snmp-server host 10.0.255.14 traps vsrsion 2c NOTKEA
 
 errdisable recovery cause bpduguard

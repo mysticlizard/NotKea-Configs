@@ -1,0 +1,68 @@
+# dummy aaa authentication config for all the cisco devices
+
+
+
+# enables aaa authentication on the device
+aaa new-model
+
+
+# specify a radius server -- our windows server in this case
+radius-server host 10.255.255.131 key cisco
+
+
+# send to radius server via lo0
+ip radius source-interface lo0
+
+
+# specify radius as the default login authentication method -- try radius FIRST then LOCAL user
+aaa authentication login default group radius local
+
+
+# let's authorize some stuff
+aaa authorization config-commands
+aaa authorization exec default group radius local
+aaa authorization commands 15 default group radius local
+aaa authorization reverse-access default group radius local
+
+
+# let's account some stuff! logging essentially
+aaa accounting exec default start-stop group radius
+aaa accounting commands 15 default start-stop group radius
+aaa accounting network default start-stop group radius
+aaa accounting connection default start-stop group radius
+aaa accounting system default start-stop group radius
+
+
+# apply aaa autentication to vty's
+line vty 0 15
+login authentication default
+exit
+
+
+
+!! TODO on windows server !!
+
+# create users 
+
+# create cisco remote users group -- add everyone to this group
+# -allow access/dial in through nps network policy at group level if possible
+
+# does every device need to be added as a client?
+# Add near ip's of the two cisco routers as radius clients, set key to cisco, vendor to cisco under advanced
+
+# powershell cmdlet
+# New-NpsRadiusClient –Address "192.168.31.1" –Name "cisco2960" –SharedSecret "Zb+kp^JUy]v\ePb-h.Q*d=weya2AY?hn+npRRp[/J7d"
+ 
+# create network policy for cisco devices
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+

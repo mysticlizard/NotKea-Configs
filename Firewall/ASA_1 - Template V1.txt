@@ -6,7 +6,7 @@ hostname ASA1
 domain-name notkea.local
 
 
-# Interfaces -- ip addresses are placeholders
+# Interfaces -- naming the interface sets security-level to 0!! Make sure to nameif BEFORE security-level
 
 int g0/0
 nameif outside-to-internet
@@ -14,14 +14,14 @@ ip address dhcp
 no shutdown
 
 int g0/1
-nameif inside-to-core1
-ip address 10.0.0.1 255.255.255.0
+nameif NOTKEA_MAD_CORE1
+ip address 10.7.240.66 255.255.255.252
 no shut
 security-level 100
 
 int g0/2
-nameif inside-to-core2
-ip add 10.0.1.1 255.255.255.0
+nameif NOTKEA_MAD_CORE2
+ip add 10.7.240.70 255.255.255.252
 no shut
 security-level 100
 
@@ -53,9 +53,19 @@ crypto key generate rsa modulus 1024
 ssh 10.0.0.1 255.255.255.0 inside-to-core1
 
 
-# Enable ASA http interface -- ip is placeholder
+# Enable ASA http interface -- x and y are the ip and subnet of the management host machine, followed by the name of the nearest ASA interface
 
 http server enable
-http x.x.x.x y.y.y.y inside-to-core1
+http x.x.x.x y.y.y.y NOTKEA_MAD_CORE1
 
-# 
+#Please check that this works, Im not sure if an ext access list is needed vs a regular ACL#
+# Configure ACL from outside interface to inside network
+ip access-list extended toInternet
+permit udp 10.0.0.0 0.7.255.255 any eq 53
+permit tcp 10.0.0.0 0.7.255.255 any eq 80
+permit icmp any any
+
+int g0/1
+ip access-group toInternet in
+int g0/2
+ip access-group toInternet in

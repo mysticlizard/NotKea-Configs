@@ -80,6 +80,8 @@ name EXECUTIVE
 vlan 35
 name VOICE
 vlan 999
+name NATIVE
+vlan 1000
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
@@ -106,7 +108,7 @@ int vlan 34
 int vlan 35
  ip address 10.0.18.4 255.255.255.224
  exit
- int vlan 999
+ int vlan 1000
  ip address 10.0.255.3 255.255.255.255
  exit
 !
@@ -124,7 +126,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 30-35
+ switchport trunk allowed vlan 30-35,1000
  switchport trunk native vlan 999
 
 !
@@ -154,21 +156,28 @@ switchport mode access
 switchport access vlan 666
 shutdown
 exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
 !
 !
-# NTP
-ntp server ?.?.?.?
+!
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 32 # For Client VLANS
+ip dhcp snooping vlan 32
 	# IP Source Guard
 int fa0/13 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan 32 # For Client VLANS
+ip arp inspection vlan 32
 int range port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync
+!
+!
+# NTP
+ntp server ?.?.?.?
 

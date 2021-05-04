@@ -102,6 +102,8 @@ name EXECUTIVE
 vlan 45
 name VOICE
 vlan 999
+name NATIVE
+vlan 1000
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
@@ -128,8 +130,8 @@ int vlan 44
 int vlan 45
  ip address 10.0.19.4 255.255.255.224
  exit
- int vlan 999
- ip address 10.0.255.4 255.255.255.255
+ int vlan 1000
+ ip address 10.0.255.4 255.255.255.240
  exit
 !
 !
@@ -146,7 +148,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 40-45
+ switchport trunk allowed vlan 40-45,1000
  switchport trunk native vlan 999
 
 !
@@ -178,20 +180,22 @@ switchport mode access
 switchport access vlan 666
 shutdown
 exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
 !
 !
 !
-# NTP
-ntp server ?.?.?.?
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 43 # For Client VLANS
+ip dhcp snooping vlan 43
 	# IP Source Guard
 int fa0/17 # Computer port
  ip verify source
  ip verify source port-security
 	# Dynamic ARP Inspection
-ip arp inspection vlan 43 # For Client VLANS
+ip arp inspection vlan 43
 int port-chan 1-2
  ip arp inspection trust
  	# Logging sync
@@ -200,18 +204,20 @@ logging sync
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 44 # For Client VLANS
-	# IP Source Guard
+ip dhcp snooping vlan 44
+# IP Source Guard
 int fa0/21 # Computer port
- ip verify source
- ip verify source port-security
-	# Dynamic ARP Inspection
-ip arp inspection vlan 44 # For Client VLANS
+ip verify source
+ip verify source port-security
+# Dynamic ARP Inspection
+ip arp inspection vlan 44
 int port-chan 1-2
- ip arp inspection trust
- 	# Logging sync
+ip arp inspection trust
+# Logging sync
 logging sync
-
+!
+# NTP
+ntp server ?.?.?.?
 
 
 

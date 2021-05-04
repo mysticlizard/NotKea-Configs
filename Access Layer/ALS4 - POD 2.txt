@@ -1,21 +1,179 @@
 en
 config t
-hostname ALS4
+hostname ALS4_POD2
+cdp run
+lldp run
+!
+!Banner
+banner motd #
+You are accessing a NotKea Management (NKM) Information System (IS) that is provided for NKM-authorized use only. 
+By using this IS (which includes any device attached to this IS), you consent to the following conditions: 
+-The NKM routinely intercepts and monitors communications on this IS for 
+ purposes including, but not limited to: 
+ penetration testing, COMSEC monitoring, 
+ network operations and defense, 
+ personnel misconduct (PM), 
+ furniture enforcement (FE), 
+ and counterintelligence (CI) investigations. 
+-At any time, the NKM may inspect and seize data stored on this IS. -Communications using, or data stored on, this IS are:
+ not private, 
+ are subject to routine monitoring, interception, and search, 
+ and may be disclosed or used for any NKM-authorized purpose. 
+-This IS includes security measures (e.g., authentication and access controls) to protect NKM interests--not for your personal benefit or privacy. 
+-Notwithstanding the above, using this IS does not constitute consent to PM, FE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by:
+ attorneys, 
+ psychotherapists, 
+ or clergy, and their assistants. 
+Such communications and work product are private and confidential. 
+See User Agreement for details.
+#
+!
+!
+!
+#
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
 !
 !Vlans
-vlan 10
+vlan 40
 name SALES
-vlan 11
+vlan 41
 name MARKETING
-vlan 12
+vlan 42
 name TECH
-vlan 13
+vlan 43
 name MANUFACTURING
-vlan 14
+vlan 44
 name EXECUTIVE
-vlan 15
+vlan 45
 name VOICE
 vlan 999
+name NATIVE
+vlan 1000
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
+!
+!Vlan Addresses
+! MAKE SURE IP'S ARE CORRECT
+!
+int vlan 40
+ ip address 10.8.11.4 255.255.255.224
+ exit
+int vlan 41
+ ip address 10.8.31.4 255.255.255.240
+ exit
+int vlan 42
+ ip address 10.8.27.4 255.255.255.240
+ exit
+int vlan 43
+ ip address 10.8.3.4 255.255.255.224
+ exit
+int vlan 44
+ ip address 10.8.35.4 255.255.255.248
+ exit
+int vlan 45
+ ip address 10.8.19.4 255.255.255.224
+ exit
+ int vlan 1000
+ ip address 10.8.255.4 255.255.255.240
+ exit
+!
+!
+en
+config t
+!
+! CHECK INTERFACES!!! and PORT CHANNELS
+!
+en
+config t
+int range fa0/1-2
+ channel-group 1 mode active
+int range fa0/3-4
+ channel-group 2 mode active
+int ra port-ch 1-2
+ switchport mode trunk
+ switchport trunk allowed vlan 40-45
+ switchport trunk native vlan 999
+
+!
+!Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/17
+switchport mode access
+switchport access vlan 43
+int fa0/21
+switchport mode access
+switchport access vlan 44
+int range fa0/5-16
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/18-20
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/22-24
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
+!
+!!
+!
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan 43 # For Client VLANS
+	# IP Source Guard
+int fa0/17 # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan 43 # For Client VLANS
+int port-chan 1-2
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+!
+!
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan 44 # For Client VLANS
+	# IP Source Guard
+int fa0/21 # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan 44 # For Client VLANS
+int port-chan 1-2
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+!
+# NTP
+ntp server ?.?.?.?

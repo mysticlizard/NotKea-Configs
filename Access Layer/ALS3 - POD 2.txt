@@ -1,21 +1,183 @@
 en
 config t
-hostname ALS3
+hostname ALS_3_POD2
+cdp run
+lldp run
+!
+!Banner
+banner motd #
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX0K0c'l0kONW0dkNMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMWNWMMWXXW0:,o0KX0k0Nk,,k0kKWWMMMMWXXWMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMNd:OWMNo,dX0lc0NNNklkOd0Wx;dxo0WMKl:dXMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMWNWKc,xkdxx::00ldKKKO:cOdck0O0Ko.;0NOld0NMMMMMMMMMMMM
+MMMMMMMMMMMNNWMMKocxO00xdxOkxOk;o0k00xOXxdd,cXWKo:dkl;;l0WWWWMMMMMMMM
+MMMMMMMMMMWx:d0OkxllxxccdkOx::cdK0odl,lXXxoodOkOKOOOdo:lXW0lxWMMMMMMM
+MMMMMMMMNKX0c,ll'':kOkd;'l0Olokxdo:,..lXKx0N0l:kOkXXKk,'kWx.cXMMMMMMM
+MMMMMMMM0;,o00KKkl;cdOklo0Nd..cxl,;ccoodK0xO0xdkxddcxOlcKMKxxxdKMMMMM
+MMMMMWK0Oc..cXKllKNXOxOl:dOd;..;c:ckK0xo0Kolko''cxdcco0OxKNOc'lKMMMMM
+MMMMMWOc;lc':Kk'.dWNKdodl;'cOo';::oo::xxxockOol;:oc,cOXo.:OOxxO0NMMMM
+MMN0kxdddkOxxKO:c00cclld:':oONKOc;dc,:l:''c00x0dcdc;dNKklcxkl;,lXMMMM
+W0c'.';:c:ckOdooONk'.,:;okl':ON0;cO0xlxkxOo:lloccdlo0XOKOxOdldONMMMMM
+WKOOOKO:.;xOddxxoodl';dl:oooc'ld,c0Ooldc;cxxdc,'lN0clxddd0x:kWWWMMMMM
+MMMMMMXkOXNNXOxdo:,;:lO0c'cOk;;c';oc:;..cl:oXx..oOkoc;,cdkl;lodKMMMMM
+MMMMMMMMMWOcxkl:;;::'.';,...;;::....ldoOXx.;kl.;llxd;,lkc;xkc,cOWMMMM
+MMMMMN0ddkxcdK0xlc:;,,,,'...........dOoOWXdoc..;:,',::cxdlOOl:o0WMMMM
+MMMMMNOl:cdxkxl,,co::xkc;lkxoc,.....c:'dN0o,......':c:lxxdl:,:o0WMMMM
+MMMMNxc:cdxkKk;.:l'.:o,.c0WMMWXk;...':dxl'..,lxO00000K0xl:coooxKWMMMM
+MMMMNKkooxc;OklkXx,:OOdONMMMMMMW0:...':,..;xXWMMMMMMMMMWK0XWMMMMMMMMM
+MMMMMNd'ck:;OWWMMNKXMMMMMMMMMMMMWkc,.....cKMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMNdl0WKKWMMMMMMMMMMMMMMMMMMMMN0l....,OMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMWWMMMMMMMMMMMMMMMMMMMMMMMMMWWx....:KMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO,...:XMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO,...:KMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMk'...:KMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNx....;0MMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNKo....;0MMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKx:....'dKNWMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMWX0kddoooll;'.....'',:oONMMMMMWWWWMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMNkc;:c;..,c:..,co;.:k0Oo;';oxkdolcldxk0NMMMMMMMMM
+MMMMMMMMMMMMMMMWNXKkc;cdKKc;dXWk',lOWk'.;lk00kc.'cdO0kxkO0dokKNMMMMMM
+MMMMMMMMMMMMWNXXKOo,:OXXNx,xWN0x:,;kWNx:::;d0XNx;dNMMMWK0XXkk00KXNWWM
+MMMMMMMMWXK0OxdxkxdkXWXKk::0NKXKo;lOMMW0k0ockNWK:,OWMMMMWNWNKXWWNNWWM
+MMMMMMNXXKXKOkOXNWWWNX0dcl0NWW0ocoxKMMMNKKx;dWMOlclONMMMMMMMWNWMMMMMM
+MMMMMWNWMMMXKWMMMMMWN0kodXMMWklkK0kKMMMWKkxcxWMOxX0dox0KWMMMMMMMMMMMM
+MMMMMMMMMMMWNWMMMMMXO0NKXMMMKcoXNXNWMMMMK0XdxWMN0KWW0kkO0KWMMMMMMMMMM
+MMMMMMMMMMMMWMMMMMWKKWMWWMMMOxOKWMMMMMMMNNNxxXWMWNNWMWNNNKXMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMWXNMMMMMMMK0XXWMMMMMMMMMWK0NWWMMMMMMMMMWNWMMMMMMMMM
+#
+!
+!
+!
+!
+no ip domain-lookup
+line con 0
+ password cisco
+ login
+enable secret class
+	# SSH
+ip domain-name notkea.local
+username student secret cisco
+crypto key generate rsa
+1024
+ip ssh version 2
+line vty 0 15
+ login local
+ transport input ssh
+service password-encryption
+!
 !
 !Vlans
-vlan 10
+vlan 30
 name SALES
-vlan 11
+vlan 31
 name MARKETING
-vlan 12
+vlan 32
 name TECH
-vlan 13
+vlan 33
 name MANUFACTURING
-vlan 14
+vlan 34
 name EXECUTIVE
-vlan 15
+vlan 35
 name VOICE
 vlan 999
+name NATIVE
+vlan 1000
 name MANAGEMENT
 vlan 666
 name BLACKHOLE
+exit
+!
+!Vlan Addresses
+! MAKE SURE IP'S ARE CORRECT
+!
+int vlan 30
+ ip address 10.8.10.4 255.255.255.224
+ exit
+int vlan 31
+ ip address 10.8.30.4 255.255.255.240
+ exit
+int vlan 32
+ ip address 10.8.26.4 255.255.255.240
+ exit
+int vlan 33
+ ip address 10.8.2.4 255.255.255.224
+ exit
+int vlan 34
+ ip address 10.8.34.4 255.255.255.248
+ exit
+int vlan 35
+ ip address 10.8.18.4 255.255.255.224
+ exit
+ int vlan 1000
+ ip address 10.8.255.3 255.255.255.255
+ exit
+!
+!
+en
+config t
+!
+! CHECK INTERFACES!!! and PORT CHANNELS
+!
+en
+config t
+int range fa0/1-2
+ channel-group 1 mode active
+int range fa0/3-4
+ channel-group 2 mode active
+int ra port-ch 1-2
+ switchport mode trunk
+ switchport trunk allowed vlan 30-35
+ switchport trunk native vlan 999
+
+!
+!Spanning Tree
+spanning-tree mode rapid-pvst 
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+!
+!
+	# Access Control
+int fa0/13
+switchport mode access
+switchport access vlan 32
+int range fa0/6-8
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+int range fa0/5-12
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!
+int range fa0/14-24
+switchport mode access
+switchport access vlan 666
+shutdown
+exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
+!
+!
+!
+!
+	# DHCP Snooping
+ip dhcp snooping
+ip dhcp snooping vlan 32 # For Client VLANS
+	# IP Source Guard
+int fa0/13 # Computer port
+ ip verify source
+ ip verify source port-security
+	# Dynamic ARP Inspection
+ip arp inspection vlan 32 # For Client VLANS
+int range port-chan 1-2
+ ip arp inspection trust
+ 	# Logging sync
+logging sync
+!
+!
+# NTP
+ntp server ?.?.?.?

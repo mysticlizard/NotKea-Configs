@@ -83,10 +83,12 @@ vlan 24
 name EXECUTIVE
 vlan 25
 name VOICE
-vlan 999
-name MANAGEMENT
 vlan 666
 name BLACKHOLE
+vlan 999
+name NATIVE
+vlan 1000
+name MANAGEMENT
 exit
 !
 !Vlan Addresses
@@ -110,8 +112,8 @@ int vlan 24
 int vlan 25
  ip address 10.0.17.4 255.255.255.224
  exit
- int vlan 999
- ip address 10.0.255.2 255.255.255.255
+ int vlan 1000
+ ip address 10.0.255.2 255.255.255.240
  exit
 !
 !
@@ -128,7 +130,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 20-25
+ switchport trunk allowed vlan 20-25,1000
  switchport trunk native vlan 999
 
 !
@@ -142,7 +144,8 @@ spanning-tree portfast bpduguard default
 int fa0/9
 switchport mode access
 switchport access vlan 21
-int range fa0/6-8
+exit
+int range fa0/5-8
 switchport mode access
 switchport access vlan 666
 shutdown
@@ -152,11 +155,14 @@ switchport mode access
 switchport access vlan 666
 shutdown
 exit
+!Gigabitports
+int range G0/1-2
+switchport mode access
+switchport access vlan 666
 !
 !
 !
-# NTP
-ntp server ?.?.?.?
+!
 	# DHCP Snooping
 ip dhcp snooping
 ip dhcp snooping vlan 21 # For Client VLANS
@@ -170,3 +176,6 @@ int range port-chan 1-2
  ip arp inspection trust
  	# Logging sync
 logging sync
+!
+# NTP
+ntp server ?.?.?.?

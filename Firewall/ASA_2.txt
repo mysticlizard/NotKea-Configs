@@ -1,0 +1,260 @@
+# Basic ASA settings 
+enable
+conf t
+
+enable password democracy
+clock set 15:26:00 March 9 2021
+hostname NOTKEA-MAD-ASA2
+domain-name notkea.local
+username student password cisco
+
+# points to core1 for ntp
+ntp server 10.7.250.17
+
+# points to core2 for ntp
+ntp server 10.7.250.25
+
+# Interfaces -- naming the interface sets security-level to 0!! Make sure to nameif BEFORE security-level
+
+int g0/0
+nameif outside-internet
+ip address dhcp
+no shutdown
+security-level 0
+
+int g0/1
+nameif NOTKEA_MAD_CORE1
+ip address 10.7.240.70 255.255.255.252
+no shut
+security-level 100
+
+int g0/2
+nameif NOTKEA_MAD_CORE2
+ip add 10.7.240.78 255.255.255.252
+no shut
+security-level 100
+
+exit
+
+
+# Route pointing to Madison College Router - just guessing that college router ip is .254
+
+route outside-internet 0.0.0.0 0.0.0.0 172.19.16.254
+
+
+# Route pointing to our Pod network
+
+route NOTKEA_MAD_CORE2 10.0.0.0 255.248.0.0 10.7.240.77
+
+
+# Configure NAT (PAT, technically) from inside to outside
+# inside/outside are user defined names for interfaces, this may need to be a zone based firewall that incorporates both core switch connections
+
+object network INSIDE-TO-NET
+subnet 10.0.0.0 255.255.255.0
+nat (NOTKEA_MAD_CORE2,outside-internet) dynamic interface
+
+
+# create policy map to allow icmp -- check firewall documentation on this, it's finicky
+
+policy-map global_policy
+class inspection_default
+inspect icmp
+exit
+exit
+
+
+
+# configure ssh access and http access
+
+aaa authentication http console LOCAL
+aaa authentication ssh console LOCAL
+crypto key generate rsa modulus 1024
+
+
+# ip and subnet of host, name of nearest ASA interface
+
+ssh 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE2
+
+
+# Enable ASA http interface -- x and y are the ip and subnet of the management host machine, followed by the name of the nearest ASA interface
+
+http server enable
+http 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE2
+
+
+# Optional -- Allow your ASA to appear as the first hop for inside hosts going out
+class class_default
+set connection decrement-ttl
+
+# ACL allowing certain traffic types in -- don't paste these in!! this section is WIP, never done ACLs on ASA CLI before.Your mileage may vary.
+#access-list outside-in extended permit icmp any any time-exceeded
+#access-list outside-in extended permit icmp any any unreachable
+#access-list outside-in extended permit icmp any any traceroute
+
+#SNMP Configuration
+snmp-server host NOTKEA_MAD_CORE1 10.0.255.14 community NOTKEA version 2c
+snmp-server host NOTKEA_MAD_CORE2 10.0.255.14 community NOTKEA version 2c
+
+#ACL allowing certain types of traffic out- WIP
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any unreachable
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any time-exceeded
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any traceroute
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq http
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq https
+
+#Apply extended ACL's
+#Interface g0/1 to CORE 1
+access-group in-to-out in int NOTKEA_MAD_CORE1
+#Interface g0/2 to CORE 2
+access-group in-to-out in int NOTKEA_MAD_CORE2
+
+#4/2/2021--------------------------------
+NOTKEA-MAD-ASA2# sh run
+: Saved
+
+:
+: Serial Number: FCH18207J04
+: Hardware:   ASA5512, 4096 MB RAM, CPU Clarkdale 2793 MHz, 1 CPU (2 cores)
+:
+ASA Version 9.9(1)
+!
+hostname NOTKEA-MAD-ASA2
+domain-name notkea.local
+enable password $sha512$5000$x3u7WHf7e1qRkm6stU/sBQ==$lp3OUhbLtqgIe0CaaK9uKQ== pbkdf2
+names
+
+!
+interface GigabitEthernet0/0
+ nameif outside-internet
+ security-level 0
+ ip address dhcp
+!
+interface GigabitEthernet0/1
+ nameif NOTKEA_MAD_CORE1
+ security-level 100
+ ip address 10.7.240.70 255.255.255.252
+!
+interface GigabitEthernet0/2
+ nameif NOTKEA_MAD_CORE2
+ security-level 100
+ ip address 10.7.240.78 255.255.255.252
+!
+interface GigabitEthernet0/3
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/4
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/5
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface Management0/0
+ management-only
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+ftp mode passive
+dns server-group DefaultDNS
+ domain-name notkea.local
+object network INSIDE-TO-NET
+ subnet 10.0.0.0 255.255.255.0
+pager lines 24
+mtu outside-internet 1500
+mtu NOTKEA_MAD_CORE1 1500
+mtu NOTKEA_MAD_CORE2 1500
+no failover
+icmp unreachable rate-limit 1 burst-size 1
+no asdm history enable
+arp timeout 14400
+no arp permit-nonconnected
+arp rate-limit 8192
+!
+object network INSIDE-TO-NET
+ nat (NOTKEA_MAD_CORE2,outside-internet) dynamic interface
+route outside-internet 0.0.0.0 0.0.0.0 172.19.16.254 1
+route NOTKEA_MAD_CORE2 10.0.0.0 255.248.0.0 10.7.240.77 1
+timeout xlate 3:00:00
+timeout pat-xlate 0:00:30
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 sctp 0:02:00 icmp 0:00:02
+timeout sunrpc 0:10:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:05:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+timeout conn-holddown 0:00:15
+timeout igp stale-route 0:01:10
+user-identity default-domain LOCAL
+aaa authentication http console LOCAL
+aaa authentication ssh console LOCAL
+aaa authentication login-history
+http server enable
+http 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE2
+no snmp-server location
+no snmp-server contact
+crypto ipsec security-association pmtu-aging infinite
+crypto ca trustpool policy
+telnet timeout 5
+ssh stricthostkeycheck
+ssh 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE2
+ssh timeout 5
+ssh key-exchange group dh-group1-sha1
+console timeout 0
+threat-detection basic-threat
+threat-detection statistics access-list
+no threat-detection statistics tcp-intercept
+dynamic-access-policy-record DfltAccessPolicy
+username student password $sha512$5000$LSxDsm/Xgx8lnI6r6fSaEw==$OIbLz7Uc4nnBofBMEFPJiA== pbkdf2
+!
+class-map inspection_default
+ match default-inspection-traffic
+!
+!
+policy-map global_policy
+ class inspection_default
+  inspect icmp
+  inspect ftp
+  inspect h323 h225
+  inspect h323 ras
+  inspect ip-options
+  inspect netbios
+  inspect rsh
+  inspect rtsp
+  inspect skinny
+  inspect esmtp
+  inspect sqlnet
+  inspect sunrpc
+  inspect tftp
+  inspect sip
+  inspect xdmcp
+!
+prompt hostname context
+!
+jumbo-frame reservation
+!
+call-home reporting anonymous prompt 2
+call-home
+ profile CiscoTAC-1
+  no active
+  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
+  destination address email callhome@cisco.com
+  destination transport-method http
+  subscribe-to-alert-group diagnostic
+  subscribe-to-alert-group environment
+  subscribe-to-alert-group inventory periodic monthly
+  subscribe-to-alert-group configuration periodic monthly
+  subscribe-to-alert-group telemetry periodic daily
+Cryptochecksum:43b617e9a7cd74a950221b7e222293a9
+: end
+NOTKEA-MAD-ASA2#

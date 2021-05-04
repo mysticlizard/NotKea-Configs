@@ -294,6 +294,10 @@ int ra f0/5-6
  channel-group 3 mode active
 int ra f0/7-8
  channel-group 4 mode active
+int ra f0/9-16
+ sw m a
+ sw a v 666
+ shut
 int ra f0/21-24
  no sw
  channel-group 5 mode active

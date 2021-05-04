@@ -80,6 +80,9 @@ set connection decrement-ttl
 #access-list outside-in extended permit icmp any any unreachable
 #access-list outside-in extended permit icmp any any traceroute
 
+#SNMP Configuration
+snmp-server host NOTKEA_MAD_CORE1 10.0.255.14 community NOTKEA version 2c
+snmp-server host NOTKEA_MAD_CORE2 10.0.255.14 community NOTKEA version 2c
 
 #4/20/2021-------------------------------------------------
 NOTKEA-MAD-ASA1# sh run

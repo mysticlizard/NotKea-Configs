@@ -88,7 +88,8 @@ snmp-server host NOTKEA_MAD_CORE2 10.0.255.14 community NOTKEA version 2c
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any unreachable
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any time-exceeded
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any traceroute
-
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq http
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq https
 
 #4/20/2021-------------------------------------------------
 NOTKEA-MAD-ASA1# sh run

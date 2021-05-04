@@ -100,6 +100,10 @@ snmp-server host NOTKEA_MAD_CORE2 10.0.255.14 community NOTKEA version 2c
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any unreachable
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any time-exceeded
 access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any traceroute
+#Permit DNS
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq 53
+access-list in-to-out extended permit udp 10.0.0.0 255.248.0.0 any eq 53
+
 access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq http
 access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq https
 #Implicit deny to check number of connections blocked going out, can't view this with explicit deny

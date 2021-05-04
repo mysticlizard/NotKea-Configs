@@ -84,6 +84,12 @@ set connection decrement-ttl
 snmp-server host NOTKEA_MAD_CORE1 10.0.255.14 community NOTKEA version 2c
 snmp-server host NOTKEA_MAD_CORE2 10.0.255.14 community NOTKEA version 2c
 
+#ACL allowing certain types of traffic out- WIP
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any unreachable
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any time-exceeded
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any traceroute
+
+
 #4/20/2021-------------------------------------------------
 NOTKEA-MAD-ASA1# sh run
 : Saved

@@ -1,51 +1,3 @@
----NOTKEA ROUTER 2 CONFIG-------------------------------------------
-enable
-conf t
-hostname NOTKEA_MAD_R2
-no ip domain-lookup
-Line con 0
-Password cisco
-Login
-Logging sync
-
-Ip domain name notkea.local
-Crypto key generate rsa
-1024
-Ip ssh ver 2
-Username admin secret democracy
-Enable secret democracy
-Service password-enc
-Line vty 0 15
-Login local
-Transport input ssh
-
-Line aux 0
-Password cisco
-Login
-
---INTERFACES----------------------------------------------------------------
-int g0/0
-ip add 10.7.240.37 255.255.255.240
-description PodNet Connection
-no shut
-end
-
-int g0/1
-ip add 10.7.240.33 255.255.255.240
-description 2911_3 Connection
-no shut
-end
-
----------------Configuration-------------------------------------------------
-
-
-Building configuration...
-
-
-Current configuration : 2603 bytes
-!
-! Last configuration change at 19:04:03 UTC Tue Mar 23 2021
-!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -59,7 +11,15 @@ boot-end-marker
 !
 enable secret 5 $1$e5Kv$Yeg2KqpA8cQM9vCLcu78b/
 !
-no aaa new-model
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
 memory-size iomem 10
 !
 !
@@ -114,7 +74,7 @@ redundancy
 !
 !
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -131,6 +91,7 @@ interface Multilink1
  ppp multilink group 1
  ppp multilink fragment delay 20
  ppp multilink multiclass
+ no shutdown
 !
 interface Embedded-Service-Engine0/0
  no ip address
@@ -139,31 +100,37 @@ interface Embedded-Service-Engine0/0
 interface GigabitEthernet0/0
  description PodNet Connection
  ip address 10.255.255.1 255.255.255.128
+ ip helper-address 10.255.255.131
  duplex auto
  speed auto
+ no shutdown
 !
 interface GigabitEthernet0/1
  description 2911_3 Connection
  ip address 10.7.240.33 255.255.255.252
  duplex auto
  speed auto
+ no shutdown
 !
 interface GigabitEthernet0/2
  no ip address
  duplex auto
  speed auto
+ no shutdown
 !
 interface Serial0/0/0
  no ip address
  encapsulation ppp
  ppp multilink
  ppp multilink group 1
+ no shutdown
 !
 interface Serial0/0/1
  no ip address
  encapsulation ppp
  ppp multilink
  ppp multilink group 1
+ no shutdown
 !
 !
 router eigrp 328
@@ -179,6 +146,13 @@ no ip http server
 no ip http secure-server
 !
 !
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.0.255.14 version 2c NOTKEA 
+!
+radius server rad1
 !
 !
 !
@@ -206,15 +180,13 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CCYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
+banner motd ^CCCCYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
 !
 line con 0
  password 7 1511021F0725
  logging synchronous
- login
 line aux 0
  password 7 05080F1C2243
- login
 line 2
  no activation-character
  no exec
@@ -222,10 +194,8 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- login local
  transport input ssh
 line vty 5 15
- login local
  transport input ssh
 !
 scheduler allocate 20000 1000

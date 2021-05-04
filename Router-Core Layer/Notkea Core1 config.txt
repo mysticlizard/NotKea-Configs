@@ -1,91 +1,3 @@
----NOTKEA 3750-1 CONFIG-------------------------------------------
-enable
-conf t
-hostname NOTKEA_MAD_Core1
-no ip domain-lookup
-Line con 0
-Password cisco
-Login
-Logging sync
-
-Ip domain name notkea.local
-Crypto key generate rsa
-1024
-Ip ssh ver 2
-Username admin secret democracy
-Enable secret democracy
-Service password-enc
-Line vty 0 15
-Login local
-Transport input ssh
-banner motd !"UNLIMITED POWER...Everything That Has Transpired Has Done So According To My Design."!
-Line aux 0
-Password cisco
-Login
-
---INTERFACES----------------------------------------------------------------
-int fa2/0/1
-ip add 10.7.240.5 255.255.255.252
-description 2911_1 Connection
-no shut
-
-
-int fa2/0/2
-ip add 10.7.240.9 255.255.255.252
-description 2911_4 Connection
-no shut
-
-
-int fa2/0/3
-description ASA_1 Connection
-no shut 
-
-
-int fa2/0/4
-description ASA_2 Connection
-noshut
-
-
-int fa2/0/5
-description Meraki Day Class
-no shut 
-
-
-int fa2/0/7
-description WLC Connection
-end
-
-----Etherchannels------------------------------------------------
-int range fa2/0/17-18
-channel-group 1 mode active
-switchport trunk native vlan 999
-switchport trunk allowed vlan 10-64
-description 3750_2 Etherchannel
-no shut
-
-
-int range fa2/0/19-20
-channel-group 2 mode active
-switchport trunk native vlan 999
-switchport trunk allowed vlan 10-64
-description 3560_1 Etherchannel
-no shut
-
-
-
-int range fa2/0/21-22
-channel-group 3 mode active
-switchport trunk native vlan 999
-switchport trunk allowed vlan 10-64
-description 3560_2 Etherchannel
-no shut
-end
-----------Configuration---------------------------------------------------
-
-Building configuration...
-
-Current configuration : 5543 bytes
-!
 version 12.2
 no service pad
 service timestamps debug datetime msec
@@ -103,6 +15,7 @@ username admin secret 5 $1$LC.u$v8oszKreb0dLN19mg4nmV/
 !
 !
 no aaa new-model
+switch 1 provision ws-c3750-48ts
 switch 2 provision ws-c3750-48ts
 system mtu routing 1500
 ip routing
@@ -121,24 +34,24 @@ crypto pki trustpoint TP-self-signed-3760156544
 !
 crypto pki certificate chain TP-self-signed-3760156544
  certificate self-signed 01
-  30820255 308201BE A0030201 02020101 300D0609 2A864886 F70D0101 04050030
-  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
-  69666963 6174652D 33373630 31353635 3434301E 170D3933 30333031 30303033
-  35375A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
-  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 37363031
-  35363534 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
-  8100B237 0A3FBC74 1BC876BA E349E64E 70D407A7 84CAAC43 AFD164CE 2862B226
-  61B88E0B 1AB98581 289AEBF0 4B79760B 03C1A419 0C32CD2B 952C1937 AB21DFFD
-  2B006C18 A7B4EC66 35ECD130 834B311C 902D4B76 F96BA2F6 66473952 9F597FE1
-  A7B11CAA FEEA118D 6A94D9AD 706C9F55 BAA48728 3AF45E2F 131B232E 08C973A9
-  22130203 010001A3 7D307B30 0F060355 1D130101 FF040530 030101FF 30280603
-  551D1104 21301F82 1D4E4F54 4B45415F 4D41445F 436F7265 312E6E6F 746B6561
-  2E6C6F63 616C301F 0603551D 23041830 16801415 F8A7ACE7 FA6D8778 FACD88ED
-  45E3FC5D 6495B230 1D060355 1D0E0416 041415F8 A7ACE7FA 6D8778FA CD88ED45
-  E3FC5D64 95B2300D 06092A86 4886F70D 01010405 00038181 001E9F20 3B212138
-  C9B9DF1F 08267D76 D0BC8CF9 62630D4C 7A6F0ACF 282532BC F34D99A9 CBFBF9A7
-  B03F748A 9320B9F2 EC2187A4 69ED5181 6E352C8C 3916D2E5 7F53E2D8 9E4C357C
-  747FE337 594AC1A5 5947440D 85AB9AD3 86F44A9B 2E1171AD 4DDFE8FA 730813EB
+  30820255 308201BE A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33373630 31353635 3434301E 170D3933 30333031 30303033 
+  35375A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 37363031 
+  35363534 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100B237 0A3FBC74 1BC876BA E349E64E 70D407A7 84CAAC43 AFD164CE 2862B226 
+  61B88E0B 1AB98581 289AEBF0 4B79760B 03C1A419 0C32CD2B 952C1937 AB21DFFD 
+  2B006C18 A7B4EC66 35ECD130 834B311C 902D4B76 F96BA2F6 66473952 9F597FE1 
+  A7B11CAA FEEA118D 6A94D9AD 706C9F55 BAA48728 3AF45E2F 131B232E 08C973A9 
+  22130203 010001A3 7D307B30 0F060355 1D130101 FF040530 030101FF 30280603 
+  551D1104 21301F82 1D4E4F54 4B45415F 4D41445F 436F7265 312E6E6F 746B6561 
+  2E6C6F63 616C301F 0603551D 23041830 16801415 F8A7ACE7 FA6D8778 FACD88ED 
+  45E3FC5D 6495B230 1D060355 1D0E0416 041415F8 A7ACE7FA 6D8778FA CD88ED45 
+  E3FC5D64 95B2300D 06092A86 4886F70D 01010405 00038181 001E9F20 3B212138 
+  C9B9DF1F 08267D76 D0BC8CF9 62630D4C 7A6F0ACF 282532BC F34D99A9 CBFBF9A7 
+  B03F748A 9320B9F2 EC2187A4 69ED5181 6E352C8C 3916D2E5 7F53E2D8 9E4C357C 
+  747FE337 594AC1A5 5947440D 85AB9AD3 86F44A9B 2E1171AD 4DDFE8FA 730813EB 
   E889D9FE 67064454 F4B792DA AF6C7B47 A2DD183C 52D7E5E0 8C
   quit
 !
@@ -156,156 +69,367 @@ ip ssh version 2
 interface Port-channel1
  no switchport
  ip address 10.7.240.1 255.255.255.252
+ no shutdown
 !
 interface Port-channel2
  no switchport
  ip address 10.7.240.50 255.255.255.252
+ no shutdown
 !
 interface Port-channel3
  no switchport
  ip address 10.7.240.58 255.255.255.252
+ no shutdown
 !
-interface FastEthernet2/0/1
+interface FastEthernet1/0/1
  description 2911_1 Connection
  no switchport
  ip address 10.7.240.5 255.255.255.252
+ no shutdown
 !
-interface FastEthernet2/0/2
+interface FastEthernet1/0/2
  description 2911_4 Connection
  no switchport
  ip address 10.7.240.9 255.255.255.252
+ no shutdown
 !
-interface FastEthernet2/0/3
+interface FastEthernet1/0/3
  description ASA_1 Connection
  no switchport
- ip address 10.0.1.1 255.255.255.0
+ ip address 10.7.240.65 255.255.255.252
+ no shutdown
 !
-interface FastEthernet2/0/4
+interface FastEthernet1/0/4
  description ASA_2 Connection
  no switchport
- no ip address
+ ip address 10.7.240.69 255.255.255.252
+ no shutdown
 !
-interface FastEthernet2/0/5
+interface FastEthernet1/0/5
  description Meraki Day Class
  no switchport
- no ip address
+ ip address 10.7.241.1 255.255.255.252
+ no shutdown
 !
-interface FastEthernet2/0/6
+interface FastEthernet1/0/6
  no switchport
  no ip address
+ no shutdown
 !
-interface FastEthernet2/0/7
+interface FastEthernet1/0/7
  description WLC Connection
  no switchport
  no ip address
+ no shutdown
+!
+interface FastEthernet1/0/8
+ no shutdown
+!
+interface FastEthernet1/0/9
+ no shutdown
+!
+interface FastEthernet1/0/10
+ no shutdown
+!
+interface FastEthernet1/0/11
+ no shutdown
+!
+interface FastEthernet1/0/12
+ no shutdown
+!
+interface FastEthernet1/0/13
+ no shutdown
+!
+interface FastEthernet1/0/14
+ no shutdown
+!
+interface FastEthernet1/0/15
+ no shutdown
+!
+interface FastEthernet1/0/16
+ no shutdown
+!
+interface FastEthernet1/0/17
+ no switchport
+ no ip address
+ channel-group 1 mode active
+ no shutdown
+!
+interface FastEthernet1/0/18
+ no switchport
+ no ip address
+ channel-group 1 mode active
+ no shutdown
+!
+interface FastEthernet1/0/19
+ no switchport
+ no ip address
+ channel-group 2 mode active
+ no shutdown
+!
+interface FastEthernet1/0/20
+ no switchport
+ no ip address
+ channel-group 2 mode active
+ no shutdown
+!
+interface FastEthernet1/0/21
+ no switchport
+ no ip address
+ channel-group 3 mode active
+ no shutdown
+!
+interface FastEthernet1/0/22
+ no switchport
+ no ip address
+ channel-group 3 mode active
+ no shutdown
+!
+interface FastEthernet1/0/23
+ no shutdown
+!
+interface FastEthernet1/0/24
+ no shutdown
+!
+interface FastEthernet1/0/25
+ no shutdown
+!
+interface FastEthernet1/0/26
+ no shutdown
+!
+interface FastEthernet1/0/27
+ no shutdown
+!
+interface FastEthernet1/0/28
+ no shutdown
+!
+interface FastEthernet1/0/29
+ no shutdown
+!
+interface FastEthernet1/0/30
+ no shutdown
+!
+interface FastEthernet1/0/31
+ no shutdown
+!
+interface FastEthernet1/0/32
+ no shutdown
+!
+interface FastEthernet1/0/33
+ no shutdown
+!
+interface FastEthernet1/0/34
+ no shutdown
+!
+interface FastEthernet1/0/35
+ no shutdown
+!
+interface FastEthernet1/0/36
+ no shutdown
+!
+interface FastEthernet1/0/37
+ no shutdown
+!
+interface FastEthernet1/0/38
+ no shutdown
+!
+interface FastEthernet1/0/39
+ no shutdown
+!
+interface FastEthernet1/0/40
+ no shutdown
+!
+interface FastEthernet1/0/41
+ no shutdown
+!
+interface FastEthernet1/0/42
+ no shutdown
+!
+interface FastEthernet1/0/43
+ no shutdown
+!
+interface FastEthernet1/0/44
+ no shutdown
+!
+interface FastEthernet1/0/45
+ no shutdown
+!
+interface FastEthernet1/0/46
+ no shutdown
+!
+interface FastEthernet1/0/47
+ no shutdown
+!
+interface FastEthernet1/0/48
+ no shutdown
+!
+interface GigabitEthernet1/0/1
+ no shutdown
+!
+interface GigabitEthernet1/0/2
+ no shutdown
+!
+interface GigabitEthernet1/0/3
+ no shutdown
+!
+interface GigabitEthernet1/0/4
+ no shutdown
+!
+interface FastEthernet2/0/1
+ no shutdown
+!
+interface FastEthernet2/0/2
+ no shutdown
+!
+interface FastEthernet2/0/3
+ no shutdown
+!
+interface FastEthernet2/0/4
+ no shutdown
+!
+interface FastEthernet2/0/5
+ no shutdown
+!
+interface FastEthernet2/0/6
+ no shutdown
+!
+interface FastEthernet2/0/7
+ no shutdown
 !
 interface FastEthernet2/0/8
+ no shutdown
 !
 interface FastEthernet2/0/9
+ no shutdown
 !
 interface FastEthernet2/0/10
+ no shutdown
 !
 interface FastEthernet2/0/11
+ no shutdown
 !
 interface FastEthernet2/0/12
+ no shutdown
 !
 interface FastEthernet2/0/13
+ no shutdown
 !
 interface FastEthernet2/0/14
+ no shutdown
 !
 interface FastEthernet2/0/15
+ no shutdown
 !
 interface FastEthernet2/0/16
+ no shutdown
 !
 interface FastEthernet2/0/17
- no switchport
- no ip address
- channel-group 1 mode active
+ no shutdown
 !
 interface FastEthernet2/0/18
- no switchport
- no ip address
- channel-group 1 mode active
+ no shutdown
 !
 interface FastEthernet2/0/19
- no switchport
- no ip address
- channel-group 2 mode active
+ no shutdown
 !
 interface FastEthernet2/0/20
- no switchport
- no ip address
- channel-group 2 mode active
+ no shutdown
 !
 interface FastEthernet2/0/21
- no switchport
- no ip address
- channel-group 3 mode active
+ no shutdown
 !
 interface FastEthernet2/0/22
- no switchport
- no ip address
- channel-group 3 mode active
+ no shutdown
 !
 interface FastEthernet2/0/23
+ no shutdown
 !
 interface FastEthernet2/0/24
+ no shutdown
 !
 interface FastEthernet2/0/25
+ no shutdown
 !
 interface FastEthernet2/0/26
+ no shutdown
 !
 interface FastEthernet2/0/27
+ no shutdown
 !
 interface FastEthernet2/0/28
+ no shutdown
 !
 interface FastEthernet2/0/29
+ no shutdown
 !
 interface FastEthernet2/0/30
+ no shutdown
 !
 interface FastEthernet2/0/31
+ no shutdown
 !
 interface FastEthernet2/0/32
+ no shutdown
 !
 interface FastEthernet2/0/33
+ no shutdown
 !
 interface FastEthernet2/0/34
+ no shutdown
 !
 interface FastEthernet2/0/35
+ no shutdown
 !
 interface FastEthernet2/0/36
+ no shutdown
 !
 interface FastEthernet2/0/37
+ no shutdown
 !
 interface FastEthernet2/0/38
+ no shutdown
 !
 interface FastEthernet2/0/39
+ no shutdown
 !
 interface FastEthernet2/0/40
+ no shutdown
 !
 interface FastEthernet2/0/41
+ no shutdown
 !
 interface FastEthernet2/0/42
+ no shutdown
 !
 interface FastEthernet2/0/43
+ no shutdown
 !
 interface FastEthernet2/0/44
+ no shutdown
 !
 interface FastEthernet2/0/45
+ no shutdown
 !
 interface FastEthernet2/0/46
+ no shutdown
 !
 interface FastEthernet2/0/47
+ no shutdown
 !
 interface FastEthernet2/0/48
+ no shutdown
 !
 interface GigabitEthernet2/0/1
+ no shutdown
 !
 interface GigabitEthernet2/0/2
+ no shutdown
 !
 interface GigabitEthernet2/0/3
+ no shutdown
 !
 interface GigabitEthernet2/0/4
+ no shutdown
 !
 interface Vlan1
  no ip address
@@ -318,27 +442,90 @@ router eigrp 328
  network 10.7.240.8 0.0.0.3
  network 10.7.240.48 0.0.0.3
  network 10.7.240.56 0.0.0.3
+ redistribute static
  eigrp router-id 1.1.2.1
 !
 ip classless
+ip route 0.0.0.0 0.0.0.0 10.7.240.66
+ip route 10.1.1.0 255.255.255.128 10.7.241.2
 ip route 10.7.240.52 255.255.255.252 10.7.240.49
 ip http server
 ip http secure-server
 !
 !
+ip access-list extended management
+ permit tcp 10.0.255.0 0.0.0.15 any eq 22
+ permit tcp 10.7.240.0 0.0.0.255 any eq 22
 !
 !
-banner motd ^CC"UNLIMITED POWER...Everything That Has Transpired Has Done So According To My Design."^C
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface-old
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps cluster
+snmp-server enable traps fru-ctrl
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps power-ethernet group 1-9
+snmp-server enable traps power-ethernet police
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps flash insertion removal
+snmp-server enable traps port-security
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps dot1x auth-fail-vlan guest-vlan no-auth-fail-vlan no-guest-vlan
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps stackwise
+snmp-server enable traps license
+snmp-server enable traps bgp
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps isis
+snmp-server enable traps msdp
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps energywise
+snmp-server enable traps vstack
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps rtr
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server host 10.0.255.14 version 2c NOTKEA 
+!
+banner motd ^CCCCCC"UNLIMITED POWER...Everything That Has Transpired Has Done So According To My Design."^C
 !
 line con 0
  password 7 14141B180F0B
  logging synchronous
  login
 line vty 0 4
+ access-class management in
  login local
  transport input ssh
 line vty 5 15
+ access-class management in
  login local
  transport input ssh
 !
+ntp clock-period 36030238
+ntp server 132.163.96.2
 end

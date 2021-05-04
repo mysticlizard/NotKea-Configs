@@ -1,56 +1,3 @@
----NOTKEA ROUTER 1 CONFIG-------------------------------------------
-enable
-conf t
-hostname NOTKEA_MAD_R1
-no ip domain-lookup
-Line con 0
-Password cisco
-Login
-Logging sync
-
-Ip domain name notkea.local
-Crypto key generate rsa
-1024
-Ip ssh ver 2
-Username admin secret democracy
-Enable secret democracy
-Service password-enc
-Line vty 0 15
-Login local
-Transport input ssh
-Banner motd !Authorized Access Only@!
-Line aux 0
-Password cisco
-Login
-
---INTERFACES----------------------------------------------------------------
-int g0/0
-ip add 10.7.240.6 255.255.255.240
-description 3750_1 Connection
-no shut
-end
-
-int g0/1
-ip add 10.7.240.14 255.255.255.240
-description 3750_2 Connection
-no shut
-end
-
-int g0/2
-ip add 10.7.240.21 255.255.255.240
-description 2911_4 Connection
-no shut 
-end
-
---------Configuration-------------------------------------------------------
-
-Building configuration...
-
-
-Current configuration : 2881 bytes
-!
-! Last configuration change at 18:17:33 UTC Tue Mar 23 2021
-!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -67,7 +14,7 @@ enable secret 5 $1$8coZ$4kEO8eSoZoqiUO32v5Hr0/
 !
 no aaa new-model
 memory-size iomem 10
-network-clock-participate wic 2
+network-clock-participate wic 2 
 !
 !
 !
@@ -125,9 +72,10 @@ redundancy
 !
 controller T1 0/2/0
  cablelength long 0db
+ pri-group timeslots 1-4,24
 !
 ip ssh version 2
-!
+! 
 !
 !
 !
@@ -144,6 +92,7 @@ interface Multilink1
  ppp multilink group 1
  ppp multilink fragment delay 20
  ppp multilink multiclass
+ no shutdown
 !
 interface Embedded-Service-Engine0/0
  no ip address
@@ -153,17 +102,20 @@ interface GigabitEthernet0/0
  ip address 10.7.240.6 255.255.255.252
  duplex auto
  speed auto
+ no shutdown
 !
 interface GigabitEthernet0/1
  ip address 10.7.240.14 255.255.255.252
  duplex auto
  speed auto
+ no shutdown
 !
 interface GigabitEthernet0/2
  description 2911_4 Connection
  ip address 10.7.240.21 255.255.255.252
  duplex auto
  speed auto
+ no shutdown
 !
 interface Serial0/0/0
  no ip address
@@ -171,6 +123,7 @@ interface Serial0/0/0
  ppp multilink
  ppp multilink group 1
  clock rate 2000000
+ no shutdown
 !
 interface Serial0/0/1
  no ip address
@@ -178,6 +131,15 @@ interface Serial0/0/1
  ppp multilink
  ppp multilink group 1
  clock rate 2000000
+ no shutdown
+!
+interface Serial0/2/0:23
+ no ip address
+ encapsulation hdlc
+ isdn switch-type primary-ni
+ isdn incoming-voice voice
+ no cdp enable
+ no shutdown
 !
 !
 router eigrp 328
@@ -197,6 +159,8 @@ no ip http secure-server
 !
 control-plane
 !
+!
+voice-port 0/2/0:23
  !
  !
  !
@@ -219,7 +183,7 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CCI AM THE SENATE, UNAUTHORIZED USERS WILL HEAR A STORY, 'Did you ever hear the Tragedy of Darth Plagueis the wise. I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord ofthe Sith.
+banner motd ^CCCI AM THE SENATE, UNAUTHORIZED USERS WILL HEAR A STORY, 'Did you ever hear the Tragedy of Darth Plagueis the wise. I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith.
 banner motd ^C
 !
 line con 0

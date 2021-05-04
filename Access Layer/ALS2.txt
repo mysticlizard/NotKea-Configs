@@ -94,24 +94,6 @@ exit
 !Vlan Addresses
 ! MAKE SURE IP'S ARE CORRECT
 !
-int vlan 20
- ip address 10.0.9.4 255.255.255.224
- exit
-int vlan 21
- ip address 10.0.29.4 255.255.255.240
- exit
-int vlan 22
- ip address 10.0.25.4 255.255.255.240
- exit
-int vlan 23
- ip address 10.0.1.4 255.255.255.224
- exit
-int vlan 24
- ip address 10.0.33.4 255.255.255.248
- exit
-int vlan 25
- ip address 10.0.17.4 255.255.255.224
- exit
  int vlan 1000
  ip address 10.0.255.2 255.255.255.240
  exit

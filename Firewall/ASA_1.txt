@@ -51,7 +51,7 @@ nat (NOTKEA_MAD_CORE1,outside-internet) dynamic interface
 # create policy map to allow icmp -- pings to the outside will work, but traceroute will not, you need an ACL in allowing traceroute and other icmp options.
 
 policy-map global_policy
-class inpection_default
+class inspection_default
 inspect icmp
 exit
 exit

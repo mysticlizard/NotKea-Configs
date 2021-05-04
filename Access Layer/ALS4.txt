@@ -187,7 +187,7 @@ switchport access vlan 666
 !
 !Mk2 defence test
 !Defence agaisnt the dark arts
-int range f0/13,f0/21
+int range f0/17,f0/21
 spanning-tree portfast
 spanning-tree bpduguard en
 spanning-tree guard loop
@@ -195,6 +195,7 @@ switchport mode access
 switchport port-security maximum 3
 switchport port-security
 switchport port-security mac-address sticky
+switchport port-secutity violation restrict
 !
 	# DHCP Snooping
 ip dhcp snooping

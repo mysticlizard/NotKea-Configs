@@ -155,6 +155,7 @@ switchport mode access
 switchport port-security maximum 3
 switchport port-security
 switchport port-security mac-address sticky
+switchport port-secutity violation restrict
 !
 !Kill loopguard
 !no spanning-tree guard loop

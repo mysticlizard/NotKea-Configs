@@ -166,11 +166,11 @@ ip verify source
 ip verify source port-security
 # IP ARP INS
 int range port-chan 1-2
-ip arp inspection trust
 ip dhcp snooping trust
 exit
-ip arp inspection vlan 20-25
 snmp-server community NOTKEA ro
+snmp-server enable traps
+snmp-server host 10.0.255.14 version 2c NOTKEA
 line vty 0 15
 logging sync
 !

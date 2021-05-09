@@ -210,6 +210,7 @@ exit
 snmp-server community NOTKEA ro
 snmp-server enable traps
 snmp-server host 10.0.255.14 version 2c NOTKEA
+snmp-server community NOTKEA ro
 line vty 0 15
 logging sync
 !

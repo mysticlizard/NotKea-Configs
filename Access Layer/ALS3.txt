@@ -109,10 +109,6 @@ switchport mode trunk
 switchport trunk allowed vlan 30-35,1000
 switchport trunk native vlan 999
 !
-!Add to config!
-snmp-server community NOTKEA ro
-snmp-server enable traps
-snmp-server host 10.0.255.14 version 2c NOTKEA
 !
 # AAA stuff here
 !
@@ -170,6 +166,10 @@ ip verify source port-security
 int range port-chan 1-2
 ip dhcp snooping trust
 exit
+!Add to config!
+snmp-server community NOTKEA ro
+snmp-server enable traps
+snmp-server host 10.0.255.14 version 2c NOTKEA
 snmp-server community NOTKEA ro
 line vty 0 15
 logging sync

@@ -101,14 +101,24 @@ config t
 en
 config t
 int range fa0/1-2
- channel-group 1 mode active
+channel-group 1 mode active
 int range fa0/3-4
- channel-group 2 mode active
+channel-group 2 mode active
 int ra port-ch 1-2
- switchport mode trunk
- switchport trunk allowed vlan 30-35,1000
- switchport trunk native vlan 999
-
+switchport mode trunk
+switchport trunk allowed vlan 30-35,1000
+switchport trunk native vlan 999
+!
+!Add to config!
+snmp-server community NOTKEA ro
+snmp-server enable traps
+snmp-server host 10.0.255.14 version 2c NOTKEA
+!
+# AAA stuff here
+!
+Remove:
+ip arp inspection vlan ##-##
+ip arp inspection trust
 !
 !Spanning Tree
 spanning-tree mode rapid-pvst 
@@ -116,7 +126,7 @@ spanning-tree portfast default
 spanning-tree portfast bpduguard default
 !
 !
-	# Access Control
+# Access Control
 int fa0/13
 switchport mode access
 switchport access vlan 32
@@ -161,10 +171,8 @@ storm-control broadcast level 66
 ip verify source
 ip verify source port-security
 int range port-chan 1-2
-ip arp inspection trust
 ip dhcp snooping trust
 exit
-ip arp inspection vlan 30-35
 snmp-server community NOTKEA ro
 line vty 0 15
 logging sync

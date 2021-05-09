@@ -84,8 +84,8 @@ crypto key generate rsa
 1024
 ip ssh version 2
 line vty 0 15
- login local
- transport input ssh
+login local
+transport input ssh
 service password-encryption
 !
 !Vlans
@@ -132,12 +132,14 @@ int ra port-ch 1-2
  switchport mode trunk
  switchport trunk allowed vlan 40-45,1000
  switchport trunk native vlan 999
-
 !
 !Spanning Tree
 spanning-tree mode rapid-pvst 
 spanning-tree portfast default
 spanning-tree portfast bpduguard default
+!
+exit
+!
 !
 !
 	# Access Control
@@ -189,9 +191,7 @@ ip verify source
 ip verify source port-security
 # IP ARP INS
 int range port-chan 1-2
-ip arp inspection trust
 exit
-ip arp inspection vlan 40-45
 line vty 0 15
 logging sync
 !
@@ -205,10 +205,11 @@ storm-control broadcast level 66
 ip verify source
 ip verify source port-security
 int range port-chan 1-2
-ip arp inspection trust
 exit
-ip arp inspection vlan 40-45
+!Add to config!
 snmp-server community NOTKEA ro
+snmp-server enable traps
+snmp-server host 10.0.255.14 version 2c NOTKEA
 line vty 0 15
 logging sync
 !

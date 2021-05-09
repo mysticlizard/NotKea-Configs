@@ -138,7 +138,6 @@ spanning-tree mode rapid-pvst
 spanning-tree portfast default
 spanning-tree portfast bpduguard default
 !
-exit
 !
 !
 !

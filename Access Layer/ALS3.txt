@@ -116,9 +116,6 @@ snmp-server host 10.0.255.14 version 2c NOTKEA
 !
 # AAA stuff here
 !
-Remove:
-ip arp inspection vlan ##-##
-ip arp inspection trust
 !
 !Spanning Tree
 spanning-tree mode rapid-pvst 

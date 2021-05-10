@@ -214,6 +214,7 @@ line vty 0 15
 logging sync
 !
 # NTP
+exit
 ntp server 10.7.250.17
 
 

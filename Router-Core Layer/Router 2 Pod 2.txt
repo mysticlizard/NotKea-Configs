@@ -1,0 +1,216 @@
+!! NETLAB+ saved configuration: time="2021-05-04 20:37:50 UTC" device="R2" hardware="C2900-S00" reservation="14185"
+!
+! Last configuration change at 19:39:05 UTC Tue May 4 2021 by dylan
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_R2_Pod2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$e5Kv$Yeg2KqpA8cQM9vCLcu78b/
+!
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+aaa authorization config-commands
+!
+!
+!
+!
+!
+aaa session-id common
+memory-size iomem 10
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name notkea.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1822AMD9
+license accept end user agreement
+license boot module c2900 technology-package securityk9
+license boot module c2900 technology-package uck9
+!
+!
+username admin secret 5 $1$glQ0$.SOHdvGEyjOsCXbY4aoLz.
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.15.250.41 255.255.255.248
+ no shutdown
+!
+interface Multilink1
+ ip address 10.15.240.26 255.255.255.252
+ ppp multilink
+ ppp multilink interleave
+ ppp multilink group 1
+ ppp multilink fragment delay 20
+ ppp multilink multiclass
+ no shutdown
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description PodNet Connection
+ ip address 10.255.255.3 255.255.255.128
+ ip helper-address 10.255.255.131
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/1
+ description 2911_3 Connection
+ ip address 10.15.240.33 255.255.255.252
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface Serial0/0/0
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ no shutdown
+!
+interface Serial0/0/1
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ no shutdown
+!
+!
+router eigrp 328
+ network 10.8.0.0 0.31.255.255
+ network 10.15.240.24 0.0.0.3
+ network 10.15.240.32 0.0.0.3
+ network 10.255.255.0 0.0.0.127
+ eigrp router-id 1.1.1.6
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+ip radius source-interface Loopback0 
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.0.255.14 version 2c NOTKEA 
+radius-server host 10.255.255.131 key 7 02050D480809
+!
+radius server rad1
+ key 7 00071A150754
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+banner motd ^CCCCYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
+!
+line con 0
+ password 7 1511021F0725
+ logging synchronous
+line aux 0
+ password 7 05080F1C2243
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ transport input ssh
+line vty 5 15
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end

@@ -1,0 +1,320 @@
+!! NETLAB+ saved configuration: time="2021-05-04 20:36:26 UTC" device="Core2" hardware="C3750" reservation="14185"
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_Core2
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$4lU9$mUAQULhLhvZFvX39xSurN.
+!
+username admin secret 5 $1$EXFh$Mi88kUni9b.5HQIYLsfgj.
+!
+!
+no aaa new-model
+switch 1 provision ws-c3750-48ts
+system mtu routing 1500
+ip routing
+no ip domain-lookup
+ip domain-name notkea.local
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3760129408
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3760129408
+ revocation-check none
+ rsakeypair TP-self-signed-3760129408
+!
+!
+crypto pki certificate chain TP-self-signed-3760129408
+ certificate self-signed 01
+  30820255 308201BE A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33373630 31323934 3038301E 170D3933 30333031 30303034 
+  30325A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 37363031 
+  32393430 3830819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100C1B3 EEC494C9 7DDD42E6 33BCA6B8 6E60D843 D1139DD8 6B533457 46A10365 
+  415D8AC8 EFA756A3 4453A797 ABBBE954 14DD9837 7B37AA16 9681944F BA319C14 
+  0CFCBD9C 4D826559 D54C05A7 DBA2865C C62A9B94 20B2D2C0 5972437C DCAE46D0 
+  9D4A9DE5 B5C7372D B6CEACBD 8C696FF4 3EDC7CBB 67D8A8B9 38913CD5 4E54565E 
+  CACD0203 010001A3 7D307B30 0F060355 1D130101 FF040530 030101FF 30280603 
+  551D1104 21301F82 1D4E4F54 4B45415F 4D41445F 436F7265 322E6E6F 746B6561 
+  2E6C6F63 616C301F 0603551D 23041830 1680148E D09D67A9 05E4542C A1E899BA 
+  F19AAFC0 9768B230 1D060355 1D0E0416 04148ED0 9D67A905 E4542CA1 E899BAF1 
+  9AAFC097 68B2300D 06092A86 4886F70D 01010405 00038181 00046A35 2EA18924 
+  D7E73DDD EAD8DD49 FD3B9253 02746531 F93ABC48 3B4556E8 5F3DF290 67DC927E 
+  96B85B53 CDDC75B4 2B3E6414 4160497F 245DD3D7 3DBC888C FDBC8BCE 8DF72349 
+  DCF60D5C 6C365CAA DBE87B13 3292BB71 37F7D4AE 31EC8690 548F8BB0 F14642C8 
+  2D141A39 DA09ECFA 99595477 F42B82BA 1E1B9DF6 ABEFC37F 2D
+  quit
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+!
+!
+interface Loopback1
+ ip address 10.15.250.25 255.255.255.248
+ no shutdown
+!
+interface Port-channel1
+ no switchport
+ ip add 10.15.240.2 255.255.255.252
+ no shutdown
+!
+interface Port-channel2
+ no switchport
+ ip address 10.15.240.54 255.255.255.252
+ no shutdown
+!
+interface Port-channel3
+ no switchport
+ ip address 10.15.240.62 255.255.255.252
+ no shutdown
+!
+interface FastEthernet1/0/1
+ description 2911_1 Connection
+ no switchport
+ ip address 10.15.240.13 255.255.255.252
+ no shutdown
+!
+interface FastEthernet1/0/2
+ description 2911_4 Connection
+ no switchport
+ ip address 10.15.240.17 255.255.255.252
+ no shutdown
+!
+interface FastEthernet1/0/3
+ description ASA_1 Connection
+ no switchport
+ ip address 10.8.0.1 255.255.255.0
+ no shutdown
+!
+interface FastEthernet1/0/4
+ description ASA_2 Connection
+ no switchport
+ no ip address
+ no shutdown
+!
+interface FastEthernet1/0/5
+ description Meraki Day Class
+ no switchport
+ no ip address
+ no shutdown
+!
+interface FastEthernet1/0/6
+ no shutdown
+!
+interface FastEthernet1/0/7
+ no shutdown
+!
+interface FastEthernet1/0/8
+ no shutdown
+!
+interface FastEthernet1/0/9
+ no shutdown
+!
+interface FastEthernet1/0/10
+ no shutdown
+!
+interface FastEthernet1/0/11
+ no shutdown
+!
+interface FastEthernet1/0/12
+ no shutdown
+!
+interface FastEthernet1/0/13
+ no shutdown
+!
+interface FastEthernet1/0/14
+ no shutdown
+!
+interface FastEthernet1/0/15
+ no shutdown
+!
+interface FastEthernet1/0/16
+ no shutdown
+!
+interface FastEthernet1/0/17
+ description 3750_1 Etherchannel
+ no switchport
+ no ip address
+ no shutdown
+!
+interface FastEthernet1/0/18
+ description 3750_1 Etherchannel
+ no switchport
+ no ip address
+ no shutdown
+!
+interface FastEthernet1/0/19
+ no switchport
+ no ip address
+ channel-group 2 mode active
+ no shutdown
+!
+interface FastEthernet1/0/20
+ no switchport
+ no ip address
+ channel-group 2 mode active
+ no shutdown
+!
+interface FastEthernet1/0/21
+ no switchport
+ no ip address
+ channel-group 3 mode active
+ no shutdown
+!
+interface FastEthernet1/0/22
+ no switchport
+ no ip address
+ channel-group 3 mode active
+ no shutdown
+!
+interface FastEthernet1/0/23
+ no shutdown
+!
+interface FastEthernet1/0/24
+ no shutdown
+!
+interface FastEthernet1/0/25
+ no shutdown
+!
+interface FastEthernet1/0/26
+ no shutdown
+!
+interface FastEthernet1/0/27
+ no shutdown
+!
+interface FastEthernet1/0/28
+ no shutdown
+!
+interface FastEthernet1/0/29
+ no shutdown
+!
+interface FastEthernet1/0/30
+ no shutdown
+!
+interface FastEthernet1/0/31
+ no shutdown
+!
+interface FastEthernet1/0/32
+ no shutdown
+!
+interface FastEthernet1/0/33
+ no shutdown
+!
+interface FastEthernet1/0/34
+ no shutdown
+!
+interface FastEthernet1/0/35
+ no shutdown
+!
+interface FastEthernet1/0/36
+ no shutdown
+!
+interface FastEthernet1/0/37
+ no shutdown
+!
+interface FastEthernet1/0/38
+ no shutdown
+!
+interface FastEthernet1/0/39
+ no shutdown
+!
+interface FastEthernet1/0/40
+ no shutdown
+!
+interface FastEthernet1/0/41
+ no shutdown
+!
+interface FastEthernet1/0/42
+ no shutdown
+!
+interface FastEthernet1/0/43
+ no shutdown
+!
+interface FastEthernet1/0/44
+ no shutdown
+!
+interface FastEthernet1/0/45
+ no shutdown
+!
+interface FastEthernet1/0/46
+ no shutdown
+!
+interface FastEthernet1/0/47
+ no shutdown
+!
+interface FastEthernet1/0/48
+ no shutdown
+!
+interface GigabitEthernet1/0/1
+ no shutdown
+!
+interface GigabitEthernet1/0/2
+ no shutdown
+!
+interface GigabitEthernet1/0/3
+ no shutdown
+!
+interface GigabitEthernet1/0/4
+ no shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+router eigrp 328
+ network 10.15.240.0 0.0.0.3
+ network 10.15.240.12 0.0.0.3
+ network 10.15.240.16 0.0.0.3
+ network 10.15.240.52 0.0.0.3
+ network 10.15.240.60 0.0.0.3
+ eigrp router-id 1.1.2.2
+!
+ip classless
+ip http server
+ip http secure-server
+!
+!
+ip access-list extended management
+ permit tcp 10.8.255.0 0.0.0.15 any eq 22
+ permit tcp 10.15.240.0 0.0.0.255 any eq 22
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.8.255.14 version 2c NOTKEA 
+!
+banner motd ^CCCAuthorized Access Only. You can't win, Vader. If you strike me down, I shall become more powerful than you can possibly imagine^C
+!
+line con 0
+ password 7 094F471A1A0A
+ logging synchronous
+ login
+line vty 0 4
+ access-class management in
+ login local
+ transport input ssh
+line vty 5 15
+ access-class management in
+ login local
+ transport input ssh
+!
+end

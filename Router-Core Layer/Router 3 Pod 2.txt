@@ -1,0 +1,213 @@
+!! NETLAB+ saved configuration: time="2021-05-04 20:37:14 UTC" device="R3" hardware="C2900-S00" reservation="14185"
+!
+! Last configuration change at 19:51:55 UTC Tue May 4 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_R3_Pod2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$Z590$gYD96fYyMwuxeVIRgvCVG/
+!
+no aaa new-model
+memory-size iomem 10
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name notkea.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1822AMEP
+license accept end user agreement
+license boot module c2900 technology-package securityk9
+license boot module c2900 technology-package uck9
+!
+!
+username admin secret 5 $1$i3bE$30RFAeBBWPg/h5z/nL7Ap/
+!
+redundancy
+!
+!
+!
+!
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback1
+ ip address 10.15.250.49 255.255.255.248
+ no shutdown
+!
+interface Multilink2
+ ip address 10.15.240.30 255.255.255.252
+ ppp multilink
+ ppp multilink interleave
+ ppp multilink group 2
+ ppp multilink fragment delay 20
+ ppp multilink multiclass
+ no shutdown
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description PodNet Connection
+ ip address 10.255.255.2 255.255.255.128
+ ip helper-address 10.255.255.131
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/1
+ description 2911_2 Connection
+ ip address 10.15.240.34 255.255.255.252
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface Serial0/0/0
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 2
+ no shutdown
+!
+interface Serial0/0/1
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 2
+ no shutdown
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/1/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+!
+router eigrp 328
+ network 10.8.0.0 0.31.255.255
+ network 10.15.240.28 0.0.0.3
+ network 10.15.240.32 0.0.0.3
+ network 10.255.255.0 0.0.0.127
+ eigrp router-id 1.1.1.3
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.0.255.14 version 2c NOTKEA 
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+banner motd ^CCCC I don't like sand. It's coarse and rough and irritating and it gets everywhere. Not like here. Here everything is soft and smooth'^C
+!
+line con 0
+ password 7 13061E010803
+ logging synchronous
+ login
+line aux 0
+ password 7 13061E010803
+ login
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end

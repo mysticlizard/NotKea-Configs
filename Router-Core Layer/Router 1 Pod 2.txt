@@ -1,0 +1,223 @@
+!! NETLAB+ saved configuration: time="2021-05-04 20:36:53 UTC" device="R1" hardware="C2900-S00" reservation="14185"
+!
+! Last configuration change at 19:52:03 UTC Tue May 4 2021
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname NOTKEA_MAD_R1_Pod2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+card type t1 0 2
+enable secret 5 $1$8coZ$4kEO8eSoZoqiUO32v5Hr0/
+!
+no aaa new-model
+memory-size iomem 10
+network-clock-participate wic 2 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name notkea.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+isdn switch-type primary-ni
+!
+cts logging verbose
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX1822AMDE
+license accept end user agreement
+license boot module c2900 technology-package securityk9
+license boot module c2900 technology-package uck9
+hw-module pvdm 0/0
+!
+!
+!
+username admin secret 5 $1$vkWQ$xvfO7RU.fBPb/rFvAbAP3/
+!
+redundancy
+!
+!
+!
+!
+!
+controller T1 0/2/0
+ cablelength long 0db
+ pri-group timeslots 1-4,24
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback1
+ ip address 10.15.250.33 255.255.255.248
+ no shutdown
+!
+interface Multilink1
+ ip address 10.15.240.25 255.255.255.252
+ ppp multilink
+ ppp multilink interleave
+ ppp multilink group 1
+ ppp multilink fragment delay 20
+ ppp multilink multiclass
+ no shutdown
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 10.15.240.6 255.255.255.252
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/1
+ ip address 10.15.240.14 255.255.255.252
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface GigabitEthernet0/2
+ description 2911_4 Connection
+ ip address 10.15.240.21 255.255.255.252
+ duplex auto
+ speed auto
+ no shutdown
+!
+interface Serial0/0/0
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ clock rate 2000000
+ no shutdown
+!
+interface Serial0/0/1
+ no ip address
+ encapsulation ppp
+ ppp multilink
+ ppp multilink group 1
+ clock rate 2000000
+ no shutdown
+!
+interface Serial0/2/0:23
+ no ip address
+ encapsulation hdlc
+ isdn switch-type primary-ni
+ isdn incoming-voice voice
+ no cdp enable
+ no shutdown
+!
+!
+router eigrp 328
+ network 10.15.240.4 0.0.0.3
+ network 10.15.240.12 0.0.0.3
+ network 10.15.240.20 0.0.0.3
+ network 10.15.240.24 0.0.0.3
+ eigrp router-id 1.1.1.1
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.8.255.14 version 2c NOTKEA 
+!
+control-plane
+!
+!
+voice-port 0/2/0:23
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+banner motd ^CCCCCI AM THE SENATE, UNAUTHORIZED USERS WILL HEAR A STORY, 'Did you ever hear the Tragedy of Darth Plagueis the wise. I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith.
+banner motd ^C
+!
+line con 0
+ password 7 1511021F0725
+ logging synchronous
+ login
+line aux 0
+ password 7 110A1016141D
+ login
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+!
+end

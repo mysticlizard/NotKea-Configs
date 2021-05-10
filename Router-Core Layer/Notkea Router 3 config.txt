@@ -1,3 +1,6 @@
+!
+! Last configuration change at 00:02:07 UTC Mon May 10 2021
+!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -11,7 +14,16 @@ boot-end-marker
 !
 enable secret 5 $1$Z590$gYD96fYyMwuxeVIRgvCVG/
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+!
+!
+!
+!
+!
+aaa session-id common
 memory-size iomem 10
 !
 !
@@ -66,7 +78,6 @@ redundancy
 !
 !
 ip ssh version 2
-! 
 !
 !
 !
@@ -75,6 +86,10 @@ ip ssh version 2
 !
 !
 !
+!
+!
+interface Loopback0
+ ip address 10.7.250.49 255.255.255.248
 !
 interface Multilink2
  ip address 10.7.240.30 255.255.255.252
@@ -83,7 +98,6 @@ interface Multilink2
  ppp multilink group 2
  ppp multilink fragment delay 20
  ppp multilink multiclass
- no shutdown
 !
 interface Embedded-Service-Engine0/0
  no ip address
@@ -92,36 +106,32 @@ interface Embedded-Service-Engine0/0
 interface GigabitEthernet0/0
  description PodNet Connection
  ip address 10.255.255.2 255.255.255.128
+ ip helper-address 10.255.255.131
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/1
  description 2911_2 Connection
  ip address 10.7.240.34 255.255.255.252
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/2
  no ip address
  duplex auto
  speed auto
- no shutdown
 !
 interface Serial0/0/0
  no ip address
  encapsulation ppp
  ppp multilink
  ppp multilink group 2
- no shutdown
 !
 interface Serial0/0/1
  no ip address
  encapsulation ppp
  ppp multilink
  ppp multilink group 2
- no shutdown
 !
 interface Serial0/1/0
  no ip address
@@ -147,6 +157,13 @@ no ip http server
 no ip http secure-server
 !
 !
+ip radius source-interface Loopback0
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.0.255.14 version 2c NOTKEA
+radius-server host 10.255.255.131 key 7 030752180500
 !
 !
 !
@@ -174,15 +191,13 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CC I don't like sand. It's coarse and rough and irritating and it gets everywhere. Not like here. Here everything is soft and smooth'^C
+banner motd ^CCCCC I don't like sand. It's coarse and rough and irritating and it gets everywhere. Not like here. Here everything is soft and smooth'^C
 !
 line con 0
  password 7 13061E010803
  logging synchronous
- login
 line aux 0
  password 7 13061E010803
- login
 line 2
  no activation-character
  no exec
@@ -190,10 +205,8 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- login local
  transport input ssh
 line vty 5 15
- login local
  transport input ssh
 !
 scheduler allocate 20000 1000

@@ -380,9 +380,9 @@ router eigrp 328
  
  passive-interface default
  
- no passive interface port-channel 5
- no passive interface port-channel 6
- no passive interface port-channel 7
+ no pass port-channel 5
+ no pass port-channel 6
+ no pass port-channel 7
  
  eigrp router-id 1.1.3.2
 

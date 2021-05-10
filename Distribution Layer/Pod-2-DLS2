@@ -1,6 +1,7 @@
 enable
 config t
 cdp run
+lldp run
 hostname DLS2-3560
 no ip domain-lookup
 line con 0
@@ -12,6 +13,7 @@ ip domain-name notkea.local
 crypto key generate rsa
 1024
 ip ssh ver 2
+vtp mode transparent
 ip routing
 username admin secret democracy
 enable secret democracy
@@ -19,10 +21,26 @@ service password-enc
 line vty 0 15
 login local
 transport input ssh
+
 banner motd !Hey man, just make sure you're allowed to use this or bad stuff will happen : ) !
-line aux 0
-password cisco
-login
+
+logging trap notifications
+logging 10.8.255.14
+
+snmp-server trap-source lo0
+snmp-server host 10.8.255.14 traps version 2c NOTKEA
+snmp-server enable traps snmp
+
+errdisable recovery cause bpduguard
+errdisable recovery cause port-mode-failure
+
+spanning-tree mode pvst
+spanning-tree loopguard default
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+
+int Loopback0
+ ip address 10.15.250.9 255.255.255.248
 
 no vlan 2-1001
 
@@ -87,36 +105,42 @@ name management
 
 int vlan 10
 ip address 10.8.8.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.8.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 11
 ip address 10.8.28.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.28.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 12
 ip address 10.8.24.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.24.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 13
 ip address 10.8.0.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.0.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 14
 ip address 10.8.32.3 255.255.255.248
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.32.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 15
 ip address 10.8.16.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.16.1
 standby 1 priority 100
@@ -124,36 +148,42 @@ standby 1 preempt
 
 int vlan 20
 ip address 10.8.9.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.9.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 21
 ip address 10.8.29.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.29.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 22
 ip address 10.8.25.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.25.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 23
 ip address 10.8.1.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.1.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 24
 ip address 10.8.33.3 255.255.255.248
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.33.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 25
 ip address 10.8.17.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.17.1
 standby 1 priority 110
@@ -161,36 +191,42 @@ standby 1 preempt
 
 int vlan 30
 ip address 10.8.10.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.10.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 31
 ip address 10.8.30.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.30.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 32
 ip address 10.8.26.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.26.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 33
 ip address 10.8.2.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.2.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 34
 ip address 10.8.34.3 255.255.255.248
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.34.1
 standby 1 priority 100
 standby 1 preempt
 int vlan 35
 ip address 10.8.18.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.18.1
 standby 1 priority 100
@@ -198,36 +234,42 @@ standby 1 preempt
 
 int vlan 40
 ip address 10.8.11.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.11.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 41
 ip address 10.8.31.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.31.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 42
 ip address 10.8.27.3 255.255.255.240
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.27.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 43
 ip address 10.8.3.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.3.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 44
 ip address 10.8.35.3 255.255.255.248
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.35.1
 standby 1 priority 110
 standby 1 preempt
 int vlan 45
 ip address 10.8.19.3 255.255.255.224
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.19.1
 standby 1 priority 110
@@ -235,6 +277,7 @@ standby 1 preempt
 
 int vlan 1000
 ip address 10.8.255.6 255.255.255.0
+ip helper-address 10.255.255.131
 standby version 2
 standby 1 ip 10.8.255.9
 standby 1 priority 100
@@ -242,93 +285,141 @@ standby 1 preempt
 
 ip dhcp snooping
 ip dhcp snooping vlan 10-45
+no ip dhcp snooping information option
 ip arp inspection
 ip arp inspection vlan 10-45
 
 int ra f0/1-2
-channel-group 1 mode active
+ channel-group 1 mode active
 int ra f0/3-4
-channel-group 2 mode active
+ channel-group 2 mode active
 int ra f0/5-6
-channel-group 3 mode active
+ channel-group 3 mode active
 int ra f0/7-8
-channel-group 4 mode active
+ channel-group 4 mode active
+int ra f0/9-16
+ sw m a
+ sw a v 666
+ shut
 int ra f0/21-24
-channel-group 5 mode active
+ no sw
+ channel-group 5 mode active
 int ra f0/17-18
-no sw
-channel-group 6 mode active
+ no sw
+ channel-group 6 mode active
 int ra f0/19-20
-no sw
-channel-group 7 mode active
+ no sw
+ channel-group 7 mode active
 
 interface Port-channel1
-switchport trunk encapsulation dot1q
-switchport trunk native vlan 999
-switchport trunk allowed vlan 10-15,1000
-switchport mode trunk
-switchport nonegotiate
-ip dhcp snooping trust
-ip arp inspection trust
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10-15,1000
+ switchport mode trunk
+ switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel2
-switchport trunk encapsulation dot1q
-switchport trunk native vlan 999
-switchport trunk allowed vlan 20-25,1000
-switchport mode trunk
-switchport nonegotiate
-ip dhcp snooping trust
-ip arp inspection trust
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 20-25,1000
+ switchport mode trunk
+ switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel3
-switchport trunk encapsulation dot1q
-switchport trunk native vlan 999
-switchport trunk allowed vlan 30-35,1000
-switchport mode trunk
-switchport nonegotiate
-ip dhcp snooping trust
-ip arp inspection trust
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 30-35,1000
+ switchport mode trunk
+ switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel4
-switchport trunk encapsulation dot1q
-switchport trunk native vlan 999
-switchport trunk allowed vlan 40-45,1000
-switchport mode trunk
-switchport nonegotiate
-ip dhcp snooping trust
-ip arp inspection trust
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 40-45,1000
+ switchport mode trunk
+ switchport nonegotiate
+ ip dhcp snooping trust
+ ip arp inspection trust
 
 interface Port-channel5
-switchport trunk encapsulation dot1q
-switchport trunk native vlan 999
-switchport trunk allowed vlan 10-45,1000
-switchport mode trunk
-switchport nonegotiate
-ip dhcp snooping trust
-ip arp inspection trust
+ no switchport
+ ip address 10.15.240.46 255.255.255.252
+ ip arp inspection trust
+ ip summary-address eigrp 328 10.8.0.0 255.255.0.0
+ no shut
 
 interface Port-channel6
-no switchport
-ip address 10.15.240.57 255.255.255.252
-ip dhcp snooping trust
-ip arp inspection trust
-no shut
+ no switchport
+ ip address 10.15.240.57 255.255.255.252
+ ip arp inspection trust
+ ip summary-address eigrp 328 10.8.0.0 255.255.0.0
+ no shut
 
 interface Port-channel7
-no switchport
-ip address 10.15.240.61 255.255.255.252
-ip dhcp snooping trust
-ip arp inspection trust
-no shut
+ no switchport
+ ip address 10.15.240.61 255.255.255.252
+ ip arp inspection trust
+ ip summary-address eigrp 328 10.8.0.0 255.255.0.0
+ no shut
 
 span vlan 10-15,30-35 root secondary
 span vlan 20-25,40-45 root primary
 
 router eigrp 328
-network 10.8.0.0 0.0.255.255
-network 10.15.240.56 0.0.0.3
-network 10.15.240.60 0.0.0.3
-eigrp router-id 1.1.3.2
+ network 10.8.0.0 0.0.255.255
+ network 10.15.240.44 0.0.0.3
+ network 10.15.240.56 0.0.0.3
+ network 10.15.240.60 0.0.0.3
+ network 107.7.250.8 0.0.0.7
+ 
+ passive-interface default
+ 
+ no pass port-channel 5
+ no pass port-channel 6
+ no pass port-channel 7
+ 
+ eigrp router-id 1.1.3.2
+
+ip access-list extended management
+ permit tcp 10.8.255.0 0.0.0.15 any eq 22
+ permit tcp 10.8.250.0 0.0.0.15 any eq 22
+ permit tcp 10.15.240.0 0.0.0.255 any eq 22
+ permit tcp host 10.255.255.131 any eq 22
+
+snmp-server community NOTKEA RO
+
+ntp server 10.15.250.17
+ntp server 10.15.250.25
+
+# enables aaa authentication on the device
+#aaa new-model
+# specify a radius server -- our windows server in this case
+#radius-server host 10.255.255.131 key cisco
+# send to radius server via lo0
+#ip radius source-interface lo0
+# specify radius as the default login authentication method -- try radius FIRST then LOCAL user
+#aaa authentication login default group radius local
+# let's authorize some stuff
+#aaa authorization config-commands
+#aaa authorization exec default group radius local
+#aaa authorization commands 15 default group radius local
+#aaa authorization reverse-access default group radius local
+# let's account some stuff! logging essentially
+#aaa accounting exec default start-stop group radius
+#aaa accounting commands 15 default start-stop group radius
+#aaa accounting network default start-stop group radius
+#aaa accounting connection default start-stop group radius
+#aaa accounting system default start-stop group radius
+# apply aaa autentication to vty's
+#line vty 0 15
+#login authentication default
+#exit
 
 
 end

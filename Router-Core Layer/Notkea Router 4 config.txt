@@ -1,3 +1,6 @@
+!
+! Last configuration change at 00:04:16 UTC Mon May 10 2021
+!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -12,9 +15,18 @@ boot-end-marker
 card type t1 0 2
 enable secret 5 $1$3Kg.$ywk4qwWnGyOM6u03KTquj.
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login default group radius local
+!
+!
+!
+!
+!
+aaa session-id common
 memory-size iomem 10
-network-clock-participate wic 2 
+network-clock-participate wic 2
 !
 !
 !
@@ -74,7 +86,6 @@ controller T1 0/2/0
  cablelength long 0db
 !
 ip ssh version 2
-! 
 !
 !
 !
@@ -83,6 +94,10 @@ ip ssh version 2
 !
 !
 !
+!
+!
+interface Loopback0
+ ip address 10.7.250.57 255.255.255.248
 !
 interface Multilink2
  ip address 10.7.240.29 255.255.255.252
@@ -91,7 +106,6 @@ interface Multilink2
  ppp multilink group 2
  ppp multilink fragment delay 20
  ppp multilink multiclass
- no shutdown
 !
 interface Embedded-Service-Engine0/0
  no ip address
@@ -101,20 +115,17 @@ interface GigabitEthernet0/0
  ip address 10.7.240.10 255.255.255.252
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/1
  ip address 10.7.240.18 255.255.255.252
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/2
  description 2911_1 Connection
  ip address 10.7.240.22 255.255.255.252
  duplex auto
  speed auto
- no shutdown
 !
 interface Serial0/0/0
  no ip address
@@ -122,7 +133,6 @@ interface Serial0/0/0
  ppp multilink
  ppp multilink group 2
  clock rate 2000000
- no shutdown
 !
 interface Serial0/0/1
  no ip address
@@ -130,7 +140,6 @@ interface Serial0/0/1
  ppp multilink
  ppp multilink group 2
  clock rate 2000000
- no shutdown
 !
 !
 router eigrp 328
@@ -146,6 +155,13 @@ no ip http server
 no ip http secure-server
 !
 !
+ip radius source-interface Loopback0
+!
+!
+snmp-server community NOTKEA RO
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server host 10.0.255.14 version 2c NOTKEA
+radius-server host 10.255.255.131 key 7 070C285F4D06
 !
 !
 !
@@ -173,15 +189,13 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CCIt's over Anakin, I have the high ground.You underestimate my power. Don't try it. Insert lightsaber sounds.'^C
+banner motd ^CCCCCIt's over Anakin, I have the high ground.You underestimate mypower. Don't try it. Insert lightsaber sounds.'^C
 !
 line con 0
  password 7 121A0C041104
  logging synchronous
- login
 line aux 0
  password 7 13061E010803
- login
 line 2
  no activation-character
  no exec
@@ -189,10 +203,8 @@ line 2
  transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
  stopbits 1
 line vty 0 4
- login local
  transport input ssh
 line vty 5 15
- login local
  transport input ssh
 !
 scheduler allocate 20000 1000

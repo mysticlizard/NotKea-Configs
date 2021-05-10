@@ -88,29 +88,9 @@ name BLACKHOLE
 exit
 !
 !Vlan Addresses
-! MAKE SURE IP'S ARE CORRECT
-!
-int vlan 30
- ip address 10.8.10.4 255.255.255.224
- exit
-int vlan 31
- ip address 10.8.30.4 255.255.255.240
- exit
-int vlan 32
- ip address 10.8.26.4 255.255.255.240
- exit
-int vlan 33
- ip address 10.8.2.4 255.255.255.224
- exit
-int vlan 34
- ip address 10.8.34.4 255.255.255.248
- exit
-int vlan 35
- ip address 10.8.18.4 255.255.255.224
- exit
- int vlan 1000
- ip address 10.8.255.3 255.255.255.255
- exit
+int vlan 1000
+ip address 10.8.255.3 255.255.255.255
+exit
 !
 !
 en
@@ -121,14 +101,17 @@ config t
 en
 config t
 int range fa0/1-2
- channel-group 1 mode active
+channel-group 1 mode active
 int range fa0/3-4
- channel-group 2 mode active
+channel-group 2 mode active
 int ra port-ch 1-2
- switchport mode trunk
- switchport trunk allowed vlan 30-35
- switchport trunk native vlan 999
-
+switchport mode trunk
+switchport trunk allowed vlan 30-35,1000
+switchport trunk native vlan 999
+!
+!
+# AAA stuff here
+!
 !
 !Spanning Tree
 spanning-tree mode rapid-pvst 
@@ -136,7 +119,7 @@ spanning-tree portfast default
 spanning-tree portfast bpduguard default
 !
 !
-	# Access Control
+# Access Control
 int fa0/13
 switchport mode access
 switchport access vlan 32
@@ -171,21 +154,27 @@ switchport mode access
 switchport port-security maximum 3
 switchport port-security
 switchport port-security mac-address sticky
+switchport port-secutity violation restrict
 !
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 32 
-int fa0/13 
+ip dhcp snooping vlan 30-35
+int fa0/13
+storm-control broadcast level 66
 ip verify source
 ip verify source port-security
-ip arp inspection vlan 32 
 int range port-chan 1-2
-ip arp inspection trust
+ip dhcp snooping trust
 exit
+!Add to config!
+snmp-server community NOTKEA ro
+snmp-server enable traps
+snmp-server host 10.0.255.14 version 2c NOTKEA
+snmp-server community NOTKEA ro
 line vty 0 15
 logging sync
 !
 !
 # NTP
-ntp server ?.?.?.?
+ntp server 10.15.250.17

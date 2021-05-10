@@ -1,3 +1,6 @@
+!
+! Last configuration change at 00:59:58 UTC Mon May 10 2021 by admin
+!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -14,6 +17,8 @@ enable secret 5 $1$e5Kv$Yeg2KqpA8cQM9vCLcu78b/
 aaa new-model
 !
 !
+aaa authentication login default group radius local
+aaa authorization config-commands
 !
 !
 !
@@ -65,7 +70,7 @@ license boot module c2900 technology-package securityk9
 license boot module c2900 technology-package uck9
 !
 !
-username admin secret 5 $1$glQ0$.SOHdvGEyjOsCXbY4aoLz.
+username admin secret 5 $1$HFHE$gVS6FweSQD7qNfrHJRUJ2.
 !
 redundancy
 !
@@ -74,7 +79,6 @@ redundancy
 !
 !
 ip ssh version 2
-! 
 !
 !
 !
@@ -83,6 +87,10 @@ ip ssh version 2
 !
 !
 !
+!
+!
+interface Loopback0
+ ip address 10.7.250.41 255.255.255.248
 !
 interface Multilink1
  ip address 10.7.240.26 255.255.255.252
@@ -91,7 +99,6 @@ interface Multilink1
  ppp multilink group 1
  ppp multilink fragment delay 20
  ppp multilink multiclass
- no shutdown
 !
 interface Embedded-Service-Engine0/0
  no ip address
@@ -103,34 +110,29 @@ interface GigabitEthernet0/0
  ip helper-address 10.255.255.131
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/1
  description 2911_3 Connection
  ip address 10.7.240.33 255.255.255.252
  duplex auto
  speed auto
- no shutdown
 !
 interface GigabitEthernet0/2
  no ip address
  duplex auto
  speed auto
- no shutdown
 !
 interface Serial0/0/0
  no ip address
  encapsulation ppp
  ppp multilink
  ppp multilink group 1
- no shutdown
 !
 interface Serial0/0/1
  no ip address
  encapsulation ppp
  ppp multilink
  ppp multilink group 1
- no shutdown
 !
 !
 router eigrp 328
@@ -146,13 +148,13 @@ no ip http server
 no ip http secure-server
 !
 !
+ip radius source-interface Loopback0
 !
 !
 snmp-server community NOTKEA RO
 snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
-snmp-server host 10.0.255.14 version 2c NOTKEA 
-!
-radius server rad1
+snmp-server host 10.0.255.14 version 2c NOTKEA
+radius-server host 10.255.255.131 key 7 02050D480809
 !
 !
 !
@@ -180,7 +182,7 @@ gatekeeper
  shutdown
 !
 !
-banner motd ^CCCCYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
+banner motd ^CCCCCYousa should follow me now, okeeday My warning yous: Gungans no like outsiders. Don't 'spect a warm welcome.'^C
 !
 line con 0
  password 7 1511021F0725

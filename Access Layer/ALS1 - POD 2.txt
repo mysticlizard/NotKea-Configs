@@ -86,25 +86,6 @@ name MANAGEMENT
 exit
 !
 !Vlan Addresses
-!
-int vlan 10
- ip address 10.8.8.4 255.255.255.224
- exit
-int vlan 11
- ip address 10.8.28.4 255.255.255.240
- exit
-int vlan 12
- ip address 10.8.24.4 255.255.255.240
- exit
-int vlan 13
- ip address 10.8.0.4 255.255.255.224
- exit
-int vlan 14
- ip address 10.8.32.4 255.255.255.248
- exit
-int vlan 15
- ip address 10.8.16.4 255.255.255.224
- exit
  int vlan 1000
  ip address 10.8.255.1 255.255.255.240
  exit
@@ -118,7 +99,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 10-15
+ switchport trunk allowed vlan 10-15,1000
  switchport trunk native vlan 999
 
 !Spanning Tree
@@ -141,23 +122,39 @@ int range G0/1-2
 switchport mode access
 switchport access vlan 666
 !
+!Mk2 defence test
+!Defence agaisnt the dark arts
+int range f0/5,f0/24
+spanning-tree portfast
+spanning-tree bpduguard en
+spanning-tree guard loop
+switchport mode access
+switchport port-security maximum 3
+switchport port-security
+switchport port-security mac-address sticky
+switchport port-secutity violation restrict
 !
+!Kill loopguard
+!no spanning-tree guard loop
+!no spanning-tree loopguard default
 !
 !
 	# DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 10 # For Client VLANS
-	# IP Source Guard
-int fa0/5 # Computer port
- ip verify source
- ip verify source port-security
-	# Dynamic ARP Inspection
-ip arp inspection vlan 10 # For Client VLANS
+ip dhcp snooping vlan 10-15
+int fa0/5
+storm-control broadcast level 66
+ip verify source
+ip verify source port-security
 int range port-chan 1-2
- ip arp inspection trust
- 	# Logging sync
+ip dhcp snooping trust
+exit
+snmp-server community NOTKEA ro
+snmp-server enable traps
+snmp-server host 10.8.255.14 version 2c NOTKEA
+line vty 0 15
 logging sync
 !
-!
+!maybe?
 # NTP
-ntp server ?.?.?.?
+ntp server 10.15.250.17

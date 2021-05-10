@@ -176,7 +176,5 @@ line vty 0 15
 logging sync
 !
 # NTP
-ntp server 10.7.250.17
-# NTP
 ntp server 10.15.250.17
 !

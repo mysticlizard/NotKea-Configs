@@ -112,7 +112,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 20-25,1000
+ switchport trunk allowed vlan 20-26,1000
  switchport trunk native vlan 999
 
 !

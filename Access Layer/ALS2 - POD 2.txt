@@ -107,7 +107,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 20-26,1000
+ switchport trunk allowed vlan 20-28,1000
  switchport trunk native vlan 999
 
 !
@@ -153,7 +153,7 @@ exit
 !
 # DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 20-26
+ip dhcp snooping vlan 20-28
 int rang fa0/9
 storm-control broadcast level 66
 # SRC GUARD

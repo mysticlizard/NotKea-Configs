@@ -143,6 +143,7 @@ switchport port-security mac-address sticky
 switchport port-secutity violation restrict
 !
 	# DHCP Snooping
+exit
 ip dhcp snooping
 ip dhcp snooping vlan 43
 int fa0/17
@@ -158,6 +159,7 @@ logging sync
 !
 !
 	# DHCP Snooping
+exit
 ip dhcp snooping
 ip dhcp snooping vlan 44
 # IP Source Guard

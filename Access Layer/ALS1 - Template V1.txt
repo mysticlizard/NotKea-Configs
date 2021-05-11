@@ -105,7 +105,7 @@ int range fa0/3-4
  channel-group 2 mode active
 int ra port-ch 1-2
  switchport mode trunk
- switchport trunk allowed vlan 10-16,1000
+ switchport trunk allowed vlan 10-18,1000
  switchport trunk native vlan 999
 
 !Spanning Tree
@@ -148,7 +148,7 @@ switchport port-secutity violation restrict
 	# DHCP Snooping
 exit
 ip dhcp snooping
-ip dhcp snooping vlan 10-16
+ip dhcp snooping vlan 10-18
 int fa0/5
 storm-control broadcast level 66
 ip verify source

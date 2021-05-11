@@ -158,7 +158,7 @@ exit
 !
 # DHCP Snooping
 ip dhcp snooping
-ip dhcp snooping vlan 20-25
+ip dhcp snooping vlan 20-26
 int rang fa0/9
 storm-control broadcast level 66
 # SRC GUARD

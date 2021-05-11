@@ -158,6 +158,7 @@ switchport port-secutity violation restrict
 !
 !
 	# DHCP Snooping
+exit
 ip dhcp snooping
 ip dhcp snooping vlan 30-35
 int fa0/13

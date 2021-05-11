@@ -53,6 +53,7 @@ nat (NOTKEA_MAD_CORE1,outside-internet) dynamic interface
 policy-map global_policy
 class inspection_default
 inspect icmp
+inspect http
 exit
 exit
 

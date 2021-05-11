@@ -1,0 +1,105 @@
+# Basic ASA settings 
+
+enable password democracy
+clock set 15:26:00 March 9 2021
+hostname NOTKEA-MAD-ASA1
+domain-name notkea.local
+username student password cisco priv 15
+
+# points to core1 for ntp
+ntp server 10.15.250.17
+
+# points to core2 for ntp
+ntp server 10.15.250.25
+
+# Interfaces -- naming the interface sets security-level to 0!! Make sure to nameif BEFORE security-level
+
+int g0/0
+nameif outside-internet
+ip address dhcp
+security-level 0
+no shutdown
+
+int g0/1
+nameif NOTKEA_MAD_CORE1
+ip address 10.15.240.66 255.255.255.252
+no shut
+security-level 100
+
+int g0/2
+nameif NOTKEA_MAD_CORE2
+ip add 10.15.240.74 255.255.255.252
+no shut
+security-level 100
+
+
+# Route pointing to Madison College Router - just guessing that college router ip is .254
+
+route outside-internet 0.0.0.0 0.0.0.0 172.19.16.254
+
+# Route pointing to our Pod network
+
+route NOTKEA_MAD_CORE1 10.0.0.0 255.248.0.0 10.15.240.65
+
+# Configure NAT (PAT, technically) from inside to outside
+# inside/outside are user defined names for interfaces,  
+
+object network INSIDE-TO-NET
+subnet 10.0.0.0 255.248.0.0
+nat (NOTKEA_MAD_CORE1,outside-internet) dynamic interface
+
+# create policy map to allow icmp -- pings to the outside will work, but traceroute will not, you need an ACL in allowing traceroute and other icmp options.
+
+policy-map global_policy
+class inspection_default
+inspect icmp
+inspect http
+exit
+exit
+
+# configure authentication, generate keys, and ssh access
+
+aaa authentication ssh console LOCAL
+aaa authentication http console LOCAL
+
+crypto key generate rsa modulus 1024
+ssh 10.8.35.0 255.255.255.0 NOTKEA_MAD_CORE1
+
+
+# Enable ASA http interface -- x and y are the ip and subnet of the management network or host machine, followed by the name of the nearest ASA interface
+
+http server enable
+http 10.0.35.0 255.255.255.0 NOTKEA_MAD_CORE1
+
+
+# Optional -- Allow your ASA to appear as the first hop for inside hosts going out
+class class_default
+set connection decrement-ttl
+
+# ACL allowing certain traffic types in -- don't paste these in!! this section is WIP, never done ACLs on ASA CLI before.Your mileage may vary.
+#access-list outside-in extended permit icmp any any time-exceeded
+#access-list outside-in extended permit icmp any any unreachable
+#access-list outside-in extended permit icmp any any traceroute
+
+#SNMP Configuration
+snmp-server host NOTKEA_MAD_CORE1 10.0.255.14 community NOTKEA version 2c
+snmp-server host NOTKEA_MAD_CORE2 10.0.255.14 community NOTKEA version 2c
+
+#ACL allowing certain types of traffic out- WIP
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any unreachable
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any time-exceeded
+access-list in-to-out extended permit icmp 10.0.0.0 255.248.0.0 any traceroute
+#Permit DNS
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq 53
+access-list in-to-out extended permit udp 10.0.0.0 255.248.0.0 any eq 53
+
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq http
+access-list in-to-out extended permit tcp 10.0.0.0 255.248.0.0 any eq https
+#Implicit deny to check number of connections blocked going out, can't view this with explicit deny
+access-list in-to-out extended deny ip any any
+
+#Apply extended ACL's
+#Interface g0/1 to CORE 1
+access-group in-to-out in int NOTKEA_MAD_CORE1
+#Interface g0/2 to CORE 2
+access-group in-to-out in int NOTKEA_MAD_CORE2

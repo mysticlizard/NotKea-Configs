@@ -142,7 +142,7 @@ switchport port-secutity violation restrict
 	# DHCP Snooping
 exit
 ip dhcp snooping
-ip dhcp snooping vlan 10-15
+ip dhcp snooping vlan 10-16
 int fa0/5
 storm-control broadcast level 66
 ip verify source
